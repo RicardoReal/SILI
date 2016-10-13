@@ -3,9 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Sistema Integrado de Logistica Inversa</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatables")
+    @RenderSection("scripts", required: false)
+    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css" />
+    
 
 </head>
 <body>
@@ -17,14 +24,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SILI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Bases de Dados <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Cod. Postais", "Index", "CodigoPostals")</li>
+                            <li>@Html.ActionLink("Tipo de Devolvedores", "Index", "TipoDevolvedors")</li>
+                            <li>@Html.ActionLink("Moradas", "Index", "Moradas")</li>
+                        </ul>
+                    </li>
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -33,12 +50,11 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Sistema Integrado de Logistica Inversa</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+ 
+   
 </body>
 </html>

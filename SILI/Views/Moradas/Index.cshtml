@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SILI.Morada>
+
+@{
+    ViewBag.Title = "Moradas";
+}
+
+<h2>Moradas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover" id="mainTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NIF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Morada1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeContacto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoPostal.CodPostal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDevolvedor.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NIF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Morada1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeContacto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoPostal.CodPostal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDevolvedor.Descricao)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        $('#mainTable').DataTable({
+            "dom":'<"top"if>rt<"pagination"lp>'
+        });
+    });
+</script>

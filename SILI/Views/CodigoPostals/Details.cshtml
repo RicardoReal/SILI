@@ -1,0 +1,42 @@
+﻿@model SILI.CodigoPostal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CodigoPostal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CodPostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodPostal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distrito)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

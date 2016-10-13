@@ -9,7 +9,8 @@ namespace SILI
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.10.2.min.js"));
+            //"~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -24,8 +25,16 @@ namespace SILI
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/sandstone.bootstrap.css",
+                      //"~/Content/bootstrap.css",
+                      "~/Content/site.css"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                        "~/Scripts/jquery.dataTables.js"));
+
+            /*bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                    "~/Scripts/jquery-1.10.2.min.js"));*/
         }
     }
 }

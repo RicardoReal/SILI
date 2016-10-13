@@ -1,0 +1,74 @@
+﻿@model SILI.Morada
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Morada</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NIF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NIF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Morada1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Morada1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeContacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeContacto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoPostal.CodPostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoPostal.CodPostal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoDevolvedor.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDevolvedor.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

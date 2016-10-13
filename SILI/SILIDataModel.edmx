@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SILI_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CodigoPostal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodPostal" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="Localidade" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Distrito" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Morada">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NIF" Type="bigint" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CodPostalID" Type="bigint" Nullable="false" />
+          <Property Name="Morada" Type="nvarchar" MaxLength="200" />
+          <Property Name="Telefone" Type="int" />
+          <Property Name="NomeContacto" Type="nvarchar" MaxLength="100" />
+          <Property Name="TipoDevolvedorID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotivoDevolucao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Motivos" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarefa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoDevolucao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Disponivel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoDevolvedor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipologia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tratamento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="bigint" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastLogin" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Morada_CodigoPostal">
+          <End Role="CodigoPostal" Type="Self.CodigoPostal" Multiplicity="1" />
+          <End Role="Morada" Type="Self.Morada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodigoPostal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Morada">
+              <PropertyRef Name="CodPostalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morada_TipoDevolvedor">
+          <End Role="TipoDevolvedor" Type="Self.TipoDevolvedor" Multiplicity="1" />
+          <End Role="Morada" Type="Self.Morada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDevolvedor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Morada">
+              <PropertyRef Name="TipoDevolvedorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SILI_DBModelStoreContainer">
+          <EntitySet Name="CodigoPostal" EntityType="Self.CodigoPostal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Morada" EntityType="Self.Morada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MotivoDevolucao" EntityType="Self.MotivoDevolucao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarefa" EntityType="Self.Tarefa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoDevolucao" EntityType="Self.TipoDevolucao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoDevolvedor" EntityType="Self.TipoDevolvedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipologia" EntityType="Self.Tipologia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tratamento" EntityType="Self.Tratamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Morada_CodigoPostal" Association="Self.FK_Morada_CodigoPostal">
+            <End Role="CodigoPostal" EntitySet="CodigoPostal" />
+            <End Role="Morada" EntitySet="Morada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morada_TipoDevolvedor" Association="Self.FK_Morada_TipoDevolvedor">
+            <End Role="TipoDevolvedor" EntitySet="TipoDevolvedor" />
+            <End Role="Morada" EntitySet="Morada" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SILI_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SILI_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="User" EntityType="SILI_DBModel.User" />
+          <EntitySet Name="CodigoPostal" EntityType="SILI_DBModel.CodigoPostal" />
+          <EntitySet Name="MotivoDevolucao" EntityType="SILI_DBModel.MotivoDevolucao" />
+          <EntitySet Name="Tarefa" EntityType="SILI_DBModel.Tarefa" />
+          <EntitySet Name="TipoDevolucao" EntityType="SILI_DBModel.TipoDevolucao" />
+          <EntitySet Name="Tipologia" EntityType="SILI_DBModel.Tipologia" />
+          <EntitySet Name="Tratamento" EntityType="SILI_DBModel.Tratamento" />
+          <EntitySet Name="Morada" EntityType="SILI_DBModel.Morada" />
+          <EntitySet Name="TipoDevolvedor" EntityType="SILI_DBModel.TipoDevolvedor" />
+          <AssociationSet Name="FK_Morada_CodigoPostal" Association="SILI_DBModel.FK_Morada_CodigoPostal">
+            <End Role="CodigoPostal" EntitySet="CodigoPostal" />
+            <End Role="Morada" EntitySet="Morada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morada_TipoDevolvedor" Association="SILI_DBModel.FK_Morada_TipoDevolvedor">
+            <End Role="TipoDevolvedor" EntitySet="TipoDevolvedor" />
+            <End Role="Morada" EntitySet="Morada" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodigoPostal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodPostal" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Localidade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Distrito" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Morada_CodigoPostal" FromRole="CodigoPostal" ToRole="Morada" />
+        </EntityType>
+        <EntityType Name="MotivoDevolucao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Motivos" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tarefa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TipoDevolucao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Disponivel" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipologia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tratamento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Morada">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NIF" Type="Int64" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CodPostalID" Type="Int64" Nullable="false" />
+          <Property Name="Morada1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Telefone" Type="Int32" />
+          <Property Name="NomeContacto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TipoDevolvedorID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="CodigoPostal" Relationship="SILI_DBModel.FK_Morada_CodigoPostal" FromRole="Morada" ToRole="CodigoPostal" />
+          <NavigationProperty Name="TipoDevolvedor" Relationship="SILI_DBModel.FK_Morada_TipoDevolvedor" FromRole="Morada" ToRole="TipoDevolvedor" />
+        </EntityType>
+        <EntityType Name="TipoDevolvedor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Morada_TipoDevolvedor" FromRole="TipoDevolvedor" ToRole="Morada" />
+        </EntityType>
+        <Association Name="FK_Morada_CodigoPostal">
+          <End Type="SILI_DBModel.CodigoPostal" Role="CodigoPostal" Multiplicity="1" />
+          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodigoPostal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Morada">
+              <PropertyRef Name="CodPostalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morada_TipoDevolvedor">
+          <End Type="SILI_DBModel.TipoDevolvedor" Role="TipoDevolvedor" Multiplicity="1" />
+          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDevolvedor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Morada">
+              <PropertyRef Name="TipoDevolvedorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SILI_DBModelStoreContainer" CdmEntityContainer="SILI_DBEntities">
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="SILI_DBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodigoPostal">
+            <EntityTypeMapping TypeName="SILI_DBModel.CodigoPostal">
+              <MappingFragment StoreEntitySet="CodigoPostal">
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
+                <ScalarProperty Name="CodPostal" ColumnName="CodPostal" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MotivoDevolucao">
+            <EntityTypeMapping TypeName="SILI_DBModel.MotivoDevolucao">
+              <MappingFragment StoreEntitySet="MotivoDevolucao">
+                <ScalarProperty Name="Motivos" ColumnName="Motivos" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarefa">
+            <EntityTypeMapping TypeName="SILI_DBModel.Tarefa">
+              <MappingFragment StoreEntitySet="Tarefa">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDevolucao">
+            <EntityTypeMapping TypeName="SILI_DBModel.TipoDevolucao">
+              <MappingFragment StoreEntitySet="TipoDevolucao">
+                <ScalarProperty Name="Disponivel" ColumnName="Disponivel" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipologia">
+            <EntityTypeMapping TypeName="SILI_DBModel.Tipologia">
+              <MappingFragment StoreEntitySet="Tipologia">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tratamento">
+            <EntityTypeMapping TypeName="SILI_DBModel.Tratamento">
+              <MappingFragment StoreEntitySet="Tratamento">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Morada">
+            <EntityTypeMapping TypeName="SILI_DBModel.Morada">
+              <MappingFragment StoreEntitySet="Morada">
+                <ScalarProperty Name="TipoDevolvedorID" ColumnName="TipoDevolvedorID" />
+                <ScalarProperty Name="NomeContacto" ColumnName="NomeContacto" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Morada1" ColumnName="Morada" />
+                <ScalarProperty Name="CodPostalID" ColumnName="CodPostalID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDevolvedor">
+            <EntityTypeMapping TypeName="SILI_DBModel.TipoDevolvedor">
+              <MappingFragment StoreEntitySet="TipoDevolvedor">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

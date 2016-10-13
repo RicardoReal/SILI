@@ -44,14 +44,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataTables.AspNet.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataTables.AspNet.Core.2.0.0\lib\net45\DataTables.AspNet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DataTables.AspNet.Mvc5, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataTables.AspNet.Mvc5.2.0.0\lib\net45\DataTables.AspNet.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -112,9 +126,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -167,31 +178,125 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="CodigoPostal.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CodigoPostalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoradasController.cs" />
+    <Compile Include="Controllers\TipoDevolvedorsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\TipoDevolvedorMetadata.cs" />
+    <Compile Include="Models\Metadata\CodPostalMetadata.cs" />
+    <Compile Include="Models\Metadata\MoradaMetadata.cs" />
+    <Compile Include="Models\Metadata\UserMetadata.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Morada.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MotivoDevolucao.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SILIDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SILIDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SILIDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SILIDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SILIDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Tarefa.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDevolucao.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDevolvedor.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tipologia.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tratamento.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\dataTables.bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap4.css" />
+    <Content Include="Content\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\dataTables.foundation.css" />
+    <Content Include="Content\dataTables.foundation.min.css" />
+    <Content Include="Content\dataTables.jqueryui.css" />
+    <Content Include="Content\dataTables.jqueryui.min.css" />
+    <Content Include="Content\dataTables.material.css" />
+    <Content Include="Content\dataTables.material.min.css" />
+    <Content Include="Content\dataTables.semanticui.css" />
+    <Content Include="Content\dataTables.semanticui.min.css" />
+    <Content Include="Content\dataTables.uikit.css" />
+    <Content Include="Content\dataTables.uikit.min.css" />
+    <Content Include="Content\sandstone.bootstrap.min.css" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_asc_disabled.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\sort_desc_disabled.png" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\jquery.dataTables_themeroller.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Images\Sorting icons.psd" />
+    <Content Include="Content\sandstone.bootstrap.css" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\dataTables.foundation.js" />
+    <Content Include="Scripts\dataTables.foundation.min.js" />
+    <Content Include="Scripts\dataTables.jqueryui.js" />
+    <Content Include="Scripts\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\dataTables.material.js" />
+    <Content Include="Scripts\dataTables.material.min.js" />
+    <Content Include="Scripts\dataTables.semanticui.js" />
+    <Content Include="Scripts\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\dataTables.uikit.js" />
+    <Content Include="Scripts\dataTables.uikit.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -200,6 +305,16 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SILIDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SILIDataModel.edmx</DependentUpon>
+      <LastGenOutput>SILIDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SILIDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SILIDataModel.edmx</DependentUpon>
+      <LastGenOutput>SILIDataModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -234,6 +349,33 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <EntityDeploy Include="SILIDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SILIDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SILIDataModel.edmx.diagram">
+      <DependentUpon>SILIDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\CodigoPostals\Create.cshtml" />
+    <Content Include="Views\CodigoPostals\Delete.cshtml" />
+    <Content Include="Views\CodigoPostals\Details.cshtml" />
+    <Content Include="Views\CodigoPostals\Edit.cshtml" />
+    <Content Include="Views\CodigoPostals\Index.cshtml" />
+    <Content Include="Views\TipoDevolvedors\Create.cshtml" />
+    <Content Include="Views\TipoDevolvedors\Delete.cshtml" />
+    <Content Include="Views\TipoDevolvedors\Details.cshtml" />
+    <Content Include="Views\TipoDevolvedors\Edit.cshtml" />
+    <Content Include="Views\TipoDevolvedors\Index.cshtml" />
+    <Content Include="Views\Moradas\Create.cshtml" />
+    <Content Include="Views\Moradas\Delete.cshtml" />
+    <Content Include="Views\Moradas\Details.cshtml" />
+    <Content Include="Views\Moradas\Edit.cshtml" />
+    <Content Include="Views\Moradas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +387,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
