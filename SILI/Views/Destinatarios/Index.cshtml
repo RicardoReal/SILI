@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SILI.Destinatario>
+
+@{
+    ViewBag.Title = "Destinatários";
+}
+
+<h2>Destinatários</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover" id="mainTable">
+    <thead>
+        <tr>
+            <th>
+                Cód. Cliente
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NIFDestinatario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoPostal.CodPostal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoDestinatario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.FormattedToString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NIFDestinatario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoPostal.FormattedToString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoDestinatario)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        $('#mainTable').DataTable({
+            "dom": '<"top"if>rt<"pagination"lp>'
+        });
+    });
+</script>

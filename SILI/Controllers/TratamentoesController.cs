@@ -11,115 +11,121 @@ using SILI;
 
 namespace SILI.Controllers
 {
-    public class UsersController : Controller
+    public class TratamentoesController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
 
-        // GET: Users
-        public async Task<ActionResult> Index(string IsActive)
+        // GET: Tratamentoes
+        public async Task<ActionResult> Index()
         {
-            if (String.IsNullOrEmpty(IsActive))
-            {
-                return View(await db.User.ToListAsync());
-            }
-            else
-            {
-                return View(await db.User.Where(x => x.IsActive == (IsActive == "True")).ToListAsync());
-            }
+            return View(await db.Tratamento.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Tratamentoes/Details/5
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.User.FindAsync(id);
-            if (user == null)
+            Tratamento tratamento = await db.Tratamento.FindAsync(id);
+            if (tratamento == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(tratamento);
         }
 
-        // GET: Users/Create
+        // GET: Tratamentoes/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Tratamentoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,FirstName,LastName,Password,LastLogin,IsActive")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Numero,Descricao")] Tratamento tratamento)
         {
             if (ModelState.IsValid)
             {
-                user.LastLogin = new DateTime(1900, 1, 1);
-                db.User.Add(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (!Tratamento.IsUnique(tratamento))
+                {
+                    ModelState.AddModelError("Numero", "Number already exists.");
+                }
+                else
+                {
+                    db.Tratamento.Add(tratamento);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
 
-            return View(user);
+            return View(tratamento);
         }
 
-        // GET: Users/Edit/5
+        // GET: Tratamentoes/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.User.FindAsync(id);
-            if (user == null)
+            Tratamento tratamento = await db.Tratamento.FindAsync(id);
+            if (tratamento == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(tratamento);
         }
 
-        // POST: Users/Edit/5
+        // POST: Tratamentoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,FirstName,LastName,Password,LastLogin,IsActive")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Numero,Descricao")] Tratamento tratamento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (!Tratamento.IsUnique(tratamento))
+                {
+                    ModelState.AddModelError("Numero", "Number already exists.");
+                }
+                else
+                {
+                    db.Entry(tratamento).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            return View(user);
+            return View(tratamento);
         }
 
-        // GET: Users/Delete/5
+        // GET: Tratamentoes/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.User.FindAsync(id);
-            if (user == null)
+            Tratamento tratamento = await db.Tratamento.FindAsync(id);
+            if (tratamento == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(tratamento);
         }
 
-        // POST: Users/Delete/5
+        // POST: Tratamentoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
-            User user = await db.User.FindAsync(id);
-            db.User.Remove(user);
+            Tratamento tratamento = await db.Tratamento.FindAsync(id);
+            db.Tratamento.Remove(tratamento);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

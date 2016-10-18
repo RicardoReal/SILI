@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SILI.TipoDevolucao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tipos de Devolução</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "TipoDevolucaos", FormMethod.Get))
+{
+    <div class="form-group">
+        <label>Disponível: </label>
+        <div class="radio-inline">
+            @Html.RadioButton("IsAvailable", "", 1) All
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButton("IsAvailable", "True", 0) True
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButton("IsAvailable", "False", 0) False
+        </div>
+        <input type="submit" value="Filter" class="btn btn-primary btn-sm" style="float:right;" />
+    </div>
+}
+<table class="table table-hover" id="mainTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponivel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponivel)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        $('#mainTable').DataTable({
+            "dom":'<"top"if>rt<"pagination"lp>'
+        });
+    });
+</script>

@@ -178,24 +178,44 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Cliente.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodigoPostal.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CodigoPostalsController.cs" />
+    <Compile Include="Controllers\DestinatariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoradasController.cs" />
+    <Compile Include="Controllers\MotivoDevolucaosController.cs" />
+    <Compile Include="Controllers\TarefasController.cs" />
+    <Compile Include="Controllers\TipoDevolucaosController.cs" />
     <Compile Include="Controllers\TipoDevolvedorsController.cs" />
+    <Compile Include="Controllers\TipologiasController.cs" />
+    <Compile Include="Controllers\TratamentoesController.cs" />
+    <Compile Include="Destinatario.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\DestinatarioMetadata.cs" />
+    <Compile Include="Models\Metadata\MotivoDevolucaoMetadata.cs" />
+    <Compile Include="Models\Metadata\TratamentoMetadata.cs" />
+    <Compile Include="Models\Metadata\TipoDevolucaoMetadata.cs" />
+    <Compile Include="Models\Metadata\TarefaMetadata.cs" />
+    <Compile Include="Models\Metadata\TipologiaProdutoMetadata.cs" />
     <Compile Include="Models\Metadata\TipoDevolvedorMetadata.cs" />
     <Compile Include="Models\Metadata\CodPostalMetadata.cs" />
     <Compile Include="Models\Metadata\MoradaMetadata.cs" />
+    <Compile Include="Models\Metadata\ClienteMetadata.cs" />
     <Compile Include="Models\Metadata\UserMetadata.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Morada.cs">
@@ -376,6 +396,41 @@
     <Content Include="Views\Moradas\Details.cshtml" />
     <Content Include="Views\Moradas\Edit.cshtml" />
     <Content Include="Views\Moradas\Index.cshtml" />
+    <Content Include="Views\Tipologias\Create.cshtml" />
+    <Content Include="Views\Tipologias\Delete.cshtml" />
+    <Content Include="Views\Tipologias\Details.cshtml" />
+    <Content Include="Views\Tipologias\Edit.cshtml" />
+    <Content Include="Views\Tipologias\Index.cshtml" />
+    <Content Include="Views\TipoDevolucaos\Create.cshtml" />
+    <Content Include="Views\TipoDevolucaos\Delete.cshtml" />
+    <Content Include="Views\TipoDevolucaos\Details.cshtml" />
+    <Content Include="Views\TipoDevolucaos\Edit.cshtml" />
+    <Content Include="Views\TipoDevolucaos\Index.cshtml" />
+    <Content Include="Views\Tarefas\Create.cshtml" />
+    <Content Include="Views\Tarefas\Delete.cshtml" />
+    <Content Include="Views\Tarefas\Details.cshtml" />
+    <Content Include="Views\Tarefas\Edit.cshtml" />
+    <Content Include="Views\Tarefas\Index.cshtml" />
+    <Content Include="Views\MotivoDevolucaos\Create.cshtml" />
+    <Content Include="Views\MotivoDevolucaos\Delete.cshtml" />
+    <Content Include="Views\MotivoDevolucaos\Details.cshtml" />
+    <Content Include="Views\MotivoDevolucaos\Edit.cshtml" />
+    <Content Include="Views\MotivoDevolucaos\Index.cshtml" />
+    <Content Include="Views\Tratamentoes\Create.cshtml" />
+    <Content Include="Views\Tratamentoes\Delete.cshtml" />
+    <Content Include="Views\Tratamentoes\Details.cshtml" />
+    <Content Include="Views\Tratamentoes\Edit.cshtml" />
+    <Content Include="Views\Tratamentoes\Index.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Destinatarios\Create.cshtml" />
+    <Content Include="Views\Destinatarios\Delete.cshtml" />
+    <Content Include="Views\Destinatarios\Details.cshtml" />
+    <Content Include="Views\Destinatarios\Edit.cshtml" />
+    <Content Include="Views\Destinatarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

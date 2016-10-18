@@ -1,4 +1,4 @@
-﻿@model SILI.TipoDevolvedor
+﻿@model SILI.Tratamento
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Tipo de Devolvedor</h4>
+        <h4>Tratamento</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)

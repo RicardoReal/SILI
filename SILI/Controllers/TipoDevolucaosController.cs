@@ -11,121 +11,128 @@ using SILI;
 
 namespace SILI.Controllers
 {
-    public class TipoDevolvedorsController : Controller
+    public class TipoDevolucaosController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
 
-        // GET: TipoDevolvedors
-        public async Task<ActionResult> Index()
+        // GET: TipoDevolucaos
+        public async Task<ActionResult> Index(string IsAvailable)
         {
-            return View(await db.TipoDevolvedor.ToListAsync());
+            if (String.IsNullOrEmpty(IsAvailable))
+            {
+                return View(await db.TipoDevolucao.ToListAsync());
+            }
+            else
+            {
+                return View(await db.TipoDevolucao.Where(x => x.Disponivel == (IsAvailable == "True")).ToListAsync());
+            }
         }
 
-        // GET: TipoDevolvedors/Details/5
+        // GET: TipoDevolucaos/Details/5
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDevolvedor tipoDevolvedor = await db.TipoDevolvedor.FindAsync(id);
-            if (tipoDevolvedor == null)
+            TipoDevolucao tipoDevolucao = await db.TipoDevolucao.FindAsync(id);
+            if (tipoDevolucao == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDevolvedor);
+            return View(tipoDevolucao);
         }
 
-        // GET: TipoDevolvedors/Create
+        // GET: TipoDevolucaos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoDevolvedors/Create
+        // POST: TipoDevolucaos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Numero,Descricao")] TipoDevolvedor tipoDevolvedor)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Numero,Descricao,Disponivel")] TipoDevolucao tipoDevolucao)
         {
             if (ModelState.IsValid)
             {
-                if (!TipoDevolvedor.IsUnique(tipoDevolvedor))
+                if (!TipoDevolucao.IsUnique(tipoDevolucao))
                 {
                     ModelState.AddModelError("Numero", "Number already exists.");
                 }
                 else
                 {
-                    db.TipoDevolvedor.Add(tipoDevolvedor);
+                    db.TipoDevolucao.Add(tipoDevolucao);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
 
-            return View(tipoDevolvedor);
+            return View(tipoDevolucao);
         }
 
-        // GET: TipoDevolvedors/Edit/5
+        // GET: TipoDevolucaos/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDevolvedor tipoDevolvedor = await db.TipoDevolvedor.FindAsync(id);
-            if (tipoDevolvedor == null)
+            TipoDevolucao tipoDevolucao = await db.TipoDevolucao.FindAsync(id);
+            if (tipoDevolucao == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDevolvedor);
+            return View(tipoDevolucao);
         }
 
-        // POST: TipoDevolvedors/Edit/5
+        // POST: TipoDevolucaos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Numero,Descricao")] TipoDevolvedor tipoDevolvedor)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Numero,Descricao,Disponivel")] TipoDevolucao tipoDevolucao)
         {
             if (ModelState.IsValid)
             {
-                if (!TipoDevolvedor.IsUnique(tipoDevolvedor))
+                if (!TipoDevolucao.IsUnique(tipoDevolucao))
                 {
                     ModelState.AddModelError("Numero", "Number already exists.");
                 }
                 else
                 {
-                    db.Entry(tipoDevolvedor).State = EntityState.Modified;
+                    db.Entry(tipoDevolucao).State = EntityState.Modified;
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
-            return View(tipoDevolvedor);
+            return View(tipoDevolucao);
         }
 
-        // GET: TipoDevolvedors/Delete/5
+        // GET: TipoDevolucaos/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDevolvedor tipoDevolvedor = await db.TipoDevolvedor.FindAsync(id);
-            if (tipoDevolvedor == null)
+            TipoDevolucao tipoDevolucao = await db.TipoDevolucao.FindAsync(id);
+            if (tipoDevolucao == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDevolvedor);
+            return View(tipoDevolucao);
         }
 
-        // POST: TipoDevolvedors/Delete/5
+        // POST: TipoDevolucaos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
-            TipoDevolvedor tipoDevolvedor = await db.TipoDevolvedor.FindAsync(id);
-            db.TipoDevolvedor.Remove(tipoDevolvedor);
+            TipoDevolucao tipoDevolucao = await db.TipoDevolucao.FindAsync(id);
+            db.TipoDevolucao.Remove(tipoDevolucao);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

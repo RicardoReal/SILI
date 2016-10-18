@@ -34,5 +34,7 @@ namespace SILI
         public virtual DbSet<Tratamento> Tratamento { get; set; }
         public virtual DbSet<Morada> Morada { get; set; }
         public virtual DbSet<TipoDevolvedor> TipoDevolvedor { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<Destinatario> Destinatario { get; set; }
     }
 }

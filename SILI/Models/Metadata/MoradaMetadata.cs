@@ -20,6 +20,9 @@ namespace SILI
         [Display(Name = "Cód. Postal")]
         public long CodPostalID;
 
+        [Display(Name = "Cód. Postal")]
+        public CodigoPostal CodigoPostal;
+
         [MaxLength(200)]
         [Display(Name = "Morada")]
         public string Morada1;

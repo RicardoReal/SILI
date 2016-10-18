@@ -12,22 +12,23 @@ namespace SILI
     using System;
     using System.Collections.Generic;
     
-    public partial class CodigoPostal
+    public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CodigoPostal()
+        public Cliente()
         {
-            this.Morada = new HashSet<Morada>();
             this.Destinatario = new HashSet<Destinatario>();
         }
     
         public long ID { get; set; }
-        public string CodPostal { get; set; }
-        public string Localidade { get; set; }
-        public string Distrito { get; set; }
+        public int NrInterno { get; set; }
+        public string Nome { get; set; }
+        public string Morada { get; set; }
+        public Nullable<long> NIF { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> NrContacto { get; set; }
+        public string NomeContacto { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Morada> Morada { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Destinatario> Destinatario { get; set; }
     }
