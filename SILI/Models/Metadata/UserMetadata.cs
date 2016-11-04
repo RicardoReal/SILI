@@ -7,7 +7,18 @@ using System.Web;
 namespace SILI
 {
     [MetadataType(typeof(UserMetadata))]
-    public partial class User { }
+    public partial class User
+    {
+        public override string ToString()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
+
+        public string FormattedToString
+        {
+            get { return this.ToString(); }
+        }
+    }
 
     public class UserMetadata
     {

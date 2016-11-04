@@ -14,8 +14,17 @@ namespace SILI
     
     public partial class Tipologia
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tipologia()
+        {
+            this.Produto = new HashSet<Produto>();
+        }
+    
         public long ID { get; set; }
         public long Numero { get; set; }
         public string Descricao { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Produto> Produto { get; set; }
     }
 }

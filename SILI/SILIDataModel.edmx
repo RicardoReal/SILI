@@ -37,6 +37,19 @@
           <Property Name="CodPostalID" Type="bigint" Nullable="false" />
           <Property Name="CodigoDestinatario" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="LoteProduto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProdutoID" Type="bigint" Nullable="false" />
+          <Property Name="Lote" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Validade" Type="date" Nullable="false" />
+          <Property Name="Preco" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="TratamentoID" Type="bigint" Nullable="false" />
+          <Property Name="DataAlteracao" Type="datetime" />
+          <Property Name="ActualizadoPor" Type="bigint" />
+        </EntityType>
         <EntityType Name="Morada">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,6 +70,26 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Numero" Type="bigint" Nullable="false" />
           <Property Name="Motivos" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Referencia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CNP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClienteID" Type="bigint" Nullable="false" />
+          <Property Name="Apresentacao" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Largura" Type="nvarchar" MaxLength="20" />
+          <Property Name="Altura" Type="nvarchar" MaxLength="20" />
+          <Property Name="Peso" Type="nvarchar" MaxLength="20" />
+          <Property Name="QtdCaixa" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QtdPalete" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UndVenda" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TipologiaID" Type="bigint" Nullable="false" />
+          <Property Name="PrecoTabelado" Type="decimal" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="Tarefa">
           <Key>
@@ -134,6 +167,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LoteProduto_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="LoteProduto" Type="Self.LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="ProdutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoteProduto_Tratamento">
+          <End Role="Tratamento" Type="Self.Tratamento" Multiplicity="1" />
+          <End Role="LoteProduto" Type="Self.LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tratamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="TratamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoteProduto_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LoteProduto" Type="Self.LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="ActualizadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Morada_CodigoPostal">
           <End Role="CodigoPostal" Type="Self.CodigoPostal" Multiplicity="1" />
           <End Role="Morada" Type="Self.Morada" Multiplicity="*" />
@@ -158,12 +227,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Produto_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_Tipologia">
+          <End Role="Tipologia" Type="Self.Tipologia" Multiplicity="1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipologia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="TipologiaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SILI_DBModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodigoPostal" EntityType="Self.CodigoPostal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Destinatario" EntityType="Self.Destinatario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoteProduto" EntityType="Self.LoteProduto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Morada" EntityType="Self.Morada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MotivoDevolucao" EntityType="Self.MotivoDevolucao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarefa" EntityType="Self.Tarefa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDevolucao" EntityType="Self.TipoDevolucao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDevolvedor" EntityType="Self.TipoDevolvedor" Schema="dbo" store:Type="Tables" />
@@ -178,6 +273,18 @@
             <End Role="CodigoPostal" EntitySet="CodigoPostal" />
             <End Role="Destinatario" EntitySet="Destinatario" />
           </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_Produto" Association="Self.FK_LoteProduto_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_Tratamento" Association="Self.FK_LoteProduto_Tratamento">
+            <End Role="Tratamento" EntitySet="Tratamento" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_User" Association="Self.FK_LoteProduto_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Morada_CodigoPostal" Association="Self.FK_Morada_CodigoPostal">
             <End Role="CodigoPostal" EntitySet="CodigoPostal" />
             <End Role="Morada" EntitySet="Morada" />
@@ -185,6 +292,14 @@
           <AssociationSet Name="FK_Morada_TipoDevolvedor" Association="Self.FK_Morada_TipoDevolvedor">
             <End Role="TipoDevolvedor" EntitySet="TipoDevolvedor" />
             <End Role="Morada" EntitySet="Morada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Cliente" Association="Self.FK_Produto_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Tipologia" Association="Self.FK_Produto_Tipologia">
+            <End Role="Tipologia" EntitySet="Tipologia" />
+            <End Role="Produto" EntitySet="Produto" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -219,6 +334,28 @@
             <End Role="CodigoPostal" EntitySet="CodigoPostal" />
             <End Role="Destinatario" EntitySet="Destinatario" />
           </AssociationSet>
+          <EntitySet Name="LoteProduto" EntityType="SILI_DBModel.LoteProduto" />
+          <EntitySet Name="Produto" EntityType="SILI_DBModel.Produto" />
+          <AssociationSet Name="FK_Produto_Cliente" Association="SILI_DBModel.FK_Produto_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_Produto" Association="SILI_DBModel.FK_LoteProduto_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_Tratamento" Association="SILI_DBModel.FK_LoteProduto_Tratamento">
+            <End Role="Tratamento" EntitySet="Tratamento" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoteProduto_User" Association="SILI_DBModel.FK_LoteProduto_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Tipologia" Association="SILI_DBModel.FK_Produto_Tipologia">
+            <End Role="Tipologia" EntitySet="Tipologia" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -230,6 +367,7 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_User" FromRole="User" ToRole="LoteProduto" />
         </EntityType>
         <EntityType Name="CodigoPostal">
           <Key>
@@ -274,6 +412,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Numero" Type="Int64" Nullable="false" />
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Produto" Relationship="SILI_DBModel.FK_Produto_Tipologia" FromRole="Tipologia" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Tratamento">
           <Key>
@@ -282,6 +421,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Numero" Type="Int64" Nullable="false" />
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_Tratamento" FromRole="Tratamento" ToRole="LoteProduto" />
         </EntityType>
         <EntityType Name="Morada">
           <Key>
@@ -344,6 +484,7 @@
           <Property Name="NrContacto" Type="Int32" />
           <Property Name="NomeContacto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Destinatario" Relationship="SILI_DBModel.FK_Destinatario_Cliente" FromRole="Cliente" ToRole="Destinatario" />
+          <NavigationProperty Name="Produto" Relationship="SILI_DBModel.FK_Produto_Cliente" FromRole="Cliente" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Destinatario">
           <Key>
@@ -378,6 +519,105 @@
             </Principal>
             <Dependent Role="Destinatario">
               <PropertyRef Name="CodPostalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LoteProduto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProdutoID" Type="Int64" Nullable="false" />
+          <Property Name="Lote" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Validade" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Preco" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="TratamentoID" Type="Int64" Nullable="false" />
+          <Property Name="DataAlteracao" Type="DateTime" Precision="3" />
+          <Property Name="ActualizadoPor" Type="Int64" />
+          <NavigationProperty Name="Produto" Relationship="SILI_DBModel.FK_LoteProduto_Produto" FromRole="LoteProduto" ToRole="Produto" />
+          <NavigationProperty Name="Tratamento" Relationship="SILI_DBModel.FK_LoteProduto_Tratamento" FromRole="LoteProduto" ToRole="Tratamento" />
+          <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_LoteProduto_User" FromRole="LoteProduto" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Referencia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EAN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CNP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClienteID" Type="Int64" Nullable="false" />
+          <Property Name="Apresentacao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Largura" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Altura" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Peso" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="QtdCaixa" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QtdPalete" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UndVenda" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TipologiaID" Type="Int64" Nullable="false" />
+          <Property Name="PrecoTabelado" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="Cliente" Relationship="SILI_DBModel.FK_Produto_Cliente" FromRole="Produto" ToRole="Cliente" />
+          <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_Produto" FromRole="Produto" ToRole="LoteProduto" />
+          <NavigationProperty Name="Tipologia" Relationship="SILI_DBModel.FK_Produto_Tipologia" FromRole="Produto" ToRole="Tipologia" />
+        </EntityType>
+        <Association Name="FK_Produto_Cliente">
+          <End Type="SILI_DBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="ClienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoteProduto_Produto">
+          <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="SILI_DBModel.LoteProduto" Role="LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="ProdutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoteProduto_Tratamento">
+          <End Type="SILI_DBModel.Tratamento" Role="Tratamento" Multiplicity="1" />
+          <End Type="SILI_DBModel.LoteProduto" Role="LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tratamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="TratamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoteProduto_User">
+          <End Type="SILI_DBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SILI_DBModel.LoteProduto" Role="LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="ActualizadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produto_Tipologia">
+          <End Type="SILI_DBModel.Tipologia" Role="Tipologia" Multiplicity="1" />
+          <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipologia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="TipologiaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -499,6 +739,41 @@
                 <ScalarProperty Name="CodPostalID" ColumnName="CodPostalID" />
                 <ScalarProperty Name="NIFDestinatario" ColumnName="NIFDestinatario" />
                 <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoteProduto">
+            <EntityTypeMapping TypeName="SILI_DBModel.LoteProduto">
+              <MappingFragment StoreEntitySet="LoteProduto">
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+                <ScalarProperty Name="TratamentoID" ColumnName="TratamentoID" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Validade" ColumnName="Validade" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="ProdutoID" ColumnName="ProdutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="SILI_DBModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="PrecoTabelado" ColumnName="PrecoTabelado" />
+                <ScalarProperty Name="TipologiaID" ColumnName="TipologiaID" />
+                <ScalarProperty Name="UndVenda" ColumnName="UndVenda" />
+                <ScalarProperty Name="QtdPalete" ColumnName="QtdPalete" />
+                <ScalarProperty Name="QtdCaixa" ColumnName="QtdCaixa" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="Largura" ColumnName="Largura" />
+                <ScalarProperty Name="Apresentacao" ColumnName="Apresentacao" />
+                <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+                <ScalarProperty Name="EAN" ColumnName="EAN" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

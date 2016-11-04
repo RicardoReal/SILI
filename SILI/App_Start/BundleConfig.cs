@@ -13,7 +13,8 @@ namespace SILI
             //"~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/jQueryFixes.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -32,9 +33,6 @@ namespace SILI
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                         "~/Scripts/jquery.dataTables.js"));
-
-            /*bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                    "~/Scripts/jquery-1.10.2.min.js"));*/
         }
     }
 }

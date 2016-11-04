@@ -36,5 +36,7 @@ namespace SILI
         public virtual DbSet<TipoDevolvedor> TipoDevolvedor { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Destinatario> Destinatario { get; set; }
+        public virtual DbSet<LoteProduto> LoteProduto { get; set; }
+        public virtual DbSet<Produto> Produto { get; set; }
     }
 }

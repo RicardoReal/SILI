@@ -1,0 +1,136 @@
+﻿@model SILI.Produto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Referencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Referencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CNP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CNP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apresentacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apresentacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Largura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Largura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdCaixa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdCaixa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdPalete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdPalete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UndVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UndVenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoTabelado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoTabelado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipologia.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipologia.Descricao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

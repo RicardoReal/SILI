@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SILI.LoteProduto>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "LoteProdutos", new { ProdutoId = ViewData["ProdutoId"] }, null)
+</p>
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lote)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Validade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tratamento.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataAlteracao)
+            </th>
+            <th>
+                Alterado Por
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Validade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tratamento.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataAlteracao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FormattedToString)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "LoteProdutos", new { id = item.ID }, null) |
+                    @Html.ActionLink("Details", "Details", "LoteProdutos", new { id = item.ID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "LoteProdutos", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

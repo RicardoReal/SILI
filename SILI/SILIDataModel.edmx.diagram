@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="779061cf83b749c3af4f509bf5cadb32" Name="Diagram1">
+      <Diagram DiagramId="779061cf83b749c3af4f509bf5cadb32" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="SILI_DBModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="SILI_DBModel.CodigoPostal" Width="1.5" PointX="3.75" PointY="0.75" />
         <EntityTypeShape EntityType="SILI_DBModel.MotivoDevolucao" Width="1.5" PointX="0.75" PointY="3.75" />
@@ -20,6 +20,13 @@
         <EntityTypeShape EntityType="SILI_DBModel.Destinatario" Width="1.5" PointX="12.375" PointY="0.5" />
         <AssociationConnector Association="SILI_DBModel.FK_Destinatario_Cliente" />
         <AssociationConnector Association="SILI_DBModel.FK_Destinatario_CodigoPostal" />
+        <EntityTypeShape EntityType="SILI_DBModel.LoteProduto" Width="1.5" PointX="17.75" PointY="3.125" />
+        <EntityTypeShape EntityType="SILI_DBModel.Produto" Width="1.5" PointX="15.5" PointY="1.625" />
+        <AssociationConnector Association="SILI_DBModel.FK_Produto_Cliente" />
+        <AssociationConnector Association="SILI_DBModel.FK_LoteProduto_Produto" />
+        <AssociationConnector Association="SILI_DBModel.FK_LoteProduto_Tratamento" />
+        <AssociationConnector Association="SILI_DBModel.FK_LoteProduto_User" />
+        <AssociationConnector Association="SILI_DBModel.FK_Produto_Tipologia" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

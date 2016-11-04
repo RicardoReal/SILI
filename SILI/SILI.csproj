@@ -189,9 +189,11 @@
     <Compile Include="Controllers\CodigoPostalsController.cs" />
     <Compile Include="Controllers\DestinatariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoteProdutosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoradasController.cs" />
     <Compile Include="Controllers\MotivoDevolucaosController.cs" />
+    <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\TarefasController.cs" />
     <Compile Include="Controllers\TipoDevolucaosController.cs" />
     <Compile Include="Controllers\TipoDevolvedorsController.cs" />
@@ -203,11 +205,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LoteProduto.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\DestinatarioMetadata.cs" />
     <Compile Include="Models\Metadata\MotivoDevolucaoMetadata.cs" />
+    <Compile Include="Models\Metadata\LoteProdutoMetadata.cs" />
+    <Compile Include="Models\Metadata\ProdutoMetadata.cs" />
     <Compile Include="Models\Metadata\TratamentoMetadata.cs" />
     <Compile Include="Models\Metadata\TipoDevolucaoMetadata.cs" />
     <Compile Include="Models\Metadata\TarefaMetadata.cs" />
@@ -222,6 +229,9 @@
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MotivoDevolucao.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Produto.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -321,6 +331,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jQueryFixes.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -431,6 +442,15 @@
     <Content Include="Views\Destinatarios\Details.cshtml" />
     <Content Include="Views\Destinatarios\Edit.cshtml" />
     <Content Include="Views\Destinatarios\Index.cshtml" />
+    <Content Include="Views\Produtos\Create.cshtml" />
+    <Content Include="Views\Produtos\Delete.cshtml" />
+    <Content Include="Views\Produtos\Details.cshtml" />
+    <Content Include="Views\Produtos\Edit.cshtml" />
+    <Content Include="Views\Produtos\Index.cshtml" />
+    <Content Include="Views\Produtos\LoteProdutosList.cshtml" />
+    <Content Include="Views\LoteProdutos\Create.cshtml" />
+    <Content Include="Views\LoteProdutos\Edit.cshtml" />
+    <Content Include="Views\LoteProdutos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
