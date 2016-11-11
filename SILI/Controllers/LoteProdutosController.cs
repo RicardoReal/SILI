@@ -117,38 +117,30 @@ namespace SILI.Controllers
         }
 
         // GET: LoteProdutos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(long? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //LoteProduto loteProduto = await db.LoteProduto.FindAsync(id);
-            //if (loteProduto == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(loteProduto);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            LoteProduto loteProduto = await db.LoteProduto.FindAsync(id);
+            if (loteProduto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(loteProduto);
+        }
 
+        // POST: LoteProdutos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(long id)
+        {
             LoteProduto loteProduto = await db.LoteProduto.FindAsync(id);
             db.LoteProduto.Remove(loteProduto);
             await db.SaveChangesAsync();
             return RedirectToAction("Edit", "Produtos", new { id = loteProduto.ProdutoID });
         }
-
-        // POST: LoteProdutos/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[AcceptVerbs(HttpVerbs.Delete)]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(long id)
-        //{
-        //    LoteProduto loteProduto = await db.LoteProduto.FindAsync(id);
-        //    db.LoteProduto.Remove(loteProduto);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Edit", "Produtos", new { id = loteProduto.ProdutoID });
-        //}
 
         protected override void Dispose(bool disposing)
         {

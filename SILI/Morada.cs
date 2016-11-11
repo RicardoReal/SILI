@@ -14,6 +14,12 @@ namespace SILI
     
     public partial class Morada
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Morada()
+        {
+            this.Recepcao = new HashSet<Recepcao>();
+        }
+    
         public long ID { get; set; }
         public long NIF { get; set; }
         public string Nome { get; set; }
@@ -25,5 +31,7 @@ namespace SILI
     
         public virtual CodigoPostal CodigoPostal { get; set; }
         public virtual TipoDevolvedor TipoDevolvedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recepcao> Recepcao { get; set; }
     }
 }

@@ -11,125 +11,119 @@ using SILI;
 
 namespace SILI.Controllers
 {
-    public class ProdutosController : Controller
+    public class RecepcaoController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
 
-        // GET: Produtos
-
+        // GET: Recepcao
         public async Task<ActionResult> Index()
         {
-            var produto = db.Produto.Include(p => p.Cliente).Include(p => p.Tipologia);
-            return View(await produto.ToListAsync());
+            var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User);
+            return View(await recepcao.ToListAsync());
         }
 
-        // GET: Produtos/Details/5
+        // GET: Recepcao/Details/5
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = await db.Produto.FindAsync(id);
-            if (produto == null)
+            Recepcao recepcao = await db.Recepcao.FindAsync(id);
+            if (recepcao == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return View(recepcao);
         }
 
-        // GET: Produtos/Create
+        // GET: Recepcao/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome");
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao");
+            ViewBag.EntreguePor = new SelectList(db.Morada, "ID", "Nome");
+            ViewBag.Colaborador = new SelectList(db.User, "ID", "FirstName");
             return View();
         }
 
-        // POST: Produtos/Create
+        // POST: Recepcao/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Referencia,EAN,CNP,Descricao,ClienteID,Apresentacao,Largura,Altura,Peso,QtdCaixa,QtdPalete,UndVenda,TipologiaID,PrecoTabelado")] Produto produto)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NrRecepcao,DataHora,DataHoraChegadaArmazem,EntreguePor,NrGuiaTransportador,NrVolumesRecepcionados,NrVolumesGuia,Colaborador")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {
-                db.Produto.Add(produto);
+                recepcao.NrRecepcao = recepcao.GenerateNrRecepcao();
+                recepcao.DataHora = DateTime.Now;
+
+                db.Recepcao.Add(recepcao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome", produto.ClienteID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produto.TipologiaID);
-            return View(produto);
+            ViewBag.EntreguePor = new SelectList(db.Morada, "ID", "Nome", recepcao.EntreguePor);
+            ViewBag.Colaborador = new SelectList(db.User, "ID", "FirstName", recepcao.Colaborador);
+            return View(recepcao);
         }
 
-        // GET: Produtos/Edit/5
+        // GET: Recepcao/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = await db.Produto.FindAsync(id);
-            if (produto == null)
+            Recepcao recepcao = await db.Recepcao.FindAsync(id);
+            if (recepcao == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome", produto.ClienteID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produto.TipologiaID);
-
-            return View(produto);
+            ViewBag.EntreguePor = new SelectList(db.Morada, "ID", "Nome", recepcao.EntreguePor);
+            ViewBag.Colaborador = new SelectList(db.User, "ID", "FirstName", recepcao.Colaborador);
+            return View(recepcao);
         }
 
-        public ActionResult GetLoteProduto(long id)
-        {
-            ViewData["ProdutoId"] = id;
-            return PartialView("LoteProdutosList", db.LoteProduto.Where(x => x.ProdutoID == id).ToList());
-        }
-        
-
-        // POST: Produtos/Edit/5
+        // POST: Recepcao/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Referencia,EAN,CNP,Descricao,ClienteID,Apresentacao,Largura,Altura,Peso,QtdCaixa,QtdPalete,UndVenda,TipologiaID,PrecoTabelado")] Produto produto)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NrRecepcao,DataHora,DataHoraChegadaArmazem,EntreguePor,NrGuiaTransportador,NrVolumesRecepcionados,NrVolumesGuia,Colaborador")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(produto).State = EntityState.Modified;
+                db.Entry(recepcao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome", produto.ClienteID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produto.TipologiaID);
-            return View(produto);
+            ViewBag.EntreguePor = new SelectList(db.Morada, "ID", "Nome", recepcao.EntreguePor);
+            ViewBag.Colaborador = new SelectList(db.User, "ID", "FirstName", recepcao.Colaborador);
+            return View(recepcao);
         }
 
-        // GET: Produtos/Delete/5
+        // GET: Recepcao/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = await db.Produto.FindAsync(id);
-            if (produto == null)
+            Recepcao recepcao = await db.Recepcao.FindAsync(id);
+            if (recepcao == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return View(recepcao);
         }
 
-        // POST: Produtos/Delete/5
+        // POST: Recepcao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
-            Produto produto = await db.Produto.FindAsync(id);
-            db.Produto.Remove(produto);
+            Recepcao recepcao = await db.Recepcao.FindAsync(id);
+            db.Recepcao.Remove(recepcao);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

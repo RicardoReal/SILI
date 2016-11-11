@@ -1,0 +1,90 @@
+﻿@model SILI.Recepcao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recepcao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NrRecepcao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NrRecepcao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraChegadaArmazem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraChegadaArmazem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NrGuiaTransportador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NrGuiaTransportador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NrVolumesRecepcionados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NrVolumesRecepcionados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NrVolumesGuia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NrVolumesGuia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colaborador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colaborador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Morada.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Morada.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

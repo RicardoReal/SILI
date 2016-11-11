@@ -25,7 +25,6 @@ namespace SILI
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<CodigoPostal> CodigoPostal { get; set; }
         public virtual DbSet<MotivoDevolucao> MotivoDevolucao { get; set; }
         public virtual DbSet<Tarefa> Tarefa { get; set; }
@@ -38,5 +37,10 @@ namespace SILI
         public virtual DbSet<Destinatario> Destinatario { get; set; }
         public virtual DbSet<LoteProduto> LoteProduto { get; set; }
         public virtual DbSet<Produto> Produto { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
+        public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
+        public virtual DbSet<Recepcao> Recepcao { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

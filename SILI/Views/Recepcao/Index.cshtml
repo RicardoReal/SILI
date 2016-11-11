@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SILI.Recepcao>
+
+@{
+    ViewBag.Title = "Registos Recepção";
+}
+
+<h2>Registos Recepção</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover" id="mainTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NrRecepcao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataHora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataHoraChegadaArmazem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrGuiaTransportador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrVolumesRecepcionados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrVolumesGuia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Colaborador)
+            </th>
+            <th>
+                Entregue Por
+            </th>
+            <th>
+                Recebido Por
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrRecepcao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataHoraChegadaArmazem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrGuiaTransportador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrVolumesRecepcionados)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrVolumesGuia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colaborador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Morada.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        $('#mainTable').DataTable({
+            "dom":'<"top"if>rt<"pagination"lp>'
+        });
+    });
+</script>
+
