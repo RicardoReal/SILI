@@ -39,8 +39,8 @@ namespace SILI
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual DbSet<Recepcao> Recepcao { get; set; }
-        public virtual DbSet<User> User { get; set; }
     }
 }

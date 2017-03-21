@@ -14,6 +14,12 @@ namespace SILI
     
     public partial class Recepcao
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Recepcao()
+        {
+            this.DetalheRecepcao = new HashSet<DetalheRecepcao>();
+        }
+    
         public long ID { get; set; }
         public string NrRecepcao { get; set; }
         public System.DateTime DataHora { get; set; }
@@ -24,6 +30,8 @@ namespace SILI
         public int NrVolumesGuia { get; set; }
         public long Colaborador { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual Morada Morada { get; set; }
         public virtual User User { get; set; }
     }

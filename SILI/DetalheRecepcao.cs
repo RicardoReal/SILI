@@ -20,8 +20,10 @@ namespace SILI
         public int NrVolumes { get; set; }
         public long TipoRecepcaoId { get; set; }
         public long NrTipoRecepcao { get; set; }
+        public long RecepcaoId { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Recepcao Recepcao { get; set; }
         public virtual TipoDevolucao TipoDevolucao { get; set; }
     }
 }

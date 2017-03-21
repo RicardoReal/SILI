@@ -33,10 +33,12 @@ namespace SILI
 
         [Display(Name = "Data/Hora")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
         public long DataHora;
 
         [DataType(DataType.Date)]
         [Display(Name = "Data/Hora Chegada Armz.")]
+        
         public long DataHoraChegadaArmazem;
 
         [Required]

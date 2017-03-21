@@ -47,6 +47,7 @@
           <Property Name="NrVolumes" Type="int" Nullable="false" />
           <Property Name="TipoRecepcaoId" Type="bigint" Nullable="false" />
           <Property Name="NrTipoRecepcao" Type="bigint" Nullable="false" />
+          <Property Name="RecepcaoId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="LoteProduto">
           <Key>
@@ -218,6 +219,18 @@
             </Principal>
             <Dependent Role="DetalheRecepcao">
               <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalheRecepcao_Recepcao">
+          <End Role="Recepcao" Type="Self.Recepcao" Multiplicity="1" />
+          <End Role="DetalheRecepcao" Type="Self.DetalheRecepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepcao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetalheRecepcao">
+              <PropertyRef Name="RecepcaoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -395,6 +408,10 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
           </AssociationSet>
+          <AssociationSet Name="FK_DetalheRecepcao_Recepcao" Association="Self.FK_DetalheRecepcao_Recepcao">
+            <End Role="Recepcao" EntitySet="Recepcao" />
+            <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
+          </AssociationSet>
           <AssociationSet Name="FK_DetalheRecepcao_TipoDevolucao" Association="Self.FK_DetalheRecepcao_TipoDevolucao">
             <End Role="TipoDevolucao" EntitySet="TipoDevolucao" />
             <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
@@ -499,20 +516,28 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="User" EntityType="SILI_DBModel.User" />
+          <AssociationSet Name="FK_LoteProduto_User" Association="SILI_DBModel.FK_LoteProduto_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoteProduto" EntitySet="LoteProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="SILI_DBModel.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
           <EntitySet Name="DetalheRecepcao" EntityType="SILI_DBModel.DetalheRecepcao" />
+          <EntitySet Name="Recepcao" EntityType="SILI_DBModel.Recepcao" />
           <AssociationSet Name="FK_DetalheRecepcao_Cliente" Association="SILI_DBModel.FK_DetalheRecepcao_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalheRecepcao_Recepcao" Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao">
+            <End Role="Recepcao" EntitySet="Recepcao" />
             <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
           </AssociationSet>
           <AssociationSet Name="FK_DetalheRecepcao_TipoDevolucao" Association="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao">
             <End Role="TipoDevolucao" EntitySet="TipoDevolucao" />
             <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
-          </AssociationSet>
-          <EntitySet Name="Recepcao" EntityType="SILI_DBModel.Recepcao" />
-          <EntitySet Name="User" EntityType="SILI_DBModel.User" />
-          <AssociationSet Name="FK_LoteProduto_User" Association="SILI_DBModel.FK_LoteProduto_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="LoteProduto" EntitySet="LoteProduto" />
           </AssociationSet>
           <AssociationSet Name="FK_Recepcao_Morada" Association="SILI_DBModel.FK_Recepcao_Morada">
             <End Role="Morada" EntitySet="Morada" />
@@ -521,10 +546,6 @@
           <AssociationSet Name="FK_Recepcao_User" Association="SILI_DBModel.FK_Recepcao_User">
             <End Role="User" EntitySet="User" />
             <End Role="Recepcao" EntitySet="Recepcao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="SILI_DBModel.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="CodigoPostal">
@@ -801,6 +822,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_User" FromRole="User" ToRole="LoteProduto" />
+          <NavigationProperty Name="UserRole" Relationship="SILI_DBModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="User" ToRole="Recepcao" />
+        </EntityType>
+        <Association Name="FK_LoteProduto_User">
+          <End Type="SILI_DBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SILI_DBModel.LoteProduto" Role="LoteProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LoteProduto">
+              <PropertyRef Name="ActualizadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Type="SILI_DBModel.User" Role="User" Multiplicity="1" />
+          <End Type="SILI_DBModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="DetalheRecepcao">
           <Key>
             <PropertyRef Name="ID" />
@@ -811,33 +871,11 @@
           <Property Name="NrVolumes" Type="Int32" Nullable="false" />
           <Property Name="TipoRecepcaoId" Type="Int64" Nullable="false" />
           <Property Name="NrTipoRecepcao" Type="Int64" Nullable="false" />
+          <Property Name="RecepcaoId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="SILI_DBModel.FK_DetalheRecepcao_Cliente" FromRole="DetalheRecepcao" ToRole="Cliente" />
+          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="DetalheRecepcao" ToRole="Recepcao" />
           <NavigationProperty Name="TipoDevolucao" Relationship="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" FromRole="DetalheRecepcao" ToRole="TipoDevolucao" />
         </EntityType>
-        <Association Name="FK_DetalheRecepcao_Cliente">
-          <End Type="SILI_DBModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DetalheRecepcao">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetalheRecepcao_TipoDevolucao">
-          <End Type="SILI_DBModel.TipoDevolucao" Role="TipoDevolucao" Multiplicity="1" />
-          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoDevolucao">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DetalheRecepcao">
-              <PropertyRef Name="TipoRecepcaoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Recepcao">
           <Key>
             <PropertyRef Name="ID" />
@@ -851,33 +889,43 @@
           <Property Name="NrVolumesRecepcionados" Type="Int32" Nullable="false" />
           <Property Name="NrVolumesGuia" Type="Int32" Nullable="false" />
           <Property Name="Colaborador" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DetalheRecepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="Recepcao" ToRole="DetalheRecepcao" />
           <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Recepcao_Morada" FromRole="Recepcao" ToRole="Morada" />
           <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="Recepcao" ToRole="User" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_User" FromRole="User" ToRole="LoteProduto" />
-          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="User" ToRole="Recepcao" />
-          <NavigationProperty Name="UserRole" Relationship="SILI_DBModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
-        </EntityType>
-        <Association Name="FK_LoteProduto_User">
-          <End Type="SILI_DBModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="SILI_DBModel.LoteProduto" Role="LoteProduto" Multiplicity="*" />
+        <Association Name="FK_DetalheRecepcao_Cliente">
+          <End Type="SILI_DBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Cliente">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="LoteProduto">
-              <PropertyRef Name="ActualizadoPor" />
+            <Dependent Role="DetalheRecepcao">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalheRecepcao_Recepcao">
+          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="1" />
+          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepcao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetalheRecepcao">
+              <PropertyRef Name="RecepcaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalheRecepcao_TipoDevolucao">
+          <End Type="SILI_DBModel.TipoDevolucao" Role="TipoDevolucao" Multiplicity="1" />
+          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDevolucao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetalheRecepcao">
+              <PropertyRef Name="TipoRecepcaoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -902,18 +950,6 @@
             </Principal>
             <Dependent Role="Recepcao">
               <PropertyRef Name="Colaborador" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Type="SILI_DBModel.User" Role="User" Multiplicity="1" />
-          <End Type="SILI_DBModel.UserRole" Role="UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1080,9 +1116,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="SILI_DBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DetalheRecepcao">
             <EntityTypeMapping TypeName="SILI_DBModel.DetalheRecepcao">
               <MappingFragment StoreEntitySet="DetalheRecepcao">
+                <ScalarProperty Name="RecepcaoId" ColumnName="RecepcaoId" />
                 <ScalarProperty Name="NrTipoRecepcao" ColumnName="NrTipoRecepcao" />
                 <ScalarProperty Name="TipoRecepcaoId" ColumnName="TipoRecepcaoId" />
                 <ScalarProperty Name="NrVolumes" ColumnName="NrVolumes" />
@@ -1103,19 +1153,6 @@
                 <ScalarProperty Name="DataHoraChegadaArmazem" ColumnName="DataHoraChegadaArmazem" />
                 <ScalarProperty Name="DataHora" ColumnName="DataHora" />
                 <ScalarProperty Name="NrRecepcao" ColumnName="NrRecepcao" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="SILI_DBModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

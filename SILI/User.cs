@@ -18,8 +18,8 @@ namespace SILI
         public User()
         {
             this.LoteProduto = new HashSet<LoteProduto>();
-            this.Recepcao = new HashSet<Recepcao>();
             this.UserRole = new HashSet<UserRole>();
+            this.Recepcao = new HashSet<Recepcao>();
         }
     
         public long ID { get; set; }
@@ -33,8 +33,8 @@ namespace SILI
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoteProduto> LoteProduto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recepcao> Recepcao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recepcao> Recepcao { get; set; }
     }
 }

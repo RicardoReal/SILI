@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SILI.DetalheRecepcao>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "DetalheRecepcaos", new { RecepcaoId = ViewData["RecepcaoId"] }, null)
+</p>
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NrDetalhe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrVolumes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDevolucao.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrTipoRecepcao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrDetalhe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrVolumes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDevolucao.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrTipoRecepcao)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "DetalheRecepcaos", new { id = item.ID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "DetalheRecepcaos", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
