@@ -11,6 +11,7 @@ using SILI;
 
 namespace SILI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RecepcaoController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
