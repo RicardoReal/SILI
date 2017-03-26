@@ -23,6 +23,14 @@ namespace SILI
         {
             get { return this.ToString(); }
         }
+
+        public static long GetUserIdByUsername(string Username)
+        {
+            using(SILI_DBEntities ent = new SILI_DBEntities())
+            {
+                return ent.User.Where(u => u.UserName == Username).FirstOrDefault().ID;
+            }
+        }
     }
 
     public class UserMetadata

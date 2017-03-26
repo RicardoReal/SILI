@@ -65,6 +65,7 @@ namespace SILI.Controllers
             if (ModelState.IsValid)
             {
                 loteProduto.DataAlteracao = DateTime.Now;
+                loteProduto.ActualizadoPor = SILI.User.GetUserIdByUsername(User.Identity.Name);
 
                 db.LoteProduto.Add(loteProduto);
                 await db.SaveChangesAsync();
@@ -74,6 +75,7 @@ namespace SILI.Controllers
             ViewBag.ProdutoID = new SelectList(db.Produto.Where(p => p.ID == loteProduto.ProdutoID).ToList(), "ID", "FormattedToString", loteProduto.ProdutoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", loteProduto.TratamentoID);
             ViewBag.ActualizadoPor = new SelectList(db.User, "ID", "FirstName", loteProduto.ActualizadoPor);
+            
             return View(loteProduto);
         }
 
