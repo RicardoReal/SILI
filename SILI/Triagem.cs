@@ -12,29 +12,30 @@ namespace SILI
     using System;
     using System.Collections.Generic;
     
-    public partial class Morada
+    public partial class Triagem
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Morada()
+        public Triagem()
         {
-            this.Recepcao = new HashSet<Recepcao>();
-            this.Triagem = new HashSet<Triagem>();
+            this.DetalheTriagem = new HashSet<DetalheTriagem>();
         }
     
         public long ID { get; set; }
+        public string NrProcesso { get; set; }
+        public System.DateTime DataHoraRecepcao { get; set; }
+        public long ColaboradorID { get; set; }
         public long NIF { get; set; }
-        public string Nome { get; set; }
         public long CodPostalID { get; set; }
-        public string Morada1 { get; set; }
-        public Nullable<int> Telefone { get; set; }
-        public string NomeContacto { get; set; }
-        public long TipoDevolvedorID { get; set; }
+        public string NomeMorada { get; set; }
+        public string Localicade { get; set; }
+        public string NrGuiaNotaDevol { get; set; }
+        public System.DateTime DataGuia { get; set; }
+        public bool SubUnidades { get; set; }
     
         public virtual CodigoPostal CodigoPostal { get; set; }
-        public virtual TipoDevolvedor TipoDevolvedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recepcao> Recepcao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Triagem> Triagem { get; set; }
+        public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
+        public virtual Morada Morada { get; set; }
+        public virtual User User { get; set; }
     }
 }

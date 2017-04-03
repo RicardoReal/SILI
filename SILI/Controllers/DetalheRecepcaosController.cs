@@ -51,6 +51,7 @@ namespace SILI.Controllers
             ViewBag.RecepcaoID = new SelectList(db.Recepcao.Where(r => r.ID == RecepcaoId).ToList(), "ID");
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome");
             ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao");
+            ViewBag.NrDetalhe = DetalheRecepcao.GenerateNrDetalheRecepcao(RecepcaoId);
             return View();
         }
 
@@ -63,6 +64,8 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
+                //detalheRecepcao.NrDetalhe = detalheRecepcao.GenerateNrDetalheRecepcao();
+
                 db.DetalheRecepcao.Add(detalheRecepcao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });

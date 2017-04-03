@@ -38,6 +38,15 @@
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" />
         <AssociationConnector Association="SILI_DBModel.FK_Recepcao_Morada" />
         <AssociationConnector Association="SILI_DBModel.FK_Recepcao_User" />
+        <EntityTypeShape EntityType="SILI_DBModel.DetalheTriagem" Width="1.5" PointX="17.75" PointY="2" />
+        <EntityTypeShape EntityType="SILI_DBModel.Triagem" Width="1.5" PointX="14.625" PointY="0.75" />
+        <AssociationConnector Association="SILI_DBModel.FK_Triagem_CodigoPostal" />
+        <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_MotivoDevolucao" />
+        <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Produto" />
+        <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Tratamento" />
+        <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Triagem" />
+        <AssociationConnector Association="SILI_DBModel.FK_Triagem_Morada" />
+        <AssociationConnector Association="SILI_DBModel.FK_Triagem_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

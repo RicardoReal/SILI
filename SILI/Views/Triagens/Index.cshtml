@@ -1,10 +1,10 @@
-﻿@model IEnumerable<SILI.Recepcao>
+﻿@model IEnumerable<SILI.Triagem>
 
 @{
-    ViewBag.Title = "Registos Recepção";
+    ViewBag.Title = "Processos Triagem";
 }
 
-<h2>Registos Recepção</h2>
+<h2>Processos Triagem</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,59 +13,66 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NrRecepcao)
+                @Html.DisplayNameFor(model => model.NrProcesso)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataHora)
+                @Html.DisplayNameFor(model => model.DataHoraRecepcao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataHoraChegadaArmazem)
+                @Html.DisplayNameFor(model => model.NomeMorada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NrGuiaTransportador)
+                @Html.DisplayNameFor(model => model.Localicade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NrVolumesRecepcionados)
+                @Html.DisplayNameFor(model => model.NrGuiaNotaDevol)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NrVolumesGuia)
+                @Html.DisplayNameFor(model => model.DataGuia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Colaborador)
+                @Html.DisplayNameFor(model => model.SubUnidades)
             </th>
             <th>
-                Entregue Por
+                @Html.DisplayNameFor(model => model.CodigoPostal.CodPostal)
             </th>
             <th>
-                Recebido Por
+                @Html.DisplayNameFor(model => model.Morada.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrRecepcao)
+                    @Html.DisplayFor(modelItem => item.NrProcesso)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataHora)
+                    @Html.DisplayFor(modelItem => item.DataHoraRecepcao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataHoraChegadaArmazem)
+                    @Html.DisplayFor(modelItem => item.NomeMorada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrGuiaTransportador)
+                    @Html.DisplayFor(modelItem => item.Localicade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrVolumesRecepcionados)
+                    @Html.DisplayFor(modelItem => item.NrGuiaNotaDevol)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrVolumesGuia)
+                    @Html.DisplayFor(modelItem => item.DataGuia)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Colaborador)
+                    @Html.DisplayFor(modelItem => item.SubUnidades)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoPostal.CodPostal)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Morada.Nome)
@@ -89,4 +96,3 @@
         });
     });
 </script>
-

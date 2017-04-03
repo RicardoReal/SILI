@@ -42,5 +42,7 @@ namespace SILI
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual DbSet<Recepcao> Recepcao { get; set; }
+        public virtual DbSet<DetalheTriagem> DetalheTriagem { get; set; }
+        public virtual DbSet<Triagem> Triagem { get; set; }
     }
 }

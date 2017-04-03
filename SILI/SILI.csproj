@@ -208,6 +208,9 @@
     <Compile Include="DetalheRecepcao.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DetalheTriagem.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +222,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\DetalheRecepcaoMetadata.cs" />
+    <Compile Include="Models\Metadata\TriagemMetadata.cs" />
     <Compile Include="Models\Metadata\RecepcaoMetadata.cs" />
     <Compile Include="Models\Metadata\UserRoleMetadata.cs" />
     <Compile Include="Models\Metadata\RoleMetadata.cs" />
@@ -236,6 +240,7 @@
     <Compile Include="Models\Metadata\ClienteMetadata.cs" />
     <Compile Include="Models\Metadata\UserMetadata.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Models\TriagensController.cs" />
     <Compile Include="Morada.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
@@ -284,6 +289,9 @@
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Tratamento.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Triagem.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
@@ -576,6 +584,11 @@
     <Content Include="Views\DetalheRecepcaos\Delete.cshtml" />
     <Content Include="Views\DetalheRecepcaos\Edit.cshtml" />
     <Content Include="Views\Recepcao\DetalheRecepcaoList.cshtml" />
+    <Content Include="Views\Triagens\Create.cshtml" />
+    <Content Include="Views\Triagens\Delete.cshtml" />
+    <Content Include="Views\Triagens\Details.cshtml" />
+    <Content Include="Views\Triagens\Edit.cshtml" />
+    <Content Include="Views\Triagens\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,7 +33,6 @@ namespace SILI
 
         [Display(Name = "Data/Hora")]
         [DataType(DataType.DateTime)]
-        [Editable(false)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
         public DateTime DataHora;
 
@@ -52,6 +51,9 @@ namespace SILI
 
         [Display(Name = "Nr. Volumes Guia")]
         public decimal NrVolumesGuia;
+
+        [Editable(false)]
+        public User Colaborador;
 
     }
 

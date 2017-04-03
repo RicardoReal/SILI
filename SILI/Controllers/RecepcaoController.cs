@@ -57,6 +57,7 @@ namespace SILI.Controllers
             {
                 recepcao.NrRecepcao = recepcao.GenerateNrRecepcao();
                 recepcao.DataHora = DateTime.Now;
+                recepcao.Colaborador = SILI.User.GetUserIdByUsername(User.Identity.Name);
 
                 db.Recepcao.Add(recepcao);
                 await db.SaveChangesAsync();
