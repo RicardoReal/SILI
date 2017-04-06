@@ -24,12 +24,12 @@ namespace SILI
         public string NrProcesso { get; set; }
         public System.DateTime DataHoraRecepcao { get; set; }
         public long ColaboradorID { get; set; }
-        public long NIF { get; set; }
-        public long CodPostalID { get; set; }
+        public Nullable<long> NIF { get; set; }
+        public Nullable<long> CodPostalID { get; set; }
         public string NomeMorada { get; set; }
-        public string Localicade { get; set; }
+        public string Localidade { get; set; }
         public string NrGuiaNotaDevol { get; set; }
-        public System.DateTime DataGuia { get; set; }
+        public Nullable<System.DateTime> DataGuia { get; set; }
         public bool SubUnidades { get; set; }
     
         public virtual CodigoPostal CodigoPostal { get; set; }

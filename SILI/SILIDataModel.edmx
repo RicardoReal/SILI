@@ -189,12 +189,12 @@
           <Property Name="NrProcesso" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DataHoraRecepcao" Type="datetime" Nullable="false" />
           <Property Name="ColaboradorID" Type="bigint" Nullable="false" />
-          <Property Name="NIF" Type="bigint" Nullable="false" />
-          <Property Name="CodPostalID" Type="bigint" Nullable="false" />
-          <Property Name="NomeMorada" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Localicade" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="NrGuiaNotaDevol" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DataGuia" Type="datetime" Nullable="false" />
+          <Property Name="NIF" Type="bigint" />
+          <Property Name="CodPostalID" Type="bigint" />
+          <Property Name="NomeMorada" Type="nvarchar" MaxLength="100" />
+          <Property Name="Localidade" Type="nvarchar" MaxLength="50" />
+          <Property Name="NrGuiaNotaDevol" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataGuia" Type="datetime" />
           <Property Name="SubUnidades" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
@@ -434,7 +434,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Triagem_CodigoPostal">
-          <End Role="CodigoPostal" Type="Self.CodigoPostal" Multiplicity="1" />
+          <End Role="CodigoPostal" Type="Self.CodigoPostal" Multiplicity="0..1" />
           <End Role="Triagem" Type="Self.Triagem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CodigoPostal">
@@ -446,7 +446,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Triagem_Morada">
-          <End Role="Morada" Type="Self.Morada" Multiplicity="1" />
+          <End Role="Morada" Type="Self.Morada" Multiplicity="0..1" />
           <End Role="Triagem" Type="Self.Triagem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Morada">
@@ -693,11 +693,6 @@
             <End Role="Recepcao" EntitySet="Recepcao" />
           </AssociationSet>
           <EntitySet Name="DetalheTriagem" EntityType="SILI_DBModel.DetalheTriagem" />
-          <EntitySet Name="Triagem" EntityType="SILI_DBModel.Triagem" />
-          <AssociationSet Name="FK_Triagem_CodigoPostal" Association="SILI_DBModel.FK_Triagem_CodigoPostal">
-            <End Role="CodigoPostal" EntitySet="CodigoPostal" />
-            <End Role="Triagem" EntitySet="Triagem" />
-          </AssociationSet>
           <AssociationSet Name="FK_DetalheTriagem_MotivoDevolucao" Association="SILI_DBModel.FK_DetalheTriagem_MotivoDevolucao">
             <End Role="MotivoDevolucao" EntitySet="MotivoDevolucao" />
             <End Role="DetalheTriagem" EntitySet="DetalheTriagem" />
@@ -709,6 +704,11 @@
           <AssociationSet Name="FK_DetalheTriagem_Tratamento" Association="SILI_DBModel.FK_DetalheTriagem_Tratamento">
             <End Role="Tratamento" EntitySet="Tratamento" />
             <End Role="DetalheTriagem" EntitySet="DetalheTriagem" />
+          </AssociationSet>
+          <EntitySet Name="Triagem" EntityType="SILI_DBModel.Triagem" />
+          <AssociationSet Name="FK_Triagem_CodigoPostal" Association="SILI_DBModel.FK_Triagem_CodigoPostal">
+            <End Role="CodigoPostal" EntitySet="CodigoPostal" />
+            <End Role="Triagem" EntitySet="Triagem" />
           </AssociationSet>
           <AssociationSet Name="FK_DetalheTriagem_Triagem" Association="SILI_DBModel.FK_DetalheTriagem_Triagem">
             <End Role="Triagem" EntitySet="Triagem" />
@@ -1153,38 +1153,6 @@
           <NavigationProperty Name="Tratamento" Relationship="SILI_DBModel.FK_DetalheTriagem_Tratamento" FromRole="DetalheTriagem" ToRole="Tratamento" />
           <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_DetalheTriagem_Triagem" FromRole="DetalheTriagem" ToRole="Triagem" />
         </EntityType>
-        <EntityType Name="Triagem">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NrProcesso" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DataHoraRecepcao" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ColaboradorID" Type="Int64" Nullable="false" />
-          <Property Name="NIF" Type="Int64" Nullable="false" />
-          <Property Name="CodPostalID" Type="Int64" Nullable="false" />
-          <Property Name="NomeMorada" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Localicade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NrGuiaNotaDevol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DataGuia" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubUnidades" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CodigoPostal" Relationship="SILI_DBModel.FK_Triagem_CodigoPostal" FromRole="Triagem" ToRole="CodigoPostal" />
-          <NavigationProperty Name="DetalheTriagem" Relationship="SILI_DBModel.FK_DetalheTriagem_Triagem" FromRole="Triagem" ToRole="DetalheTriagem" />
-          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Triagem_Morada" FromRole="Triagem" ToRole="Morada" />
-          <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Triagem_User" FromRole="Triagem" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Triagem_CodigoPostal">
-          <End Type="SILI_DBModel.CodigoPostal" Role="CodigoPostal" Multiplicity="1" />
-          <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CodigoPostal">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Triagem">
-              <PropertyRef Name="CodPostalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DetalheTriagem_MotivoDevolucao">
           <End Type="SILI_DBModel.MotivoDevolucao" Role="MotivoDevolucao" Multiplicity="1" />
           <End Type="SILI_DBModel.DetalheTriagem" Role="DetalheTriagem" Multiplicity="*" />
@@ -1221,6 +1189,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Triagem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NrProcesso" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DataHoraRecepcao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ColaboradorID" Type="Int64" Nullable="false" />
+          <Property Name="NIF" Type="Int64" />
+          <Property Name="CodPostalID" Type="Int64" />
+          <Property Name="NomeMorada" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Localidade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NrGuiaNotaDevol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataGuia" Type="DateTime" Precision="3" />
+          <Property Name="SubUnidades" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CodigoPostal" Relationship="SILI_DBModel.FK_Triagem_CodigoPostal" FromRole="Triagem" ToRole="CodigoPostal" />
+          <NavigationProperty Name="DetalheTriagem" Relationship="SILI_DBModel.FK_DetalheTriagem_Triagem" FromRole="Triagem" ToRole="DetalheTriagem" />
+          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Triagem_Morada" FromRole="Triagem" ToRole="Morada" />
+          <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Triagem_User" FromRole="Triagem" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Triagem_CodigoPostal">
+          <End Type="SILI_DBModel.CodigoPostal" Role="CodigoPostal" Multiplicity="0..1" />
+          <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodigoPostal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Triagem">
+              <PropertyRef Name="CodPostalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DetalheTriagem_Triagem">
           <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="1" />
           <End Type="SILI_DBModel.DetalheTriagem" Role="DetalheTriagem" Multiplicity="*" />
@@ -1234,7 +1234,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Triagem_Morada">
-          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="1" />
+          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="0..1" />
           <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Morada">
@@ -1483,7 +1483,7 @@
                 <ScalarProperty Name="SubUnidades" ColumnName="SubUnidades" />
                 <ScalarProperty Name="DataGuia" ColumnName="DataGuia" />
                 <ScalarProperty Name="NrGuiaNotaDevol" ColumnName="NrGuiaNotaDevol" />
-                <ScalarProperty Name="Localicade" ColumnName="Localicade" />
+                <ScalarProperty Name="Localidade" ColumnName="Localidade" />
                 <ScalarProperty Name="NomeMorada" ColumnName="NomeMorada" />
                 <ScalarProperty Name="CodPostalID" ColumnName="CodPostalID" />
                 <ScalarProperty Name="NIF" ColumnName="NIF" />
