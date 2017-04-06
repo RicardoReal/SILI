@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoradasController.cs" />
     <Compile Include="Controllers\MotivoDevolucaosController.cs" />
+    <Compile Include="Controllers\NovaTriagemController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\RecepcaoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -240,7 +241,8 @@
     <Compile Include="Models\Metadata\ClienteMetadata.cs" />
     <Compile Include="Models\Metadata\UserMetadata.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Models\TriagensController.cs" />
+    <Compile Include="Controllers\TriagensController.cs" />
+    <Compile Include="Models\NovaTriagem.cs" />
     <Compile Include="Morada.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
@@ -589,9 +591,11 @@
     <Content Include="Views\Triagens\Details.cshtml" />
     <Content Include="Views\Triagens\Edit.cshtml" />
     <Content Include="Views\Triagens\Index.cshtml" />
+    <Content Include="Views\NovaTriagem\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cenas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

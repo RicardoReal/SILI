@@ -7,7 +7,7 @@
 <h2>Processos Triagem</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "NovaTriagem")
 </p>
 <table class="table table-hover" id="mainTable">
     <thead>
@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.NomeMorada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Localicade)
+                @Html.DisplayNameFor(model => model.Localidade)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NrGuiaNotaDevol)
@@ -60,7 +60,7 @@
                     @Html.DisplayFor(modelItem => item.NomeMorada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Localicade)
+                    @Html.DisplayFor(modelItem => item.Localidade)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NrGuiaNotaDevol)

@@ -40,9 +40,15 @@ namespace SILI.Models
         // GET: Triagens/Create
         public ActionResult Create()
         {
-            ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal");
-            ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome");
-            ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName");
+            //ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal");
+            //ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome");
+            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName");
+
+            if (Request.IsAjaxRequest())
+            {
+                return View("NovaTriagem");
+            }
+
             return View();
         }
 
@@ -62,7 +68,7 @@ namespace SILI.Models
 
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
-            ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
+            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
             return View(triagem);
         }
 
@@ -80,7 +86,7 @@ namespace SILI.Models
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
-            ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
+            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
             return View(triagem);
         }
 
@@ -93,14 +99,23 @@ namespace SILI.Models
         {
             if (ModelState.IsValid)
             {
+                Morada morada = db.Morada.Where(m => m.ID == triagem.NIF).FirstOrDefault();
+                triagem.NomeMorada = morada == null ? morada.Nome : string.Empty;
+
+                CodigoPostal cp = db.CodigoPostal.Where(c => c.ID == triagem.CodPostalID).FirstOrDefault();
+                triagem.Localidade = cp == null ? cp.Localidade : string.Empty;
+
+                triagem.ColaboradorID = db.Triagem.Where(t => t.ID == triagem.ID).FirstOrDefault().ColaboradorID;
+
                 db.Entry(triagem).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
             ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
-            return View(triagem);
+            //return View(triagem);
+            return RedirectToAction("Edit", "Triagens", new { id = triagem.ID });
         }
 
         // GET: Triagens/Delete/5
