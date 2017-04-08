@@ -47,7 +47,12 @@
         <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Triagem" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_Morada" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_User" />
-      </Diagram>
+        <EntityTypeShape EntityType="SILI_DBModel.ProdutoTriagem" Width="1.5" PointX="20.75" PointY="3.125" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Produto" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Tratamento" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Triagem" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

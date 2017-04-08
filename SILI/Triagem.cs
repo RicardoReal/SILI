@@ -18,6 +18,7 @@ namespace SILI
         public Triagem()
         {
             this.DetalheTriagem = new HashSet<DetalheTriagem>();
+            this.ProdutoTriagem = new HashSet<ProdutoTriagem>();
         }
     
         public long ID { get; set; }
@@ -37,5 +38,7 @@ namespace SILI
         public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
         public virtual Morada Morada { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProdutoTriagem> ProdutoTriagem { get; set; }
     }
 }

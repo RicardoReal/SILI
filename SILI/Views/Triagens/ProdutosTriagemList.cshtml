@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SILI.ProdutoTriagem>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "ProdutosTriagem", new { TriagemId = ViewData["TriagemId"]}, null)
+</p>
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Produto.EAN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produto.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtdDevolvida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lote)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PVP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MotivoDevolucao.Motivos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tratamento.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Validade)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Produto.EAN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Produto.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtdDevolvida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PVP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MotivoDevolucao.Motivos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tratamento.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Validade)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "ProdutosTriagem", new { id = item.ID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "ProdutosTriagem", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,6 +18,7 @@ namespace SILI
         public MotivoDevolucao()
         {
             this.DetalheTriagem = new HashSet<DetalheTriagem>();
+            this.ProdutoTriagem = new HashSet<ProdutoTriagem>();
         }
     
         public long ID { get; set; }
@@ -26,5 +27,7 @@ namespace SILI
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProdutoTriagem> ProdutoTriagem { get; set; }
     }
 }

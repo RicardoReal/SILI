@@ -14,6 +14,7 @@ namespace SILI.Models
     public class TriagensController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
+        private static long ColaboradorID;
 
         // GET: Triagens
         public async Task<ActionResult> Index()
@@ -68,7 +69,7 @@ namespace SILI.Models
 
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
-            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
+           
             return View(triagem);
         }
 
@@ -86,8 +87,15 @@ namespace SILI.Models
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
-            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
+            
+            ColaboradorID = triagem.ColaboradorID;
             return View(triagem);
+        }
+
+        public ActionResult GetProdutosTriagem(long id)
+        {
+            ViewData["TriagemId"] = id;
+            return PartialView("ProdutosTriagemList", db.ProdutoTriagem.Where(x => x.TriagemID == id).ToList());
         }
 
         // POST: Triagens/Edit/5
@@ -100,21 +108,21 @@ namespace SILI.Models
             if (ModelState.IsValid)
             {
                 Morada morada = db.Morada.Where(m => m.ID == triagem.NIF).FirstOrDefault();
-                triagem.NomeMorada = morada == null ? morada.Nome : string.Empty;
+                triagem.NomeMorada = morada == null ? string.Empty : morada.Nome;
 
                 CodigoPostal cp = db.CodigoPostal.Where(c => c.ID == triagem.CodPostalID).FirstOrDefault();
-                triagem.Localidade = cp == null ? cp.Localidade : string.Empty;
+                triagem.Localidade = cp == null ? string.Empty : cp.Localidade ;
 
-                triagem.ColaboradorID = db.Triagem.Where(t => t.ID == triagem.ID).FirstOrDefault().ColaboradorID;
+                triagem.ColaboradorID = ColaboradorID;
 
                 db.Entry(triagem).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                //return RedirectToAction("Index");
+                
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
             ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
-            //return View(triagem);
+            
             return RedirectToAction("Edit", "Triagens", new { id = triagem.ID });
         }
 

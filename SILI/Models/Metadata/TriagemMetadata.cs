@@ -52,6 +52,7 @@ namespace SILI
 
         [Display(Name = "Data Guia")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DataGuia;
 
         [Display(Name = "Sub Unidades")]

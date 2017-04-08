@@ -196,6 +196,7 @@
     <Compile Include="Controllers\MotivoDevolucaosController.cs" />
     <Compile Include="Controllers\NovaTriagemController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
+    <Compile Include="Controllers\ProdutosTriagemController.cs" />
     <Compile Include="Controllers\RecepcaoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TarefasController.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\DetalheRecepcaoMetadata.cs" />
+    <Compile Include="Models\Metadata\ProdutoTriagem.cs" />
     <Compile Include="Models\Metadata\TriagemMetadata.cs" />
     <Compile Include="Models\Metadata\RecepcaoMetadata.cs" />
     <Compile Include="Models\Metadata\UserRoleMetadata.cs" />
@@ -250,6 +252,9 @@
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Produto.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoTriagem.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -592,6 +597,10 @@
     <Content Include="Views\Triagens\Edit.cshtml" />
     <Content Include="Views\Triagens\Index.cshtml" />
     <Content Include="Views\NovaTriagem\Create.cshtml" />
+    <Content Include="Views\ProdutosTriagem\Create.cshtml" />
+    <Content Include="Views\ProdutosTriagem\Delete.cshtml" />
+    <Content Include="Views\ProdutosTriagem\Edit.cshtml" />
+    <Content Include="Views\Triagens\ProdutosTriagemList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
