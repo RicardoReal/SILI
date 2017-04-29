@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace SILI.Controllers
 {
+    [Authorize]
     public class CodigoPostalsController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();

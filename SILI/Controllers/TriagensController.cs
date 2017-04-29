@@ -11,6 +11,7 @@ using SILI;
 
 namespace SILI.Models
 {
+    [Authorize]
     public class TriagensController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
@@ -68,7 +69,7 @@ namespace SILI.Models
             }
 
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
-            ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
+            ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
            
             return View(triagem);
         }
@@ -86,7 +87,7 @@ namespace SILI.Models
                 return HttpNotFound();
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
-            ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
+            ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
             
             ColaboradorID = triagem.ColaboradorID;
             return View(triagem);
@@ -120,7 +121,7 @@ namespace SILI.Models
                 
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
-            ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome", triagem.NIF);
+            ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
             ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
             
             return RedirectToAction("Edit", "Triagens", new { id = triagem.ID });

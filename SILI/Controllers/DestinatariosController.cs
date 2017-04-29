@@ -11,6 +11,7 @@ using SILI;
 
 namespace SILI.Controllers
 {
+    [Authorize]
     public class DestinatariosController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();

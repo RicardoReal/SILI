@@ -9,6 +9,7 @@ using System.Data.Entity;
 
 namespace SILI.Controllers
 {
+    [Authorize]
     public class NovaTriagemController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
