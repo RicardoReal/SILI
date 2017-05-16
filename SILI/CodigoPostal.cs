@@ -17,9 +17,9 @@ namespace SILI
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CodigoPostal()
         {
-            this.Morada = new HashSet<Morada>();
-            this.Destinatario = new HashSet<Destinatario>();
             this.Triagem = new HashSet<Triagem>();
+            this.Destinatario = new HashSet<Destinatario>();
+            this.Morada = new HashSet<Morada>();
         }
     
         public long ID { get; set; }
@@ -28,10 +28,10 @@ namespace SILI
         public string Distrito { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Morada> Morada { get; set; }
+        public virtual ICollection<Triagem> Triagem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Destinatario> Destinatario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Triagem> Triagem { get; set; }
+        public virtual ICollection<Morada> Morada { get; set; }
     }
 }

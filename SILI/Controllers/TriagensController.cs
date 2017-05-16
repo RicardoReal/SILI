@@ -39,21 +39,6 @@ namespace SILI.Models
             return View(triagem);
         }
 
-        // GET: Triagens/Create
-        public ActionResult Create()
-        {
-            //ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal");
-            //ViewBag.NIF = new SelectList(db.Morada, "ID", "Nome");
-            //ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName");
-
-            if (Request.IsAjaxRequest())
-            {
-                return View("NovaTriagem");
-            }
-
-            return View();
-        }
-
         // POST: Triagens/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

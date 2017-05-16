@@ -19,7 +19,7 @@ namespace SILI.Controllers
         // GET: Recepcao
         public async Task<ActionResult> Index()
         {
-            var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User);
+            var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User).OrderByDescending(r => r.ID);
             return View(await recepcao.ToListAsync());
         }
 
@@ -51,7 +51,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,NrRecepcao,DataHora,DataHoraChegadaArmazem,EntreguePor,NrGuiaTransportador,NrVolumesRecepcionados,NrVolumesGuia,Colaborador")] Recepcao recepcao)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,NrCMR,NrVolumesRecepcionados,NrVolumesGuia,Colaborador,CTR")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace SILI.Controllers
 
                 db.Recepcao.Add(recepcao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new { id = recepcao.ID });
             }
 
             ViewBag.EntreguePor = new SelectList(db.Morada, "ID", "Nome", recepcao.EntreguePor);
@@ -97,7 +97,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NrRecepcao,DataHora,DataHoraChegadaArmazem,EntreguePor,NrGuiaTransportador,NrVolumesRecepcionados,NrVolumesGuia,Colaborador")] Recepcao recepcao)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,NrCMR,NrVolumesRecepcionados,NrVolumesGuia,Colaborador,UserID,CTR")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {

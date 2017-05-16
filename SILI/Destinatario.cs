@@ -15,12 +15,13 @@ namespace SILI
     public partial class Destinatario
     {
         public long ID { get; set; }
-        public long ClienteID { get; set; }
+        public long MoradaID { get; set; }
         public long NIFDestinatario { get; set; }
         public long CodPostalID { get; set; }
         public int CodigoDestinatario { get; set; }
+        public string CodigoSAP { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
         public virtual CodigoPostal CodigoPostal { get; set; }
+        public virtual Morada Morada { get; set; }
     }
 }

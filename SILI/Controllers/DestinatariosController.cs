@@ -19,7 +19,7 @@ namespace SILI.Controllers
         // GET: Destinatarios
         public async Task<ActionResult> Index()
         {
-            var destinatario = db.Destinatario.Include(d => d.Cliente).Include(d => d.CodigoPostal);
+            var destinatario = db.Destinatario.Include(d => d.Morada).Include(d => d.CodigoPostal);
             return View(await destinatario.ToListAsync());
         }
 
@@ -41,7 +41,7 @@ namespace SILI.Controllers
         // GET: Destinatarios/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", null);
+            ViewBag.MoradaID = new SelectList(db.Morada, "ID", null);
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", null);
             return View();
         }
@@ -51,7 +51,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ClienteID,NIFDestinatario,CodPostalID,CodigoDestinatario")] Destinatario destinatario)
+        public async Task<ActionResult> Create([Bind(Include = "ID,MoradaID,NIFDestinatario,CodPostalID,CodigoDestinatario,CodigoSAP")] Destinatario destinatario)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace SILI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", null, destinatario.ClienteID);
+            ViewBag.MoradaID = new SelectList(db.Morada, "ID", null, destinatario.MoradaID);
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", null, destinatario.CodPostalID);
             return View(destinatario);
         }
@@ -77,7 +77,7 @@ namespace SILI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", null, destinatario.ClienteID);
+            ViewBag.MoradaID = new SelectList(db.Morada, "ID", null, destinatario.MoradaID);
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", null, destinatario.CodPostalID);
             return View(destinatario);
         }
@@ -87,7 +87,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ClienteID,NIFDestinatario,CodPostalID,CodigoDestinatario")] Destinatario destinatario)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,MoradaID,NIFDestinatario,CodPostalID,CodigoDestinatario,CodigoSAP")] Destinatario destinatario)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace SILI.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", null, destinatario.ClienteID);
+            ViewBag.MoradaID = new SelectList(db.Morada, "ID", null, destinatario.MoradaID);
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", null, destinatario.CodPostalID);
             return View(destinatario);
         }

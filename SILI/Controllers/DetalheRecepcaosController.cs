@@ -49,7 +49,8 @@ namespace SILI.Controllers
         // GET: DetalheRecepcaos/Create/Id
         public ActionResult Create(long RecepcaoId)
         {
-            ViewBag.RecepcaoID = new SelectList(db.Recepcao.Where(r => r.ID == RecepcaoId).ToList(), "ID");
+            //ViewBag.RecepcaoID = new SelectList(db.Recepcao.Where(r => r.ID == RecepcaoId).ToList(), "ID");
+            ViewBag.RecepcaoID = RecepcaoId;
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome");
             ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao");
             ViewBag.NrDetalhe = DetalheRecepcao.GenerateNrDetalheRecepcao(RecepcaoId);
@@ -65,7 +66,10 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
-                //detalheRecepcao.NrDetalhe = detalheRecepcao.GenerateNrDetalheRecepcao();
+                Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+
+                recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
+                recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
 
                 db.DetalheRecepcao.Add(detalheRecepcao);
                 await db.SaveChangesAsync();
@@ -100,13 +104,18 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NrTipoRecepcao")] DetalheRecepcao detalheRecepcao)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RecepcaoId,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NrTipoRecepcao")] DetalheRecepcao detalheRecepcao)
         {
             if (ModelState.IsValid)
             {
+                Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+
+                recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId && x.ID != detalheRecepcao.ID).AsEnumerable().Sum(r => r.NrVolumes);
+                recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
+
                 db.Entry(detalheRecepcao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
             }
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteId);
             ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoId);
@@ -135,8 +144,14 @@ namespace SILI.Controllers
         {
             DetalheRecepcao detalheRecepcao = await db.DetalheRecepcao.FindAsync(id);
             db.DetalheRecepcao.Remove(detalheRecepcao);
+
+            Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+
+            recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
+            recep.NrVolumesRecepcionados -= detalheRecepcao.NrVolumes;
+
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
         }
 
         protected override void Dispose(bool disposing)

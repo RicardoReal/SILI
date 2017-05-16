@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.TipoDevolucao.Descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NrTipoRecepcao)
+                @Html.DisplayNameFor(model => model.NReferencia)
             </th>
             <th></th>
         </tr>
@@ -41,7 +41,7 @@
                     @Html.DisplayFor(modelItem => item.TipoDevolucao.Descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrTipoRecepcao)
+                    @Html.DisplayFor(modelItem => item.NReferencia)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "DetalheRecepcaos", new { id = item.ID }, null) |

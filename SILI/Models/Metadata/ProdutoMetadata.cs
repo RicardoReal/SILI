@@ -32,6 +32,15 @@ namespace SILI
         [Required]
         public long CNP;
 
+        [Display(Name = "Largura (mm)")]
+        public decimal Largura;
+
+        [Display(Name = "Peso (gr)")]
+        public decimal Peso;
+
+        [Display(Name = "Altura (mm)")]
+        public decimal Altura;
+
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao;

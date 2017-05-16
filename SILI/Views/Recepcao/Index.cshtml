@@ -19,10 +19,13 @@
                 @Html.DisplayNameFor(model => model.DataHora)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataHoraChegadaArmazem)
+                @Html.DisplayNameFor(model => model.DataChegadaArmazem)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NrGuiaTransportador)
+                @Html.DisplayNameFor(model => model.HoraChegadaArmazem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NrCMR)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NrVolumesRecepcionados)
@@ -31,13 +34,13 @@
                 @Html.DisplayNameFor(model => model.NrVolumesGuia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Colaborador)
-            </th>
-            <th>
                 Entregue Por
             </th>
             <th>
                 Recebido Por
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTR)
             </th>
             <th></th>
         </tr>
@@ -53,10 +56,13 @@
                     @Html.DisplayFor(modelItem => item.DataHora)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataHoraChegadaArmazem)
+                    @Html.DisplayFor(modelItem => item.DataChegadaArmazem)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NrGuiaTransportador)
+                    @Html.DisplayFor(modelItem => item.HoraChegadaArmazem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NrCMR)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NrVolumesRecepcionados)
@@ -65,13 +71,13 @@
                     @Html.DisplayFor(modelItem => item.NrVolumesGuia)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Colaborador)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Morada.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CTR)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

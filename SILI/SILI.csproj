@@ -224,7 +224,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\DetalheRecepcaoMetadata.cs" />
-    <Compile Include="Models\Metadata\ProdutoTriagem.cs" />
+    <Compile Include="Models\Metadata\ProdutoTriagemMetadata.cs" />
     <Compile Include="Models\Metadata\TriagemMetadata.cs" />
     <Compile Include="Models\Metadata\RecepcaoMetadata.cs" />
     <Compile Include="Models\Metadata\UserRoleMetadata.cs" />

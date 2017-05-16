@@ -7,7 +7,21 @@ using System.Web;
 namespace SILI
 {
     [MetadataType(typeof(MoradaMetadata))]
-    public partial class Morada { }
+    public partial class Morada
+    {
+        public override string ToString()
+        {
+            return this.Nome;
+        }
+
+        public string FormattedToString
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
+    }
 
     public class MoradaMetadata
     {

@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                Cód. Cliente
+                Cliente
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NIFDestinatario)
@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.CodigoDestinatario)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoSAP)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,7 +35,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.FormattedToString)
+                    @Html.DisplayFor(modelItem => item.Morada.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NIFDestinatario)
@@ -42,6 +45,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CodigoDestinatario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoSAP)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

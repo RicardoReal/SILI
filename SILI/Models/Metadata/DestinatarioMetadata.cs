@@ -11,11 +11,11 @@ namespace SILI
 
     public class DestinatarioMetadata
     {
-        [Display(Name = "Cliente")]
-        public long ClienteID;
+        [Display(Name = "Morada")]
+        public long MoradaID;
 
-        [Display(Name = "Cliente")]
-        public Cliente Cliente;
+        [Display(Name = "Morada")]
+        public Cliente Morada;
 
         [Display(Name = "NIF (Destinatário)")]
         public long NIFDestinatario;
@@ -28,6 +28,9 @@ namespace SILI
 
         [Display(Name = "Cód. Destinatário")]
         public long CodigoDestinatario;
+
+        [Display(Name = "Cód. SAP")]
+        public long CodigoSAP;
 
 
     }

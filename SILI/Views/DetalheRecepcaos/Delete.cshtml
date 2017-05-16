@@ -28,11 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NrTipoRecepcao)
+            @Html.DisplayNameFor(model => model.NReferencia)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NrTipoRecepcao)
+            @Html.DisplayFor(model => model.NReferencia)
         </dd>
 
         <dt>
@@ -58,7 +58,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to Recepção", "Edit", "Recepcao", new { id = Model.RecepcaoId }, null)
         </div>
     }
 </div>

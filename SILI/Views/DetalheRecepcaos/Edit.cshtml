@@ -16,6 +16,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.RecepcaoId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.NrDetalhe, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -50,10 +51,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NrTipoRecepcao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NReferencia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NrTipoRecepcao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NrTipoRecepcao, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.NReferencia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NReferencia, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -66,7 +67,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Edit", "Recepcao", new { id = Model.RecepcaoId }, null)
+    @Html.ActionLink("Back to Recepção", "Edit", "Recepcao", new { id = Model.RecepcaoId }, null)
 </div>
 
 @section Scripts {

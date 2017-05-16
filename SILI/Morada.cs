@@ -17,8 +17,9 @@ namespace SILI
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Morada()
         {
-            this.Recepcao = new HashSet<Recepcao>();
+            this.Destinatario = new HashSet<Destinatario>();
             this.Triagem = new HashSet<Triagem>();
+            this.Recepcao = new HashSet<Recepcao>();
         }
     
         public long ID { get; set; }
@@ -31,10 +32,12 @@ namespace SILI
         public long TipoDevolvedorID { get; set; }
     
         public virtual CodigoPostal CodigoPostal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Destinatario> Destinatario { get; set; }
         public virtual TipoDevolvedor TipoDevolvedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recepcao> Recepcao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Triagem> Triagem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recepcao> Recepcao { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace SILI
         public long ClienteId { get; set; }
         public int NrVolumes { get; set; }
         public long TipoRecepcaoId { get; set; }
-        public long NrTipoRecepcao { get; set; }
+        public Nullable<long> NReferencia { get; set; }
         public long RecepcaoId { get; set; }
     
         public virtual Cliente Cliente { get; set; }

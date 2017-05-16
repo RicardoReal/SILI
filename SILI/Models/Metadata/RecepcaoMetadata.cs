@@ -33,17 +33,22 @@ namespace SILI
 
         [Display(Name = "Data/Hora")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime DataHora;
 
-        [Display(Name = "Data/Hora Chegada Armz.")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
-        public long DataHoraChegadaArmazem;
+        [Display(Name = "Data Chegada Armz.")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public long DataChegadaArmazem;
+
+        [Display(Name = "Hora Chegada Armz.")]
+        [DataType(DataType.Time)]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
+        public long HoraChegadaArmazem;
 
         [Required]
-        [Display(Name = "Nr. Guia Transp.")]
-        public string NrGuiaTransportador;
+        [Display(Name = "Nr. CMR")]
+        public string NrCMR;
 
         [Required]
         [Display(Name = "Nr. Volumes Recepcionados")]
@@ -52,7 +57,6 @@ namespace SILI
         [Display(Name = "Nr. Volumes Guia")]
         public decimal NrVolumesGuia;
 
-        [Editable(false)]
         public User Colaborador;
 
     }

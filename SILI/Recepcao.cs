@@ -23,16 +23,18 @@ namespace SILI
         public long ID { get; set; }
         public string NrRecepcao { get; set; }
         public System.DateTime DataHora { get; set; }
-        public System.DateTime DataHoraChegadaArmazem { get; set; }
+        public System.DateTime DataChegadaArmazem { get; set; }
+        public System.TimeSpan HoraChegadaArmazem { get; set; }
         public long EntreguePor { get; set; }
-        public string NrGuiaTransportador { get; set; }
+        public string NrCMR { get; set; }
         public int NrVolumesRecepcionados { get; set; }
         public int NrVolumesGuia { get; set; }
         public long Colaborador { get; set; }
+        public bool CTR { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual Morada Morada { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
     }
 }

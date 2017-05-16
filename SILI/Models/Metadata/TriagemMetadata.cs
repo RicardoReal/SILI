@@ -37,7 +37,7 @@ namespace SILI
 
         [Display(Name = "Data/Hora")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
         public DateTime DataHoraRecepcao;
 
         [Editable(false)]
