@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,22 +18,36 @@ namespace SILI
             {
                 string nrCliente = ent.Cliente.Where(cl => cl.ID == cliente.ID).FirstOrDefault().NrInterno.ToString();
 
-                int ct = ent.Triagem.Where(tr => tr.NrProcesso.Contains(nrCliente + "-" + DateTime.Now.Year)).Count() + 1;
+                string year = DateTime.Now.Year.ToString();
+
+                string month = "";
+                if (DateTime.Now.Month < 10) month = "0" + DateTime.Now.Month.ToString();
+                else month = DateTime.Now.Month.ToString();
+
+                string day = "";
+                if (DateTime.Now.Day < 10) day = "0" + DateTime.Now.Day.ToString();
+                else day = DateTime.Now.Day.ToString();
+
+                string date = year + month + day;
+
+                int ct = ent.Triagem.Where(tr => tr.NrProcesso.Contains(nrCliente + "-" + date)).Count() + 1;
 
                 string nrSeq = "";
 
                 if (ct < 10) { nrSeq = "00" + ct; }
                 else if (ct < 100) { nrSeq = "0" + ct; }
-                else { nrSeq = ct.ToString(); } 
+                else { nrSeq = ct.ToString(); }
 
-                return nrCliente + "-" + DateTime.Now.Year + "-" + nrSeq;
+                return nrCliente + "-" + date + "-" + nrSeq;
             }
         }
+
+        
     }
 
     public class TriagemMetadata
     {
-        [Display(Name= "Nr. Processo")]
+        [Display(Name = "Nr. Processo")]
         public long NrProcesso;
 
         [Display(Name = "Data/Hora")]
@@ -60,5 +75,5 @@ namespace SILI
 
     }
 
-    
+
 }

@@ -7,12 +7,19 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/typeahead")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datatables")
-    @RenderSection("scripts", required: false)
+
+    <link rel="stylesheet" type="text/css" href="~/Content/typeahead.css" />
+
     
-    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css" />
+
+    
+    
+    @*<link href="~/Content/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css" />*@
+    
 
 
 </head>
@@ -71,8 +78,7 @@
             <p>&copy; @DateTime.Now.Year - Sistema Integrado de Logistica Inversa</p>
         </footer>
     </div>
-
-
-
+    <script src="~/Scripts/typeahead.mvc.model.js" />
+    @RenderSection("scripts", required: false)
 </body>
 </html>

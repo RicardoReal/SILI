@@ -30,7 +30,7 @@ namespace SILI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/sandstone.bootstrap.css",
-                      //"~/Content/bootstrap.css",
+                      "~/Content/dataTables*",
                       "~/Content/site.css"
                       ));
 

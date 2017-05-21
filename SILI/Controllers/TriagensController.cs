@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using static SILI.Triagem;
 
 namespace SILI.Models
 {
@@ -57,6 +58,16 @@ namespace SILI.Models
             ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
            
             return View(triagem);
+        }
+
+        public ActionResult GetMoradas(string query)
+        {
+            return Json(Morada.GetMoradas(query), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCodPostais(string query)
+        {
+            return Json(CodigoPostal.GetCodPostais(query), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Triagens/Edit/5

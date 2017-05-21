@@ -1,4 +1,5 @@
 ﻿@model SILI.ProdutoTriagem
+@using SILI.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -15,11 +16,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.EANCNP)
 
         <div class="form-group">
             @Html.LabelFor(model => model.EANCNP, "EAN/CNP", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("EANCNP", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("EANCNP", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.AutocompleteFor(model => model.Produto.FormattedToString, model => model.EANCNP, "GetProdutos", "ProdutosTriagem", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EANCNP, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,5 +76,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Triagem", "Edit","Triagens", new { id = Model.TriagemID }, null)
 </div>

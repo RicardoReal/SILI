@@ -48,7 +48,7 @@
         <EntityTypeShape EntityType="SILI_DBModel.Recepcao" Width="1.5" PointX="13.25" PointY="9.75" />
         <AssociationConnector Association="SILI_DBModel.FK_Recepcao_Morada" />
         <AssociationConnector Association="SILI_DBModel.FK_Recepcao_User" />
-        <EntityTypeShape EntityType="SILI_DBModel.DetalheRecepcao" Width="1.5" PointX="15.75" PointY="8.125" />
+        <EntityTypeShape EntityType="SILI_DBModel.DetalheRecepcao" Width="1.5" PointX="15.5" PointY="8.25" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_Cliente" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" />

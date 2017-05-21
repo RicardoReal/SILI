@@ -24,6 +24,11 @@ namespace SILI.Controllers
             return View(await produtoTriagem.ToListAsync());
         }
 
+        public ActionResult GetProdutos(string query)
+        {
+            return Json(Produto.GetProdutos(query), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: ProdutosTriagem/Details/5
         public async Task<ActionResult> Details(long? id)
         {
@@ -43,6 +48,7 @@ namespace SILI.Controllers
         public ActionResult Create(long TriagemID)
         {
             _triagemID = TriagemID;
+            ViewBag.TriagemID = TriagemID;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos");
             ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia");
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao");
@@ -54,7 +60,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +77,8 @@ namespace SILI.Controllers
             //return View(produtoTriagem);
             return RedirectToAction("Create", "ProdutosTriagem", new { @TriagemID = _triagemID });
         }
+
+
 
         // GET: ProdutosTriagem/Edit/5
         public async Task<ActionResult> Edit(long? id)
@@ -95,7 +103,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
         {
             if (ModelState.IsValid)
             {

@@ -8,7 +8,8 @@ namespace SILI.Models
     public class NovaTriagemModel
     {
         public string CodigoBarras { get; set; }
-        public long ClienteID { get; set; }
+        public long? ClienteID { get; set; }
         public int NrVolumes { get; set; }
+        public Cliente Cliente { get; set; }
     }
 }

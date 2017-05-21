@@ -1,4 +1,5 @@
 ﻿@model SILI.Models.NovaTriagemModel
+@using SILI.Models
 
 @{
     ViewBag.Title = "Novo Processo de Triagem";
@@ -14,6 +15,7 @@
     <div class="form-horizontal">
         <h4>Novo Processo de Triagem</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClienteID)
         
         <div class="form-group">
             @Html.LabelFor(model => model.CodigoBarras,"Código Barras", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -26,7 +28,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ClienteID, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ClienteID", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("ClienteID", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.AutocompleteFor(model => model.Cliente.Nome, model => model.ClienteID, "GetClientes", "NovaTriagem", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ClienteID, "", new { @class = "text-danger" })
             </div>
         </div>

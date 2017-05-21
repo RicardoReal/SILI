@@ -21,6 +21,11 @@ namespace SILI.Controllers
             return View();
         }
 
+        public ActionResult GetClientes(string query)
+        {
+            return Json(Cliente.GetClientes(query), JsonRequestBehavior.AllowGet);
+        }
+
         // POST: NovaTriagem/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -49,7 +54,7 @@ namespace SILI.Controllers
                 
             }
             ModelState.AddModelError("", "Por favor, confirme os campos introduzidos.");
-            ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome");
+            ViewBag.ClienteID = novaTriagem.ClienteID;
             return View(novaTriagem);
         }
     }

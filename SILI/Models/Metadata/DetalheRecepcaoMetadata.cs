@@ -41,6 +41,10 @@ namespace SILI
 
         [Display(Name = "N/ Referência")]
         public long NReferencia;
+
+        [Display(Name = "Nr Guia Transporte")]
+        public long NrGuiaTransporte;
+        
     }
 
     

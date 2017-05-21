@@ -1,4 +1,5 @@
 ﻿@model SILI.DetalheRecepcao
+@using SILI.Models
 
 @{
     ViewBag.Title = "Create";
@@ -15,6 +16,7 @@
         <h4>Detalhe Recepção</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RecepcaoId)
         <div class="form-group">
             @Html.LabelFor(model => model.NrDetalhe, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -28,7 +30,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ClienteId, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.AutocompleteFor(model => model.Cliente.Nome, model => model.ClienteId, "GetClientes", "DetalheRecepcaos", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,6 +57,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NReferencia, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NReferencia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NrGuiaTransporte, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NrGuiaTransporte, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NrGuiaTransporte, "", new { @class = "text-danger" })
             </div>
         </div>
 

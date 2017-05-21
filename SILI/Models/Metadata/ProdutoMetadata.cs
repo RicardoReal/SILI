@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,12 +12,36 @@ namespace SILI
     {
         public override string ToString()
         {
-            return this.Referencia + " - " + this.Descricao;
+            return this.EAN + " - " + this.Descricao;
         }
 
         public string FormattedToString
         {
             get { return this.ToString(); }
+        }
+
+        public static List<Autocomplete> GetProdutos(string prefix)
+        {
+            List<Autocomplete> produtos = new List<Autocomplete>();
+
+            using (SILI_DBEntities ent = new SILI_DBEntities())
+            {
+                var results = (from p in ent.Produto
+                               where p.EAN.Contains(prefix) || p.Descricao.Contains(prefix)
+                               orderby p.Descricao
+                               select p).Take(10).ToList();
+
+                foreach (var r in results)
+                {
+                    Autocomplete produto = new Autocomplete();
+
+                    produto.Name = r.FormattedToString;
+                    produto.Id = (int)r.ID;
+                    produtos.Add(produto);
+                }
+            }
+
+            return produtos;
         }
     }
 

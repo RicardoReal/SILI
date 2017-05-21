@@ -49,6 +49,7 @@
           <Property Name="TipoRecepcaoId" Type="bigint" Nullable="false" />
           <Property Name="NReferencia" Type="bigint" />
           <Property Name="RecepcaoId" Type="bigint" Nullable="false" />
+          <Property Name="NrGuiaTransporte" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DetalheTriagem">
           <Key>
@@ -1389,6 +1390,7 @@
           <Property Name="TipoRecepcaoId" Type="Int64" Nullable="false" />
           <Property Name="NReferencia" Type="Int64" />
           <Property Name="RecepcaoId" Type="Int64" Nullable="false" />
+          <Property Name="NrGuiaTransporte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cliente" Relationship="SILI_DBModel.FK_DetalheRecepcao_Cliente" FromRole="DetalheRecepcao" ToRole="Cliente" />
           <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="DetalheRecepcao" ToRole="Recepcao" />
           <NavigationProperty Name="TipoDevolucao" Relationship="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" FromRole="DetalheRecepcao" ToRole="TipoDevolucao" />
@@ -1674,6 +1676,7 @@
           <EntitySetMapping Name="DetalheRecepcao">
             <EntityTypeMapping TypeName="SILI_DBModel.DetalheRecepcao">
               <MappingFragment StoreEntitySet="DetalheRecepcao">
+                <ScalarProperty Name="NrGuiaTransporte" ColumnName="NrGuiaTransporte" />
                 <ScalarProperty Name="RecepcaoId" ColumnName="RecepcaoId" />
                 <ScalarProperty Name="NReferencia" ColumnName="NReferencia" />
                 <ScalarProperty Name="TipoRecepcaoId" ColumnName="TipoRecepcaoId" />

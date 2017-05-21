@@ -23,6 +23,11 @@ namespace SILI.Controllers
             return View(await detalheRecepcao.ToListAsync());
         }
 
+        public ActionResult GetClientes(string query)
+        {
+            return Json(Cliente.GetClientes(query), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: DetalheRecepcaos/Details/5
         public async Task<ActionResult> Details(long? id)
         {
@@ -62,7 +67,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RecepcaoID,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NrTipoRecepcao")] DetalheRecepcao detalheRecepcao)
+        public async Task<ActionResult> Create([Bind(Include = "ID,RecepcaoID,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,RecepcaoId,NrGuiaTransporte")] DetalheRecepcao detalheRecepcao)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +109,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,RecepcaoId,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NrTipoRecepcao")] DetalheRecepcao detalheRecepcao)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RecepcaoId,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,RecepcaoId,NrGuiaTransporte")] DetalheRecepcao detalheRecepcao)
         {
             if (ModelState.IsValid)
             {

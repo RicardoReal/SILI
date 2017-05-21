@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILI.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,30 @@ namespace SILI
             {
                 return this.ToString();
             }
+        }
+
+        public static List<Autocomplete> GetMoradas(string prefix)
+        {
+            List<Autocomplete> moradas = new List<Autocomplete>();
+
+            using (SILI_DBEntities ent = new SILI_DBEntities())
+            {
+                var results = (from m in ent.Morada
+                               where m.NIF.ToString().Contains(prefix)
+                               orderby m.NIF
+                               select m).Take(10).ToList();
+
+                foreach (var r in results)
+                {
+                    Autocomplete morada = new Autocomplete();
+
+                    morada.Name = r.NIF.ToString();
+                    morada.Id = (int)r.ID;
+                    moradas.Add(morada);
+                }
+            }
+
+            return moradas;
         }
     }
 
