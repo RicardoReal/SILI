@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Data.Entity.Validation;
 
 namespace SILI.Controllers
 {
@@ -52,6 +53,7 @@ namespace SILI.Controllers
         //}
 
         // GET: DetalheRecepcaos/Create/Id
+        [HttpGet]
         public ActionResult Create(long RecepcaoId)
         {
             //ViewBag.RecepcaoID = new SelectList(db.Recepcao.Where(r => r.ID == RecepcaoId).ToList(), "ID");
@@ -71,13 +73,34 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
-                Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+                try
+                {
+                    Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
 
-                recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
-                recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
+                    recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
+                    recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
 
-                db.DetalheRecepcao.Add(detalheRecepcao);
-                await db.SaveChangesAsync();
+                    db.DetalheRecepcao.Add(detalheRecepcao);
+                    await db.SaveChangesAsync();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    string Error = "";
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Error = "Entity of type " + eve.Entry.Entity.GetType().Name + " in state " + eve.Entry.State + " has the following validation errors:";
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Error += Environment.NewLine + "- Property: " + ve.PropertyName + ", Error: " + ve.ErrorMessage + "";
+                        }
+                    }
+                    ErrorLog.LogError(Error, "", e.StackTrace, "DetalheRecepcaosController::Create :: POST");
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.LogError(ex, "DetalheRecepcaosController :: Create :: POST");
+                }
                 return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
             }
 
@@ -85,6 +108,7 @@ namespace SILI.Controllers
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteId);
             ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoId);
             return View(detalheRecepcao);
+
         }
 
         // GET: DetalheRecepcaos/Edit/5

@@ -140,7 +140,7 @@ namespace SILI.Controllers
             ProdutoTriagem produtoTriagem = await db.ProdutoTriagem.FindAsync(id);
             db.ProdutoTriagem.Remove(produtoTriagem);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
         }
 
         protected override void Dispose(bool disposing)

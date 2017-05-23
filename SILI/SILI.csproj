@@ -219,6 +219,9 @@
     <Compile Include="DetalheTriagem.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ErrorLog.cs">
+      <DependentUpon>SILIDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,6 +233,7 @@
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\ErrorLogMetadata.cs" />
     <Compile Include="Models\Metadata\DetalheRecepcaoMetadata.cs" />
     <Compile Include="Models\Metadata\ProdutoTriagemMetadata.cs" />
     <Compile Include="Models\Metadata\TriagemMetadata.cs" />

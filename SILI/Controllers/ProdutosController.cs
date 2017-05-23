@@ -56,9 +56,16 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Produto.Add(produto);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (db.Produto.Where(p => p.EAN == produto.EAN).Count() > 0)
+                {
+                    ModelState.AddModelError("", "Já existe um produto com o EAN indicado.");
+                }
+                else
+                {
+                    db.Produto.Add(produto);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.ClienteID = new SelectList(db.Cliente, "ID", "Nome", produto.ClienteID);
@@ -89,7 +96,7 @@ namespace SILI.Controllers
             ViewData["ProdutoId"] = id;
             return PartialView("LoteProdutosList", db.LoteProduto.Where(x => x.ProdutoID == id).ToList());
         }
-        
+
 
         // POST: Produtos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -100,6 +107,10 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.Produto.Where(p => p.EAN == produto.EAN && p.ID != produto.ID).Count() > 0)
+                {
+                    ModelState.AddModelError("", "Já existe um produto com o EAN indicado.");
+                }
                 db.Entry(produto).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

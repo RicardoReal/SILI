@@ -45,5 +45,6 @@ namespace SILI
         public virtual DbSet<Morada> Morada { get; set; }
         public virtual DbSet<Recepcao> Recepcao { get; set; }
         public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLog { get; set; }
     }
 }

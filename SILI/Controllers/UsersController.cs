@@ -55,7 +55,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,FirstName,LastName,Password,LastLogin,IsActive")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "ID,UserName,FirstName,LastName,Password,LastLogin,IsActive")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,FirstName,LastName,Password,LastLogin,IsActive")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,UserName,FirstName,LastName,Password,LastLogin,IsActive")] User user)
         {
             if (ModelState.IsValid)
             {

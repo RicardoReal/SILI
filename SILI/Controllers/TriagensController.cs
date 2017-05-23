@@ -143,6 +143,13 @@ namespace SILI.Models
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
+            if (db.ProdutoTriagem.Where(r => r.TriagemID == id).Count() > 0)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar esta triagem, devido à mesma ter produtos associados.");
+                Triagem tri = db.Triagem.Where(r => r.ID == id).FirstOrDefault();
+                return View(tri);
+            }
+
             Triagem triagem = await db.Triagem.FindAsync(id);
             db.Triagem.Remove(triagem);
             await db.SaveChangesAsync();

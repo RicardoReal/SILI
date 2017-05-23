@@ -130,6 +130,13 @@ namespace SILI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
+            if (db.DetalheRecepcao.Where(r => r.RecepcaoId == id).Count() > 0)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar esta recepção, devido à mesma ter Detalhes associados.");
+                Recepcao rec = db.Recepcao.Where(r => r.ID == id).FirstOrDefault();
+                return View(rec);
+            }
+
             Recepcao recepcao = await db.Recepcao.FindAsync(id);
             db.Recepcao.Remove(recepcao);
             await db.SaveChangesAsync();
