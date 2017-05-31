@@ -31,6 +31,7 @@ namespace SILI
             {
                 var results = (from c in ent.CodigoPostal
                                where c.CodPostal.ToString().Contains(prefix)
+                               && c.IsActive == true
                                orderby c.CodPostal
                                select c).Take(10).ToList();
 
@@ -54,8 +55,8 @@ namespace SILI
         [RegularExpression(@"\d{4}-\d{3}",ErrorMessage ="Cod. Postal com formato inválido.")]
         public string CodPostal;
 
-        
-                
+        [Display(Name = "Is Active")]
+        public bool IsActive;         
     }
 
     

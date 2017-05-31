@@ -14,6 +14,12 @@ namespace SILI
     
     public partial class DetalheRecepcao
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DetalheRecepcao()
+        {
+            this.Triagem = new HashSet<Triagem>();
+        }
+    
         public long ID { get; set; }
         public string NrDetalhe { get; set; }
         public long ClienteId { get; set; }
@@ -26,5 +32,7 @@ namespace SILI
         public virtual Cliente Cliente { get; set; }
         public virtual Recepcao Recepcao { get; set; }
         public virtual TipoDevolucao TipoDevolucao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Triagem> Triagem { get; set; }
     }
 }

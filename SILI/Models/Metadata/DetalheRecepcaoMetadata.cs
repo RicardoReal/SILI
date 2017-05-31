@@ -20,11 +20,12 @@ namespace SILI
                 if(dr != null)
                 {
                     string aux = dr.NrDetalhe;
-                    seq = int.Parse(aux.Split('-')[1]) + 1;
+                    seq = int.Parse(dr.NrDetalhe.Substring(11)) + 1;
+
                 }
                 
-                if (seq < 10) return nrRecepcao + "-00" + seq;
-                else if (seq < 100) return nrRecepcao + "-0" + seq;
+                if (seq < 10) return nrRecepcao + "00" + seq;
+                else if (seq < 100) return nrRecepcao + "0" + seq;
 
                 return nrRecepcao + seq;
             }

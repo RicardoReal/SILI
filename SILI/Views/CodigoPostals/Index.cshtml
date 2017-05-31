@@ -9,6 +9,22 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "CodigoPostals", FormMethod.Get))
+{
+    <div class="form-group">
+        <label>Is Active: </label>
+        <div class="radio-inline">
+            @Html.RadioButton("IsActive", "", 1) All
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButton("IsActive", "True", 0) True
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButton("IsActive", "False", 0) False
+        </div>
+        <input type="submit" value="Filter" class="btn btn-primary btn-sm" style="float:right;" />
+    </div>
+}
 <table class="table table-hover" id="mainTable">
     <thead>
         <tr>
@@ -20,6 +36,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Distrito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th></th>
         </tr>
@@ -38,9 +57,11 @@
                     @Html.DisplayFor(modelItem => item.Distrito)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
                 </td>
             </tr>
         }

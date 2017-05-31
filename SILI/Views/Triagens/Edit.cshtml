@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Triagem</h4>
         <hr />
@@ -19,6 +19,15 @@
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.NIF)
         @Html.HiddenFor(model => model.CodPostalID)
+        @Html.HiddenFor(model => model.DetalheRecepcaoId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DetalheRecepcao.NrDetalhe, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DetalheRecepcao.NrDetalhe, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.DetalheRecepcao.NrDetalhe, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.NrProcesso, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -48,7 +57,7 @@
             @Html.LabelFor(model => model.NIF, "NIF", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.DropDownList("NIF", null, htmlAttributes: new { @class = "form-control" })*@
-                @Html.AutocompleteFor(model => model.Morada.NIF, model => model.NIF, "GetMoradas", "Triagens",false, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.AutocompleteFor(model => model.Morada.NIF, model => model.NIF, "GetMoradas", "Triagens", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NIF, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +68,7 @@
                 @*@Html.DropDownList("CodPostalID", null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.AutocompleteFor(model => model.CodigoPostal.CodPostal, model => model.CodPostalID, "GetCodPostais", "Triagens", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CodPostalID, "", new { @class = "text-danger" })
-                
+
             </div>
         </div>
 
@@ -90,7 +99,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataGuia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataGuia, new { htmlAttributes = new { @class = "form-control datepicker"} })
+                @Html.EditorFor(model => model.DataGuia, new { htmlAttributes = new { @class = "form-control datepicker" } })
                 @Html.ValidationMessageFor(model => model.DataGuia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -116,7 +125,9 @@
             <h4>Produtos</h4>
             @Html.Action("GetProdutosTriagem")
         </div>
-    </div>
+
+        
+     </div>
 }
 
 <div>

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using SILI;
-using static SILI.Triagem;
+
 
 namespace SILI.Models
 {
@@ -17,6 +16,8 @@ namespace SILI.Models
     {
         private SILI_DBEntities db = new SILI_DBEntities();
         private static long ColaboradorID;
+
+        
 
         // GET: Triagens
         public async Task<ActionResult> Index()

@@ -43,6 +43,16 @@ namespace SILI
 
             return produtos;
         }
+
+        public static bool IsValid(string code)
+        {
+            using (SILI_DBEntities ent = new SILI_DBEntities())
+            {
+                return ent.Produto.Where(p => p.EAN == code || p.CNP == code).Count() > 1;
+            }
+        }
+
+       
     }
 
     public class ProdutoMetadata

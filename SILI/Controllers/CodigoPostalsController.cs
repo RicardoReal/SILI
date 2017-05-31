@@ -18,9 +18,16 @@ namespace SILI.Controllers
         private SILI_DBEntities db = new SILI_DBEntities();
 
         // GET: CodigoPostals
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string IsActive)
         {
-            return View(await db.CodigoPostal.ToListAsync());
+            if (String.IsNullOrEmpty(IsActive))
+            {
+                return View(await db.CodigoPostal.ToListAsync());
+            }
+            else
+            {
+                return View(await db.CodigoPostal.Where(x => x.IsActive == (IsActive == "True")).ToListAsync());
+            }
         }
 
         // GET: CodigoPostals/Details/5
@@ -49,7 +56,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,CodPostal,Localidade,Distrito")] CodigoPostal codigoPostal)
+        public async Task<ActionResult> Create([Bind(Include = "ID,CodPostal,Localidade,Distrito,IsActive")] CodigoPostal codigoPostal)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +90,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,CodPostal,Localidade,Distrito")] CodigoPostal codigoPostal)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,CodPostal,Localidade,Distrito,IsActive")] CodigoPostal codigoPostal)
         {
             if (ModelState.IsValid)
             {

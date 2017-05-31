@@ -21,7 +21,7 @@ namespace SILI
         public int CodigoDestinatario { get; set; }
         public string CodigoSAP { get; set; }
     
-        public virtual CodigoPostal CodigoPostal { get; set; }
         public virtual Morada Morada { get; set; }
+        public virtual CodigoPostal CodigoPostal { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SILI;
 using System.Data.Entity.Validation;
+using System.IO;
 
 namespace SILI.Controllers
 {
@@ -16,6 +17,17 @@ namespace SILI.Controllers
     public class DetalheRecepcaosController : Controller
     {
         private SILI_DBEntities db = new SILI_DBEntities();
+
+        public ActionResult Download(long detalheRecepcaoId)
+        {
+            DetalheRecepcao detalheRecepcao = db.DetalheRecepcao.Where(x => x.ID == detalheRecepcaoId).FirstOrDefault();
+
+            Stream stream = new MemoryStream(FileGenerator.GenerateEtiqueta(detalheRecepcao));
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=" + detalheRecepcao.NrDetalhe + ".pdf");
+
+            return new FileStreamResult(stream, "application/pdf");
+        }
 
         // GET: DetalheRecepcaos
         public async Task<ActionResult> Index()

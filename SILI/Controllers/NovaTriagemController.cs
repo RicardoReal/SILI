@@ -41,6 +41,8 @@ namespace SILI.Controllers
                 {
                     Triagem triagem = new Triagem();
 
+                    triagem.DetalheRecepcaoId = detalhe.ID;
+
                     Cliente cliente = db.Cliente.Where(cl => cl.ID == novaTriagem.ClienteID).FirstOrDefault();
                     triagem.NrProcesso = triagem.GenerateNrTriagem(cliente);
                     triagem.DataHoraRecepcao = DateTime.Now;

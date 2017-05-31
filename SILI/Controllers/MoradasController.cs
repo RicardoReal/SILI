@@ -23,6 +23,11 @@ namespace SILI.Controllers
             return View(await morada.ToListAsync());
         }
 
+        public ActionResult GetCodPostais(string query)
+        {
+            return Json(CodigoPostal.GetCodPostais(query), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Moradas/Details/5
         public async Task<ActionResult> Details(long? id)
         {

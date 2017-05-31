@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SILI.ProdutoTriagem>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "ProdutosTriagem", new { TriagemId = ViewData["TriagemId"]}, null)
+    @Html.ActionLink("Create New", "Create", "ProdutosTriagem", new { TriagemId = ViewData["TriagemId"] }, null)
 </p>
 <table class="table table-hovered">
     <thead>
@@ -63,7 +63,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "ProdutosTriagem", new { id = item.ID }, null) |
-                    @Html.ActionLink("Delete", "Delete", "ProdutosTriagem", new { id = item.ID }, null)
+                    @Html.ActionLink("Delete", "Delete", "ProdutosTriagem", new { id = item.ID }, null) |
+                    @Html.ActionLink("Gerar Etiqueta", "Download", "ProdutosTriagem", new { produtoTriagemId = item.ID }, null)
+
                 </td>
             </tr>
         }

@@ -8,6 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Drawing;
+using static SILI.Triagem;
+using System.IO;
 
 namespace SILI.Controllers
 {
@@ -16,6 +19,17 @@ namespace SILI.Controllers
     {
         private SILI_DBEntities db = new SILI_DBEntities();
         private static long _triagemID;
+
+        public ActionResult Download(long produtoTriagemId)
+        {
+            ProdutoTriagem produtoTriagem = db.ProdutoTriagem.Where(x => x.ID == produtoTriagemId).FirstOrDefault();
+
+            Stream stream = new MemoryStream(FileGenerator.GenerateEtiqueta(produtoTriagem));
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=" + produtoTriagem.Produto.EAN + ".pdf");
+
+            return new FileStreamResult(stream, "application/pdf");
+        }
 
         // GET: ProdutosTriagem
         public async Task<ActionResult> Index()
@@ -64,21 +78,41 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
-                produtoTriagem.TriagemID = _triagemID;
+                DateTime? validade = null;
+                if (produtoTriagem.HasLote(produtoTriagem.Lote, produtoTriagem.EANCNP, out validade))
+                {
+                    produtoTriagem.Validade = validade;
+                    produtoTriagem.TriagemID = _triagemID;
+                    long ptId;
 
-                db.ProdutoTriagem.Add(produtoTriagem);
-                await db.SaveChangesAsync();
-                //return RedirectToAction("Index");
+                    ProdutoTriagem pt = db.ProdutoTriagem.Where(x => x.EANCNP == produtoTriagem.EANCNP && x.Lote == produtoTriagem.Lote && x.PVP == produtoTriagem.PVP && x.MotivoDevolucaoID == produtoTriagem.MotivoDevolucaoID && x.TratamentoID == produtoTriagem.TratamentoID && x.TriagemID == produtoTriagem.TriagemID).FirstOrDefault();
+
+                    if (pt != null)
+                    {
+                        pt.QtdDevolvida += produtoTriagem.QtdDevolvida;
+                        ptId = pt.ID;
+                    }
+                    else
+                    {
+                        db.ProdutoTriagem.Add(produtoTriagem);
+                        ptId = produtoTriagem.ID;
+                    }
+
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Edit", "ProdutosTriagem", new { id = ptId });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lote introduzido não existe para o produto indicado.");
+                }
             }
 
+            ViewBag.EANCNP = produtoTriagem.EANCNP;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
-            ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
             //return View(produtoTriagem);
-            return RedirectToAction("Create", "ProdutosTriagem", new { @TriagemID = _triagemID });
+            return View(produtoTriagem);
         }
-
-
 
         // GET: ProdutosTriagem/Edit/5
         public async Task<ActionResult> Edit(long? id)
@@ -93,7 +127,7 @@ namespace SILI.Controllers
                 return HttpNotFound();
             }
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
-            ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
+            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
             return View(produtoTriagem);
         }
@@ -107,14 +141,18 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(produtoTriagem).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
+
             }
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
-            ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
+            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            return View(produtoTriagem);
+            //return View(produtoTriagem);
+            return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
         }
 
         // GET: ProdutosTriagem/Delete/5

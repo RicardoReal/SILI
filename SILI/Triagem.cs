@@ -32,13 +32,15 @@ namespace SILI
         public string NrGuiaNotaDevol { get; set; }
         public Nullable<System.DateTime> DataGuia { get; set; }
         public bool SubUnidades { get; set; }
+        public Nullable<long> DetalheRecepcaoId { get; set; }
     
         public virtual CodigoPostal CodigoPostal { get; set; }
+        public virtual DetalheRecepcao DetalheRecepcao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
-        public virtual User User { get; set; }
+        public virtual Morada Morada { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProdutoTriagem> ProdutoTriagem { get; set; }
-        public virtual Morada Morada { get; set; }
+        public virtual User User { get; set; }
     }
 }
