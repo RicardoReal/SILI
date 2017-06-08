@@ -29,6 +29,12 @@ namespace SILI.Controllers
             }
         }
 
+        public ActionResult GetRolesUser(long id)
+        {
+            ViewData["UserId"] = id;
+            return PartialView("UserRolesList", db.UserRole.Where(x => x.UserId == id).ToList());
+        }
+
         // GET: Users/Details/5
         public async Task<ActionResult> Details(long? id)
         {

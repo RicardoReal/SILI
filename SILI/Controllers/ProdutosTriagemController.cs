@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SILI;
-using System.Drawing;
-using static SILI.Triagem;
 using System.IO;
 
 namespace SILI.Controllers
@@ -64,7 +59,7 @@ namespace SILI.Controllers
             _triagemID = TriagemID;
             ViewBag.TriagemID = TriagemID;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos");
-            ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia");
+            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia");
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao");
             return View();
         }
@@ -83,23 +78,21 @@ namespace SILI.Controllers
                 {
                     produtoTriagem.Validade = validade;
                     produtoTriagem.TriagemID = _triagemID;
-                    long ptId;
 
                     ProdutoTriagem pt = db.ProdutoTriagem.Where(x => x.EANCNP == produtoTriagem.EANCNP && x.Lote == produtoTriagem.Lote && x.PVP == produtoTriagem.PVP && x.MotivoDevolucaoID == produtoTriagem.MotivoDevolucaoID && x.TratamentoID == produtoTriagem.TratamentoID && x.TriagemID == produtoTriagem.TriagemID).FirstOrDefault();
 
                     if (pt != null)
                     {
                         pt.QtdDevolvida += produtoTriagem.QtdDevolvida;
-                        ptId = pt.ID;
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Edit", "ProdutosTriagem", new { id = pt.ID });
                     }
                     else
                     {
                         db.ProdutoTriagem.Add(produtoTriagem);
-                        ptId = produtoTriagem.ID;
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Edit", "ProdutosTriagem", new { id = produtoTriagem.ID });
                     }
-
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Edit", "ProdutosTriagem", new { id = ptId });
                 }
                 else
                 {
@@ -108,9 +101,10 @@ namespace SILI.Controllers
             }
 
             ViewBag.EANCNP = produtoTriagem.EANCNP;
+            produtoTriagem.Produto = db.Produto.Where(p => p.ID == produtoTriagem.EANCNP).FirstOrDefault();
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            //return View(produtoTriagem);
+
             return View(produtoTriagem);
         }
 
@@ -144,9 +138,14 @@ namespace SILI.Controllers
 
                 db.Entry(produtoTriagem).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-
-                return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
-
+                if (Request.Form["Save"] != null)
+                {
+                    return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
+                }
             }
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);

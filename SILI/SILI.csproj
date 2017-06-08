@@ -219,6 +219,7 @@
     <Compile Include="Controllers\TipoDevolvedorsController.cs" />
     <Compile Include="Controllers\TipologiasController.cs" />
     <Compile Include="Controllers\TratamentoesController.cs" />
+    <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Destinatario.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
@@ -631,6 +632,10 @@
     <Content Include="Views\ProdutosTriagem\Delete.cshtml" />
     <Content Include="Views\ProdutosTriagem\Edit.cshtml" />
     <Content Include="Views\Triagens\ProdutosTriagemList.cshtml" />
+    <Content Include="Views\UserRoles\Create.cshtml" />
+    <Content Include="Views\UserRoles\Delete.cshtml" />
+    <Content Include="Views\UserRoles\Edit.cshtml" />
+    <Content Include="Views\Users\UserRolesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

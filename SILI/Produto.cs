@@ -43,8 +43,8 @@ namespace SILI
         public virtual Tipologia Tipologia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
+        public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProdutoTriagem> ProdutoTriagem { get; set; }
-        public virtual Cliente Cliente { get; set; }
     }
 }

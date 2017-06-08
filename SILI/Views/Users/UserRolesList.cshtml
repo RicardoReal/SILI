@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SILI.UserRole>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "UserRoles", new { UserId = ViewData["UserId"] }, null)
+</p>
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Role.Nome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Nome)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "UserRoles", new { id = item.ID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "UserRoles", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

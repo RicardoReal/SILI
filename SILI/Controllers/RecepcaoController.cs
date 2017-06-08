@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SILI;
 
 namespace SILI.Controllers
 {
@@ -51,7 +48,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,NrCMR,NrVolumesRecepcionados,NrVolumesGuia,Colaborador,CTR")] Recepcao recepcao)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,Observacoes,NrVolumesRecepcionados,Colaborador,DCR")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +94,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,NrCMR,NrVolumesRecepcionados,NrVolumesGuia,Colaborador,UserID,CTR")] Recepcao recepcao)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NrRecepcao,DataHora,DataChegadaArmazem,HoraChegadaArmazem,EntreguePor,Observacoes,NrVolumesRecepcionados,Colaborador,UserID,DCR")] Recepcao recepcao)
         {
             if (ModelState.IsValid)
             {

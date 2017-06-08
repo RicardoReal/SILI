@@ -144,7 +144,7 @@
           <Property Name="PVP" Type="decimal" Precision="18" Scale="2" />
           <Property Name="MotivoDevolucaoID" Type="bigint" Nullable="false" />
           <Property Name="TratamentoID" Type="bigint" Nullable="false" />
-          <Property Name="Validade" Type="datetime" />
+          <Property Name="Validade" Type="date" />
         </EntityType>
         <EntityType Name="Recepcao">
           <Key>
@@ -156,11 +156,10 @@
           <Property Name="DataChegadaArmazem" Type="date" Nullable="false" />
           <Property Name="HoraChegadaArmazem" Type="time" Precision="0" Nullable="false" />
           <Property Name="EntreguePor" Type="bigint" Nullable="false" />
-          <Property Name="NrCMR" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Observacoes" Type="nvarchar" MaxLength="500" />
           <Property Name="NrVolumesRecepcionados" Type="int" Nullable="false" />
-          <Property Name="NrVolumesGuia" Type="int" Nullable="false" />
           <Property Name="Colaborador" Type="bigint" Nullable="false" />
-          <Property Name="CTR" Type="bit" Nullable="false" />
+          <Property Name="DCR" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -772,19 +771,6 @@
             <End Role="Tratamento" EntitySet="Tratamento" />
             <End Role="DetalheTriagem" EntitySet="DetalheTriagem" />
           </AssociationSet>
-          <EntitySet Name="ProdutoTriagem" EntityType="SILI_DBModel.ProdutoTriagem" />
-          <AssociationSet Name="FK_ProdutoTriagem_MotivoDevolucao" Association="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao">
-            <End Role="MotivoDevolucao" EntitySet="MotivoDevolucao" />
-            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProdutoTriagem_Produto" Association="SILI_DBModel.FK_ProdutoTriagem_Produto">
-            <End Role="Produto" EntitySet="Produto" />
-            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProdutoTriagem_Tratamento" Association="SILI_DBModel.FK_ProdutoTriagem_Tratamento">
-            <End Role="Tratamento" EntitySet="Tratamento" />
-            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
-          </AssociationSet>
           <EntitySet Name="Cliente" EntityType="SILI_DBModel.Cliente" />
           <EntitySet Name="Destinatario" EntityType="SILI_DBModel.Destinatario" />
           <EntitySet Name="Morada" EntityType="SILI_DBModel.Morada" />
@@ -799,15 +785,6 @@
           <AssociationSet Name="FK_Morada_TipoDevolvedor" Association="SILI_DBModel.FK_Morada_TipoDevolvedor">
             <End Role="TipoDevolvedor" EntitySet="TipoDevolvedor" />
             <End Role="Morada" EntitySet="Morada" />
-          </AssociationSet>
-          <EntitySet Name="Recepcao" EntityType="SILI_DBModel.Recepcao" />
-          <AssociationSet Name="FK_Recepcao_Morada" Association="SILI_DBModel.FK_Recepcao_Morada">
-            <End Role="Morada" EntitySet="Morada" />
-            <End Role="Recepcao" EntitySet="Recepcao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recepcao_User" Association="SILI_DBModel.FK_Recepcao_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Recepcao" EntitySet="Recepcao" />
           </AssociationSet>
           <EntitySet Name="ErrorLog" EntityType="SILI_DBModel.ErrorLog" />
           <EntitySet Name="CodigoPostal" EntityType="SILI_DBModel.CodigoPostal" />
@@ -829,10 +806,6 @@
             <End Role="CodigoPostal" EntitySet="CodigoPostal" />
             <End Role="Triagem" EntitySet="Triagem" />
           </AssociationSet>
-          <AssociationSet Name="FK_DetalheRecepcao_Recepcao" Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao">
-            <End Role="Recepcao" EntitySet="Recepcao" />
-            <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
-          </AssociationSet>
           <AssociationSet Name="FK_DetalheRecepcao_TipoDevolucao" Association="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao">
             <End Role="TipoDevolucao" EntitySet="TipoDevolucao" />
             <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
@@ -849,13 +822,39 @@
             <End Role="Morada" EntitySet="Morada" />
             <End Role="Triagem" EntitySet="Triagem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProdutoTriagem_Triagem" Association="SILI_DBModel.FK_ProdutoTriagem_Triagem">
-            <End Role="Triagem" EntitySet="Triagem" />
-            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
-          </AssociationSet>
           <AssociationSet Name="FK_Triagem_User" Association="SILI_DBModel.FK_Triagem_User">
             <End Role="User" EntitySet="User" />
             <End Role="Triagem" EntitySet="Triagem" />
+          </AssociationSet>
+          <EntitySet Name="Recepcao" EntityType="SILI_DBModel.Recepcao" />
+          <AssociationSet Name="FK_DetalheRecepcao_Recepcao" Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao">
+            <End Role="Recepcao" EntitySet="Recepcao" />
+            <End Role="DetalheRecepcao" EntitySet="DetalheRecepcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recepcao_Morada" Association="SILI_DBModel.FK_Recepcao_Morada">
+            <End Role="Morada" EntitySet="Morada" />
+            <End Role="Recepcao" EntitySet="Recepcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recepcao_User" Association="SILI_DBModel.FK_Recepcao_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Recepcao" EntitySet="Recepcao" />
+          </AssociationSet>
+          <EntitySet Name="ProdutoTriagem" EntityType="SILI_DBModel.ProdutoTriagem" />
+          <AssociationSet Name="FK_ProdutoTriagem_MotivoDevolucao" Association="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao">
+            <End Role="MotivoDevolucao" EntitySet="MotivoDevolucao" />
+            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutoTriagem_Produto" Association="SILI_DBModel.FK_ProdutoTriagem_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutoTriagem_Tratamento" Association="SILI_DBModel.FK_ProdutoTriagem_Tratamento">
+            <End Role="Tratamento" EntitySet="Tratamento" />
+            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProdutoTriagem_Triagem" Association="SILI_DBModel.FK_ProdutoTriagem_Triagem">
+            <End Role="Triagem" EntitySet="Triagem" />
+            <End Role="ProdutoTriagem" EntitySet="ProdutoTriagem" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="MotivoDevolucao">
@@ -953,8 +952,8 @@
           <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_Produto" FromRole="Produto" ToRole="LoteProduto" />
           <NavigationProperty Name="Tipologia" Relationship="SILI_DBModel.FK_Produto_Tipologia" FromRole="Produto" ToRole="Tipologia" />
           <NavigationProperty Name="DetalheTriagem" Relationship="SILI_DBModel.FK_DetalheTriagem_Produto" FromRole="Produto" ToRole="DetalheTriagem" />
-          <NavigationProperty Name="ProdutoTriagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Produto" FromRole="Produto" ToRole="ProdutoTriagem" />
           <NavigationProperty Name="Cliente" Relationship="SILI_DBModel.FK_Produto_Cliente" FromRole="Produto" ToRole="Cliente" />
+          <NavigationProperty Name="ProdutoTriagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Produto" FromRole="Produto" ToRole="ProdutoTriagem" />
         </EntityType>
         <Association Name="FK_LoteProduto_Produto">
           <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="1" />
@@ -1036,8 +1035,8 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LoteProduto" Relationship="SILI_DBModel.FK_LoteProduto_User" FromRole="User" ToRole="LoteProduto" />
           <NavigationProperty Name="UserRole" Relationship="SILI_DBModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
-          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="User" ToRole="Recepcao" />
           <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_Triagem_User" FromRole="User" ToRole="Triagem" />
+          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="User" ToRole="Recepcao" />
         </EntityType>
         <Association Name="FK_LoteProduto_User">
           <End Type="SILI_DBModel.User" Role="User" Multiplicity="0..1" />
@@ -1118,60 +1117,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ProdutoTriagem">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TriagemID" Type="Int64" Nullable="false" />
-          <Property Name="EANCNP" Type="Int64" Nullable="false" />
-          <Property Name="QtdDevolvida" Type="Int32" Nullable="false" />
-          <Property Name="Lote" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PVP" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MotivoDevolucaoID" Type="Int64" Nullable="false" />
-          <Property Name="TratamentoID" Type="Int64" Nullable="false" />
-          <Property Name="Validade" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="MotivoDevolucao" Relationship="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao" FromRole="ProdutoTriagem" ToRole="MotivoDevolucao" />
-          <NavigationProperty Name="Produto" Relationship="SILI_DBModel.FK_ProdutoTriagem_Produto" FromRole="ProdutoTriagem" ToRole="Produto" />
-          <NavigationProperty Name="Tratamento" Relationship="SILI_DBModel.FK_ProdutoTriagem_Tratamento" FromRole="ProdutoTriagem" ToRole="Tratamento" />
-          <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Triagem" FromRole="ProdutoTriagem" ToRole="Triagem" />
-        </EntityType>
-        <Association Name="FK_ProdutoTriagem_MotivoDevolucao">
-          <End Type="SILI_DBModel.MotivoDevolucao" Role="MotivoDevolucao" Multiplicity="1" />
-          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MotivoDevolucao">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ProdutoTriagem">
-              <PropertyRef Name="MotivoDevolucaoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProdutoTriagem_Produto">
-          <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="1" />
-          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Produto">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ProdutoTriagem">
-              <PropertyRef Name="EANCNP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProdutoTriagem_Tratamento">
-          <End Type="SILI_DBModel.Tratamento" Role="Tratamento" Multiplicity="1" />
-          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tratamento">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ProdutoTriagem">
-              <PropertyRef Name="TratamentoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="ID" />
@@ -1214,9 +1159,9 @@
           <Property Name="TipoDevolvedorID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Destinatario" Relationship="SILI_DBModel.FK_Destinatario_Morada" FromRole="Morada" ToRole="Destinatario" />
           <NavigationProperty Name="TipoDevolvedor" Relationship="SILI_DBModel.FK_Morada_TipoDevolvedor" FromRole="Morada" ToRole="TipoDevolvedor" />
-          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_Morada" FromRole="Morada" ToRole="Recepcao" />
           <NavigationProperty Name="CodigoPostal" Relationship="SILI_DBModel.FK_Morada_CodigoPostal" FromRole="Morada" ToRole="CodigoPostal" />
           <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_Triagem_Morada" FromRole="Morada" ToRole="Triagem" />
+          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_Recepcao_Morada" FromRole="Morada" ToRole="Recepcao" />
         </EntityType>
         <Association Name="FK_Produto_Cliente">
           <End Type="SILI_DBModel.Cliente" Role="Cliente" Multiplicity="1" />
@@ -1251,49 +1196,6 @@
             </Principal>
             <Dependent Role="Morada">
               <PropertyRef Name="TipoDevolvedorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Recepcao">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NrRecepcao" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DataChegadaArmazem" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="HoraChegadaArmazem" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="EntreguePor" Type="Int64" Nullable="false" />
-          <Property Name="NrCMR" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NrVolumesRecepcionados" Type="Int32" Nullable="false" />
-          <Property Name="NrVolumesGuia" Type="Int32" Nullable="false" />
-          <Property Name="Colaborador" Type="Int64" Nullable="false" />
-          <Property Name="CTR" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Recepcao_Morada" FromRole="Recepcao" ToRole="Morada" />
-          <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="Recepcao" ToRole="User" />
-          <NavigationProperty Name="DetalheRecepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="Recepcao" ToRole="DetalheRecepcao" />
-        </EntityType>
-        <Association Name="FK_Recepcao_Morada">
-          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="1" />
-          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Morada">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Recepcao">
-              <PropertyRef Name="EntreguePor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Recepcao_User">
-          <End Type="SILI_DBModel.User" Role="User" Multiplicity="1" />
-          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Recepcao">
-              <PropertyRef Name="Colaborador" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1358,9 +1260,9 @@
           <Property Name="RecepcaoId" Type="Int64" Nullable="false" />
           <Property Name="NrGuiaTransporte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cliente" Relationship="SILI_DBModel.FK_DetalheRecepcao_Cliente" FromRole="DetalheRecepcao" ToRole="Cliente" />
-          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="DetalheRecepcao" ToRole="Recepcao" />
           <NavigationProperty Name="TipoDevolucao" Relationship="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" FromRole="DetalheRecepcao" ToRole="TipoDevolucao" />
           <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_Triagem_DetalheRecepcao" FromRole="DetalheRecepcao" ToRole="Triagem" />
+          <NavigationProperty Name="Recepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="DetalheRecepcao" ToRole="Recepcao" />
         </EntityType>
         <EntityType Name="Triagem">
           <Key>
@@ -1382,8 +1284,8 @@
           <NavigationProperty Name="DetalheRecepcao" Relationship="SILI_DBModel.FK_Triagem_DetalheRecepcao" FromRole="Triagem" ToRole="DetalheRecepcao" />
           <NavigationProperty Name="DetalheTriagem" Relationship="SILI_DBModel.FK_DetalheTriagem_Triagem" FromRole="Triagem" ToRole="DetalheTriagem" />
           <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Triagem_Morada" FromRole="Triagem" ToRole="Morada" />
-          <NavigationProperty Name="ProdutoTriagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Triagem" FromRole="Triagem" ToRole="ProdutoTriagem" />
           <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Triagem_User" FromRole="Triagem" ToRole="User" />
+          <NavigationProperty Name="ProdutoTriagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Triagem" FromRole="Triagem" ToRole="ProdutoTriagem" />
         </EntityType>
         <Association Name="FK_DetalheRecepcao_Cliente">
           <End Type="SILI_DBModel.Cliente" Role="Cliente" Multiplicity="1" />
@@ -1406,18 +1308,6 @@
             </Principal>
             <Dependent Role="Triagem">
               <PropertyRef Name="CodPostalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetalheRecepcao_Recepcao">
-          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="1" />
-          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Recepcao">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DetalheRecepcao">
-              <PropertyRef Name="RecepcaoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1469,18 +1359,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProdutoTriagem_Triagem">
-          <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="1" />
-          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Triagem">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ProdutoTriagem">
-              <PropertyRef Name="TriagemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Triagem_User">
           <End Type="SILI_DBModel.User" Role="User" Multiplicity="1" />
           <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="*" />
@@ -1490,6 +1368,126 @@
             </Principal>
             <Dependent Role="Triagem">
               <PropertyRef Name="ColaboradorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Recepcao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NrRecepcao" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataChegadaArmazem" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HoraChegadaArmazem" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="EntreguePor" Type="Int64" Nullable="false" />
+          <Property Name="Observacoes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NrVolumesRecepcionados" Type="Int32" Nullable="false" />
+          <Property Name="Colaborador" Type="Int64" Nullable="false" />
+          <Property Name="DCR" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetalheRecepcao" Relationship="SILI_DBModel.FK_DetalheRecepcao_Recepcao" FromRole="Recepcao" ToRole="DetalheRecepcao" />
+          <NavigationProperty Name="Morada" Relationship="SILI_DBModel.FK_Recepcao_Morada" FromRole="Recepcao" ToRole="Morada" />
+          <NavigationProperty Name="User" Relationship="SILI_DBModel.FK_Recepcao_User" FromRole="Recepcao" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_DetalheRecepcao_Recepcao">
+          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="1" />
+          <End Type="SILI_DBModel.DetalheRecepcao" Role="DetalheRecepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepcao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DetalheRecepcao">
+              <PropertyRef Name="RecepcaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recepcao_Morada">
+          <End Type="SILI_DBModel.Morada" Role="Morada" Multiplicity="1" />
+          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Morada">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Recepcao">
+              <PropertyRef Name="EntreguePor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recepcao_User">
+          <End Type="SILI_DBModel.User" Role="User" Multiplicity="1" />
+          <End Type="SILI_DBModel.Recepcao" Role="Recepcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Recepcao">
+              <PropertyRef Name="Colaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProdutoTriagem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TriagemID" Type="Int64" Nullable="false" />
+          <Property Name="EANCNP" Type="Int64" Nullable="false" />
+          <Property Name="QtdDevolvida" Type="Int32" Nullable="false" />
+          <Property Name="Lote" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PVP" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MotivoDevolucaoID" Type="Int64" Nullable="false" />
+          <Property Name="TratamentoID" Type="Int64" Nullable="false" />
+          <Property Name="Validade" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="MotivoDevolucao" Relationship="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao" FromRole="ProdutoTriagem" ToRole="MotivoDevolucao" />
+          <NavigationProperty Name="Produto" Relationship="SILI_DBModel.FK_ProdutoTriagem_Produto" FromRole="ProdutoTriagem" ToRole="Produto" />
+          <NavigationProperty Name="Tratamento" Relationship="SILI_DBModel.FK_ProdutoTriagem_Tratamento" FromRole="ProdutoTriagem" ToRole="Tratamento" />
+          <NavigationProperty Name="Triagem" Relationship="SILI_DBModel.FK_ProdutoTriagem_Triagem" FromRole="ProdutoTriagem" ToRole="Triagem" />
+        </EntityType>
+        <Association Name="FK_ProdutoTriagem_MotivoDevolucao">
+          <End Type="SILI_DBModel.MotivoDevolucao" Role="MotivoDevolucao" Multiplicity="1" />
+          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotivoDevolucao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProdutoTriagem">
+              <PropertyRef Name="MotivoDevolucaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutoTriagem_Produto">
+          <End Type="SILI_DBModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProdutoTriagem">
+              <PropertyRef Name="EANCNP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutoTriagem_Tratamento">
+          <End Type="SILI_DBModel.Tratamento" Role="Tratamento" Multiplicity="1" />
+          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tratamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProdutoTriagem">
+              <PropertyRef Name="TratamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProdutoTriagem_Triagem">
+          <End Type="SILI_DBModel.Triagem" Role="Triagem" Multiplicity="1" />
+          <End Type="SILI_DBModel.ProdutoTriagem" Role="ProdutoTriagem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Triagem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProdutoTriagem">
+              <PropertyRef Name="TriagemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1636,21 +1634,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProdutoTriagem">
-            <EntityTypeMapping TypeName="SILI_DBModel.ProdutoTriagem">
-              <MappingFragment StoreEntitySet="ProdutoTriagem">
-                <ScalarProperty Name="Validade" ColumnName="Validade" />
-                <ScalarProperty Name="TratamentoID" ColumnName="TratamentoID" />
-                <ScalarProperty Name="MotivoDevolucaoID" ColumnName="MotivoDevolucaoID" />
-                <ScalarProperty Name="PVP" ColumnName="PVP" />
-                <ScalarProperty Name="Lote" ColumnName="Lote" />
-                <ScalarProperty Name="QtdDevolvida" ColumnName="QtdDevolvida" />
-                <ScalarProperty Name="EANCNP" ColumnName="EANCNP" />
-                <ScalarProperty Name="TriagemID" ColumnName="TriagemID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Cliente">
             <EntityTypeMapping TypeName="SILI_DBModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
@@ -1687,23 +1670,6 @@
                 <ScalarProperty Name="CodPostalID" ColumnName="CodPostalID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="NIF" ColumnName="NIF" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Recepcao">
-            <EntityTypeMapping TypeName="SILI_DBModel.Recepcao">
-              <MappingFragment StoreEntitySet="Recepcao">
-                <ScalarProperty Name="CTR" ColumnName="CTR" />
-                <ScalarProperty Name="Colaborador" ColumnName="Colaborador" />
-                <ScalarProperty Name="NrVolumesGuia" ColumnName="NrVolumesGuia" />
-                <ScalarProperty Name="NrVolumesRecepcionados" ColumnName="NrVolumesRecepcionados" />
-                <ScalarProperty Name="NrCMR" ColumnName="NrCMR" />
-                <ScalarProperty Name="EntreguePor" ColumnName="EntreguePor" />
-                <ScalarProperty Name="HoraChegadaArmazem" ColumnName="HoraChegadaArmazem" />
-                <ScalarProperty Name="DataChegadaArmazem" ColumnName="DataChegadaArmazem" />
-                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
-                <ScalarProperty Name="NrRecepcao" ColumnName="NrRecepcao" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1759,6 +1725,37 @@
                 <ScalarProperty Name="ColaboradorID" ColumnName="ColaboradorID" />
                 <ScalarProperty Name="DataHoraRecepcao" ColumnName="DataHoraRecepcao" />
                 <ScalarProperty Name="NrProcesso" ColumnName="NrProcesso" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recepcao">
+            <EntityTypeMapping TypeName="SILI_DBModel.Recepcao">
+              <MappingFragment StoreEntitySet="Recepcao">
+                <ScalarProperty Name="DCR" ColumnName="DCR" />
+                <ScalarProperty Name="Colaborador" ColumnName="Colaborador" />
+                <ScalarProperty Name="NrVolumesRecepcionados" ColumnName="NrVolumesRecepcionados" />
+                <ScalarProperty Name="Observacoes" ColumnName="Observacoes" />
+                <ScalarProperty Name="EntreguePor" ColumnName="EntreguePor" />
+                <ScalarProperty Name="HoraChegadaArmazem" ColumnName="HoraChegadaArmazem" />
+                <ScalarProperty Name="DataChegadaArmazem" ColumnName="DataChegadaArmazem" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="NrRecepcao" ColumnName="NrRecepcao" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProdutoTriagem">
+            <EntityTypeMapping TypeName="SILI_DBModel.ProdutoTriagem">
+              <MappingFragment StoreEntitySet="ProdutoTriagem">
+                <ScalarProperty Name="Validade" ColumnName="Validade" />
+                <ScalarProperty Name="TratamentoID" ColumnName="TratamentoID" />
+                <ScalarProperty Name="MotivoDevolucaoID" ColumnName="MotivoDevolucaoID" />
+                <ScalarProperty Name="PVP" ColumnName="PVP" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="QtdDevolvida" ColumnName="QtdDevolvida" />
+                <ScalarProperty Name="EANCNP" ColumnName="EANCNP" />
+                <ScalarProperty Name="TriagemID" ColumnName="TriagemID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

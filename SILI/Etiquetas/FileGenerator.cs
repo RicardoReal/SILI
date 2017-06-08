@@ -80,7 +80,6 @@ namespace SILI
             table.AddCell(new PdfPCell(new Paragraph("Cliente", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(detalheRecepcao.Cliente.FormattedToString, smallFont)));
 
-
             table.AddCell(new PdfPCell(new Paragraph("Data", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(detalheRecepcao.Recepcao.DataHora.ToString(), smallFont)));
 
@@ -92,6 +91,9 @@ namespace SILI
 
             table.AddCell(new PdfPCell(new Paragraph("NReferência", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(detalheRecepcao.NReferencia.ToString(), smallFont)));
+
+            table.AddCell(new PdfPCell(new Paragraph("Recepcionado Por", smallFont)));
+            table.AddCell(new PdfPCell(new Paragraph(detalheRecepcao.Recepcao.User.FormattedToString, smallFont)));
 
             document.Add(table);
             document.Close();

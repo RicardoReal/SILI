@@ -47,15 +47,13 @@ namespace SILI
         public long HoraChegadaArmazem;
 
         [Required]
-        [Display(Name = "Nr. CMR")]
-        public string NrCMR;
+        [Display(Name = "Observações")]
+        [DataType(DataType.MultilineText)]
+        public string Observacoes;
 
         [Required]
         [Display(Name = "Nr. Volumes Recepcionados")]
         public string NrVolumesRecepcionados;
-
-        [Display(Name = "Nr. Volumes Guia")]
-        public decimal NrVolumesGuia;
 
         public User Colaborador;
 

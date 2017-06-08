@@ -26,19 +26,12 @@
         <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_MotivoDevolucao" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Produto" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Tratamento" />
-        <EntityTypeShape EntityType="SILI_DBModel.ProdutoTriagem" Width="1.5" PointX="20.75" PointY="3.125" />
-        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao" />
-        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Produto" />
-        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Tratamento" />
         <EntityTypeShape EntityType="SILI_DBModel.Cliente" Width="1.5" PointX="12.25" PointY="5.375" />
         <EntityTypeShape EntityType="SILI_DBModel.Destinatario" Width="1.5" PointX="8.25" PointY="1.75" />
         <EntityTypeShape EntityType="SILI_DBModel.Morada" Width="1.5" PointX="11" PointY="0.75" />
         <AssociationConnector Association="SILI_DBModel.FK_Produto_Cliente" />
         <AssociationConnector Association="SILI_DBModel.FK_Destinatario_Morada" />
         <AssociationConnector Association="SILI_DBModel.FK_Morada_TipoDevolvedor" />
-        <EntityTypeShape EntityType="SILI_DBModel.Recepcao" Width="1.5" PointX="13.25" PointY="9.75" />
-        <AssociationConnector Association="SILI_DBModel.FK_Recepcao_Morada" />
-        <AssociationConnector Association="SILI_DBModel.FK_Recepcao_User" />
         <EntityTypeShape EntityType="SILI_DBModel.ErrorLog" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="SILI_DBModel.CodigoPostal" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="SILI_DBModel.FK_Destinatario_CodigoPostal" />
@@ -47,13 +40,20 @@
         <EntityTypeShape EntityType="SILI_DBModel.Triagem" Width="1.5" PointX="17.75" PointY="7.75" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_Cliente" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_CodigoPostal" />
-        <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_TipoDevolucao" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_DetalheRecepcao" />
         <AssociationConnector Association="SILI_DBModel.FK_DetalheTriagem_Triagem" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_Morada" />
-        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Triagem" />
         <AssociationConnector Association="SILI_DBModel.FK_Triagem_User" />
+        <EntityTypeShape EntityType="SILI_DBModel.Recepcao" Width="1.5" PointX="13.25" PointY="0.75" />
+        <AssociationConnector Association="SILI_DBModel.FK_DetalheRecepcao_Recepcao" />
+        <AssociationConnector Association="SILI_DBModel.FK_Recepcao_Morada" />
+        <AssociationConnector Association="SILI_DBModel.FK_Recepcao_User" />
+        <EntityTypeShape EntityType="SILI_DBModel.ProdutoTriagem" Width="1.5" PointX="20" PointY="5.125" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_MotivoDevolucao" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Produto" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Tratamento" />
+        <AssociationConnector Association="SILI_DBModel.FK_ProdutoTriagem_Triagem" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

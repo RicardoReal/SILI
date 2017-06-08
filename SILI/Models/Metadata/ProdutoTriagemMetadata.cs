@@ -30,7 +30,7 @@ namespace SILI
     public class ProdutoTriagemMetadata
     {
         [Required]
-        [Display(Name="EAN / CNP")]
+        [Display(Name="EAN")]
         public long EANCNP;
 
         [Required]

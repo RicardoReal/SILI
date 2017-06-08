@@ -30,7 +30,7 @@ namespace SILI
             using (SILI_DBEntities ent = new SILI_DBEntities())
             {
                 var results = (from c in ent.Cliente
-                               where c.Nome.ToString().Contains(prefix)
+                               where c.Nome.ToString().Contains(prefix) || c.NrInterno.ToString().Contains(prefix)
                                orderby c.Nome
                                select c).Take(10).ToList();
 
@@ -38,7 +38,7 @@ namespace SILI
                 {
                     Autocomplete cliente = new Autocomplete();
 
-                    cliente.Name = r.Nome;
+                    cliente.Name = r.FormattedToString;
                     cliente.Id = (int)r.ID;
                     clientes.Add(cliente);
                 }

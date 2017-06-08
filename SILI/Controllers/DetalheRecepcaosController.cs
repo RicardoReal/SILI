@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SILI;
 using System.Data.Entity.Validation;
 using System.IO;
 
@@ -32,7 +29,7 @@ namespace SILI.Controllers
         // GET: DetalheRecepcaos
         public async Task<ActionResult> Index()
         {
-            var detalheRecepcao = db.DetalheRecepcao.Include(d => d.Cliente).Include(d => d.TipoDevolucao);
+            var detalheRecepcao = db.DetalheRecepcao.Include(d => d.Cliente).Include(d => d.TipoDevolucao).OrderByDescending(d => d.ID);
             return View(await detalheRecepcao.ToListAsync());
         }
 
