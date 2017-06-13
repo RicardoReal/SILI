@@ -46,7 +46,6 @@ namespace SILI
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
         public long HoraChegadaArmazem;
 
-        [Required]
         [Display(Name = "Observações")]
         [DataType(DataType.MultilineText)]
         public string Observacoes;

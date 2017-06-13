@@ -38,7 +38,10 @@ namespace SILI.Controllers
                 etiquetaMultiRef.Tratamento = db.Tratamento.Where(t => t.ID == etiquetaMultiRef.TratamentoID).FirstOrDefault();
                 etiquetaMultiRef.Tipologia = db.Tipologia.Where(t => t.ID == etiquetaMultiRef.TipologiaID).FirstOrDefault();
                 etiquetaMultiRef.NrDetalhe = _nrDetalhe;
-                Stream stream = new MemoryStream(FileGenerator.GenerateEtiqueta(etiquetaMultiRef));
+
+                long userId = SILI.User.GetUserIdByUsername(User.Identity.Name);
+                User user = db.User.Where(x => x.ID == userId).FirstOrDefault();
+                Stream stream = new MemoryStream(FileGenerator.GenerateEtiqueta(etiquetaMultiRef, user.FormattedToString));
 
                 HttpContext.Response.AddHeader("content-disposition", "attachment; filename=" + etiquetaMultiRef.NrDetalhe + "_MultiRef.pdf");
 

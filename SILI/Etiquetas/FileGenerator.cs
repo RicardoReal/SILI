@@ -106,7 +106,7 @@ namespace SILI
             return ms.ToArray();
         }
 
-        public static byte[] GenerateEtiqueta(EtiquetaMultiRef etiquetaMultiRef)
+        public static byte[] GenerateEtiqueta(EtiquetaMultiRef etiquetaMultiRef, string userName)
         {
             Rectangle rectangle = new Rectangle(Utilities.MillimetersToPoints(100), Utilities.MillimetersToPoints(50));
             Document document = new Document(rectangle, 5, 5, 10, 10);
@@ -131,12 +131,13 @@ namespace SILI
 
             PdfPTable table = new PdfPTable(2);
 
-            document.Add(new Chunk(" "));
-
             Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
 
             table.AddCell(new PdfPCell(new Paragraph("Localização:  ", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(etiquetaMultiRef.Localizacao, smallFont)));
+
+            table.AddCell(new PdfPCell(new Paragraph("Elaborado Por:  ", smallFont)));
+            table.AddCell(new PdfPCell(new Paragraph(userName, smallFont)));
 
             document.Add(table);
             document.Close();

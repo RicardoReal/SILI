@@ -46,7 +46,7 @@ namespace SILI.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,NrProcesso,DataHoraRecepcao,ColaboradorID,NIF,CodPostalID,NomeMorada,Localicade,NrGuiaNotaDevol,DataGuia,SubUnidades")] Triagem triagem)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NrProcesso,DataHoraRecepcao,ColaboradorID,NIF,CodPostalID,NomeMorada,Localidade,NrGuiaNotaDevol,DataGuia,SubUnidades,DetalheRecepcaoId")] Triagem triagem)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace SILI.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NrProcesso,DataHoraRecepcao,ColaboradorID,NIF,CodPostalID,NomeMorada,Localicade,NrGuiaNotaDevol,DataGuia,SubUnidades")] Triagem triagem)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NrProcesso,DataHoraRecepcao,ColaboradorID,NIF,CodPostalID,NomeMorada,Localidade,NrGuiaNotaDevol,DataGuia,SubUnidades,DetalheRecepcaoId")] Triagem triagem)
         {
             if (ModelState.IsValid)
             {
