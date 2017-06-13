@@ -35,7 +35,7 @@ namespace SILI.Controllers
         {
             if (ModelState.IsValid)
             {
-                DetalheRecepcao detalhe = db.DetalheRecepcao.Where(dr => dr.NrDetalhe == novaTriagem.CodigoBarras && dr.ClienteId == novaTriagem.ClienteID && dr.NrVolumes == novaTriagem.NrVolumes).FirstOrDefault();
+                DetalheRecepcao detalhe = db.DetalheRecepcao.Where(dr => dr.NrDetalhe == novaTriagem.CodigoBarras && dr.ClienteID == novaTriagem.ClienteID && dr.NrVolumes == novaTriagem.NrVolumes).FirstOrDefault();
 
                 if (detalhe != null)
                 {

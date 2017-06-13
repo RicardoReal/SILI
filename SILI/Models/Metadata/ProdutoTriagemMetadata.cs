@@ -36,6 +36,13 @@ namespace SILI
         [Required]
         [Display(Name = "Qtd. Devolvida")]
         public long QtdDevolvida;
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Validade;
+
+        [Display(Name = "Localização")]
+        public string Localizacao;
+
     }
 
     

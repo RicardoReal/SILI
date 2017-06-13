@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoradasController.cs" />
     <Compile Include="Controllers\MotivoDevolucaosController.cs" />
+    <Compile Include="Controllers\EtiquetaMultiRefsController.cs" />
     <Compile Include="Controllers\NovaTriagemController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\ProdutosTriagemController.cs" />
@@ -224,9 +225,6 @@
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DetalheRecepcao.cs">
-      <DependentUpon>SILIDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DetalheTriagem.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorLog.cs">
@@ -266,6 +264,7 @@
     <Compile Include="Models\Metadata\UserMetadata.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\TriagensController.cs" />
+    <Compile Include="Models\EtiquetaMultiRef.cs" />
     <Compile Include="Models\NovaTriagem.cs" />
     <Compile Include="Morada.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
@@ -636,6 +635,7 @@
     <Content Include="Views\UserRoles\Delete.cshtml" />
     <Content Include="Views\UserRoles\Edit.cshtml" />
     <Content Include="Views\Users\UserRolesList.cshtml" />
+    <Content Include="Views\EtiquetaMultiRefs\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

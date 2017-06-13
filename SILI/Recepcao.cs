@@ -31,9 +31,9 @@ namespace SILI
         public long Colaborador { get; set; }
         public bool DCR { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual Morada Morada { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
     }
 }

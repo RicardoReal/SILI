@@ -126,9 +126,13 @@
             @Html.Action("GetProdutosTriagem")
         </div>
 
-        
-     </div>
+        <p>
+            @Html.ActionLink("Criar Etiqueta Multireferência", "Create", "EtiquetaMultiRefs", new { TriagemId = Model.ID }, new { @class = "btn btn-info" })
+        </p>
+    </div>
 }
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

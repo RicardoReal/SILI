@@ -86,7 +86,7 @@ namespace SILI.Controllers
         public ActionResult GetDetalhesRecepcao(long id)
         {
             ViewData["RecepcaoId"] = id;
-            return PartialView("DetalheRecepcaoList", db.DetalheRecepcao.Where(x => x.RecepcaoId == id).ToList());
+            return PartialView("DetalheRecepcaoList", db.DetalheRecepcao.Where(x => x.RecepcaoID == id).ToList());
         }
 
         // POST: Recepcao/Edit/5
@@ -127,7 +127,7 @@ namespace SILI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
-            if (db.DetalheRecepcao.Where(r => r.RecepcaoId == id).Count() > 0)
+            if (db.DetalheRecepcao.Where(r => r.RecepcaoID == id).Count() > 0)
             {
                 ModelState.AddModelError("", "Não é possivel apagar esta recepção, devido à mesma ter Detalhes associados.");
                 Recepcao rec = db.Recepcao.Where(r => r.ID == id).FirstOrDefault();

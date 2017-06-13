@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using SILI.Models;
 using System;
 using System.IO;
 
@@ -94,6 +95,48 @@ namespace SILI
 
             table.AddCell(new PdfPCell(new Paragraph("Recepcionado Por", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(detalheRecepcao.Recepcao.User.FormattedToString, smallFont)));
+
+            document.Add(table);
+            document.Close();
+
+            writer.Close();
+
+            ms.Close();
+
+            return ms.ToArray();
+        }
+
+        public static byte[] GenerateEtiqueta(EtiquetaMultiRef etiquetaMultiRef)
+        {
+            Rectangle rectangle = new Rectangle(Utilities.MillimetersToPoints(100), Utilities.MillimetersToPoints(50));
+            Document document = new Document(rectangle, 5, 5, 10, 10);
+            MemoryStream ms = new MemoryStream();
+
+            PdfWriter writer = PdfWriter.GetInstance(document, ms);
+
+            document.Open();
+
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 10);
+
+            Paragraph title = new Paragraph(etiquetaMultiRef.Tratamento.Descricao + " - " + etiquetaMultiRef.Tipologia.Descricao);
+            title.Alignment = Element.ALIGN_CENTER;
+            title.Font = titleFont;
+            document.Add(title);
+
+            // Imagem
+            Image image = imageGenerate(etiquetaMultiRef.NrDetalhe);
+            image.ScaleAbsolute(new Rectangle(Utilities.MillimetersToPoints(90), Utilities.MillimetersToPoints(20)));
+
+            document.Add(image);
+
+            PdfPTable table = new PdfPTable(2);
+
+            document.Add(new Chunk(" "));
+
+            Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
+
+            table.AddCell(new PdfPCell(new Paragraph("Localização:  ", smallFont)));
+            table.AddCell(new PdfPCell(new Paragraph(etiquetaMultiRef.Localizacao, smallFont)));
 
             document.Add(table);
             document.Close();

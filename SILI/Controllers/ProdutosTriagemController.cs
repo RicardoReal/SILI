@@ -59,7 +59,7 @@ namespace SILI.Controllers
             _triagemID = TriagemID;
             ViewBag.TriagemID = TriagemID;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos");
-            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia");
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao");
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao");
             return View();
         }
@@ -69,7 +69,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +104,7 @@ namespace SILI.Controllers
             produtoTriagem.Produto = db.Produto.Where(p => p.ID == produtoTriagem.EANCNP).FirstOrDefault();
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
 
             return View(produtoTriagem);
         }
@@ -120,9 +121,10 @@ namespace SILI.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
-            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
             return View(produtoTriagem);
         }
 
@@ -131,7 +133,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
         {
             if (ModelState.IsValid)
             {
@@ -147,10 +149,11 @@ namespace SILI.Controllers
                     return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
                 }
             }
+
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
-            //ViewBag.EANCNP = new SelectList(db.Produto, "ID", "Referencia", produtoTriagem.EANCNP);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            //return View(produtoTriagem);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
+
             return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
         }
 

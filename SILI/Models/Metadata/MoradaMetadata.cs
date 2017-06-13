@@ -12,7 +12,7 @@ namespace SILI
     {
         public override string ToString()
         {
-            return this.Nome;
+            return this.NIF + " - " + this.Nome;
         }
 
         public string FormattedToString
@@ -38,7 +38,7 @@ namespace SILI
                 {
                     Autocomplete morada = new Autocomplete();
 
-                    morada.Name = r.NIF.ToString();
+                    morada.Name = r.FormattedToString;
                     morada.Id = (int)r.ID;
                     moradas.Add(morada);
                 }

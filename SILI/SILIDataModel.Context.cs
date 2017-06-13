@@ -36,15 +36,14 @@ namespace SILI
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<DetalheTriagem> DetalheTriagem { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Destinatario> Destinatario { get; set; }
         public virtual DbSet<Morada> Morada { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<CodigoPostal> CodigoPostal { get; set; }
-        public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual DbSet<Triagem> Triagem { get; set; }
         public virtual DbSet<Recepcao> Recepcao { get; set; }
+        public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual DbSet<ProdutoTriagem> ProdutoTriagem { get; set; }
     }
 }

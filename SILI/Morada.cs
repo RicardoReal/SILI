@@ -20,6 +20,7 @@ namespace SILI
             this.Destinatario = new HashSet<Destinatario>();
             this.Triagem = new HashSet<Triagem>();
             this.Recepcao = new HashSet<Recepcao>();
+            this.DetalheRecepcao = new HashSet<DetalheRecepcao>();
         }
     
         public long ID { get; set; }
@@ -39,5 +40,7 @@ namespace SILI
         public virtual ICollection<Triagem> Triagem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recepcao> Recepcao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
     }
 }

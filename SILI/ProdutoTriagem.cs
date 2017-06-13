@@ -23,9 +23,12 @@ namespace SILI
         public long MotivoDevolucaoID { get; set; }
         public long TratamentoID { get; set; }
         public Nullable<System.DateTime> Validade { get; set; }
+        public Nullable<long> TipologiaID { get; set; }
+        public string Localizacao { get; set; }
     
         public virtual MotivoDevolucao MotivoDevolucao { get; set; }
         public virtual Produto Produto { get; set; }
+        public virtual Tipologia Tipologia { get; set; }
         public virtual Tratamento Tratamento { get; set; }
         public virtual Triagem Triagem { get; set; }
     }

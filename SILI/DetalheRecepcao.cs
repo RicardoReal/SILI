@@ -22,17 +22,19 @@ namespace SILI
     
         public long ID { get; set; }
         public string NrDetalhe { get; set; }
-        public long ClienteId { get; set; }
+        public long ClienteID { get; set; }
         public int NrVolumes { get; set; }
-        public long TipoRecepcaoId { get; set; }
+        public long TipoRecepcaoID { get; set; }
         public Nullable<long> NReferencia { get; set; }
-        public long RecepcaoId { get; set; }
+        public long RecepcaoID { get; set; }
         public string NrGuiaTransporte { get; set; }
+        public Nullable<long> DevolvedorID { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Morada Morada { get; set; }
+        public virtual Recepcao Recepcao { get; set; }
         public virtual TipoDevolucao TipoDevolucao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Triagem> Triagem { get; set; }
-        public virtual Recepcao Recepcao { get; set; }
     }
 }

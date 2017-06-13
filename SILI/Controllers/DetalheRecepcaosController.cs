@@ -38,6 +38,11 @@ namespace SILI.Controllers
             return Json(Cliente.GetClientes(query), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetMoradas(string query)
+        {
+            return Json(Morada.GetMoradas(query), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: DetalheRecepcaos/Details/5
         public async Task<ActionResult> Details(long? id)
         {
@@ -53,21 +58,13 @@ namespace SILI.Controllers
             return View(detalheRecepcao);
         }
 
-        //// GET: DetalheRecepcaos/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome");
-        //    ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao");
-        //    return View();
-        //}
-
         // GET: DetalheRecepcaos/Create/Id
         [HttpGet]
         public ActionResult Create(long RecepcaoId)
         {
-            //ViewBag.RecepcaoID = new SelectList(db.Recepcao.Where(r => r.ID == RecepcaoId).ToList(), "ID");
             ViewBag.RecepcaoID = RecepcaoId;
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome");
+            ViewBag.DevolvedorID = new SelectList(db.Morada, "ID", "Nome");
             ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao");
             ViewBag.NrDetalhe = DetalheRecepcao.GenerateNrDetalheRecepcao(RecepcaoId);
             return View();
@@ -78,15 +75,15 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RecepcaoID,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,RecepcaoId,NrGuiaTransporte")] DetalheRecepcao detalheRecepcao)
+        public async Task<ActionResult> Create([Bind(Include = "ID,RecepcaoID,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,NrGuiaTransporte,DevolvedorID")] DetalheRecepcao detalheRecepcao)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+                    Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoID).FirstOrDefault();
 
-                    recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
+                    recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoID == detalheRecepcao.RecepcaoID).AsEnumerable().Sum(r => r.NrVolumes);
                     recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
 
                     db.DetalheRecepcao.Add(detalheRecepcao);
@@ -110,12 +107,12 @@ namespace SILI.Controllers
                 {
                     ErrorLog.LogError(ex, "DetalheRecepcaosController :: Create :: POST");
                 }
-                return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
+                return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoID });
             }
 
-            //ViewBag.RecepcaoId = new SelectList(db.Recepcao.Where(r => r.ID == detalheRecepcao.RecepcaoId))
-            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteId);
-            ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoId);
+            ViewBag.DevolvedorID = new SelectList(db.Morada, "ID", "Nome",detalheRecepcao.DevolvedorID);
+            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteID);
+            ViewBag.TipoRecepcaoID = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoID);
             return View(detalheRecepcao);
 
         }
@@ -132,8 +129,9 @@ namespace SILI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteId);
-            ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoId);
+            ViewBag.DevolvedorID = new SelectList(db.Morada, "ID", "Nome", detalheRecepcao.DevolvedorID);
+            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteID);
+            ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoID);
             return View(detalheRecepcao);
         }
 
@@ -142,21 +140,22 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,RecepcaoId,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,RecepcaoId,NrGuiaTransporte")] DetalheRecepcao detalheRecepcao)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RecepcaoId,NrDetalhe,ClienteId,NrVolumes,TipoRecepcaoId,NReferencia,RecepcaoId,NrGuiaTransporte,DevolvedorID")] DetalheRecepcao detalheRecepcao)
         {
             if (ModelState.IsValid)
             {
-                Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+                Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoID).FirstOrDefault();
 
-                recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId && x.ID != detalheRecepcao.ID).AsEnumerable().Sum(r => r.NrVolumes);
+                recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoID == detalheRecepcao.RecepcaoID && x.ID != detalheRecepcao.ID).AsEnumerable().Sum(r => r.NrVolumes);
                 recep.NrVolumesRecepcionados += detalheRecepcao.NrVolumes;
 
                 db.Entry(detalheRecepcao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
+                return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoID });
             }
-            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteId);
-            ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoId);
+            ViewBag.DevolvedorID = new SelectList(db.Morada, "ID", "Nome", detalheRecepcao.DevolvedorID);
+            ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteID);
+            ViewBag.TipoRecepcaoId = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoID);
             return View(detalheRecepcao);
         }
 
@@ -183,13 +182,13 @@ namespace SILI.Controllers
             DetalheRecepcao detalheRecepcao = await db.DetalheRecepcao.FindAsync(id);
             db.DetalheRecepcao.Remove(detalheRecepcao);
 
-            Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoId).FirstOrDefault();
+            Recepcao recep = db.Recepcao.Where(x => x.ID == detalheRecepcao.RecepcaoID).FirstOrDefault();
 
-            recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoId == detalheRecepcao.RecepcaoId).AsEnumerable().Sum(r => r.NrVolumes);
+            recep.NrVolumesRecepcionados = db.DetalheRecepcao.Where(x => x.RecepcaoID == detalheRecepcao.RecepcaoID).AsEnumerable().Sum(r => r.NrVolumes);
             recep.NrVolumesRecepcionados -= detalheRecepcao.NrVolumes;
 
             await db.SaveChangesAsync();
-            return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoId });
+            return RedirectToAction("Edit", "Recepcao", new { id = detalheRecepcao.RecepcaoID });
         }
 
         protected override void Dispose(bool disposing)

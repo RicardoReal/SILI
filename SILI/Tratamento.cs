@@ -18,7 +18,6 @@ namespace SILI
         public Tratamento()
         {
             this.LoteProduto = new HashSet<LoteProduto>();
-            this.DetalheTriagem = new HashSet<DetalheTriagem>();
             this.ProdutoTriagem = new HashSet<ProdutoTriagem>();
         }
     
@@ -28,8 +27,6 @@ namespace SILI
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoteProduto> LoteProduto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalheTriagem> DetalheTriagem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProdutoTriagem> ProdutoTriagem { get; set; }
     }

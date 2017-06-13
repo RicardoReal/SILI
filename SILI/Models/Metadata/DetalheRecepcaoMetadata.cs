@@ -45,6 +45,12 @@ namespace SILI
 
         [Display(Name = "Nr Guia Transporte")]
         public long NrGuiaTransporte;
+
+        [Display(Name = "Devolvedor")]
+        public long DevolvedorID;
+
+        [Display(Name = "Cliente")]
+        public long ClienteID;
         
     }
 
