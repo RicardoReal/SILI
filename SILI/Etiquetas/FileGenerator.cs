@@ -133,6 +133,9 @@ namespace SILI
 
             Font smallFont = new Font(Font.FontFamily.HELVETICA, 7);
 
+            table.AddCell(new PdfPCell(new Paragraph("Quantidade:  ", smallFont)));
+            table.AddCell(new PdfPCell(new Paragraph(etiquetaMultiRef.Quantidade.ToString(), smallFont)));
+
             table.AddCell(new PdfPCell(new Paragraph("Localização:  ", smallFont)));
             table.AddCell(new PdfPCell(new Paragraph(etiquetaMultiRef.Localizacao, smallFont)));
 

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Data.SqlClient;
 
 namespace SILI.Controllers
 {
@@ -126,8 +127,16 @@ namespace SILI.Controllers
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             Morada morada = await db.Morada.FindAsync(id);
-            db.Morada.Remove(morada);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Morada.Remove(morada);
+                await db.SaveChangesAsync();
+            }
+            catch (SqlException e)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar moradas que estejam a ser referenciadas.");
+                return View(morada);
+            }
             return RedirectToAction("Index");
         }
 

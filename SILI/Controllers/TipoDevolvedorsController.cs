@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Data.SqlClient;
 
 namespace SILI.Controllers
 {
@@ -126,8 +127,16 @@ namespace SILI.Controllers
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             TipoDevolvedor tipoDevolvedor = await db.TipoDevolvedor.FindAsync(id);
-            db.TipoDevolvedor.Remove(tipoDevolvedor);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.TipoDevolvedor.Remove(tipoDevolvedor);
+                await db.SaveChangesAsync();
+            }
+            catch (SqlException e)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar tipos de devolvedores que estejam a ser referenciados.");
+                return View(tipoDevolvedor);
+            }
             return RedirectToAction("Index");
         }
 

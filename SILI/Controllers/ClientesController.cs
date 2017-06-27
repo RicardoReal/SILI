@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Data.SqlClient;
 
 namespace SILI.Controllers
 {
@@ -106,8 +107,16 @@ namespace SILI.Controllers
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             Cliente cliente = await db.Cliente.FindAsync(id);
-            db.Cliente.Remove(cliente);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Cliente.Remove(cliente);
+                await db.SaveChangesAsync();
+            }
+            catch(SqlException e)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar clientes que estejam a ser referenciados.");
+                return View(cliente);
+            }
             return RedirectToAction("Index");
         }
 

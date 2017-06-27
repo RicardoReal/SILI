@@ -113,6 +113,7 @@ namespace SILI.Controllers
             ViewBag.DevolvedorID = new SelectList(db.Morada, "ID", "Nome",detalheRecepcao.DevolvedorID);
             ViewBag.ClienteId = new SelectList(db.Cliente, "ID", "Nome", detalheRecepcao.ClienteID);
             ViewBag.TipoRecepcaoID = new SelectList(db.TipoDevolucao, "ID", "Descricao", detalheRecepcao.TipoRecepcaoID);
+            ViewBag.NrDetalhe = DetalheRecepcao.GenerateNrDetalheRecepcao(detalheRecepcao.RecepcaoID);
             return View(detalheRecepcao);
 
         }

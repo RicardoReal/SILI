@@ -9,6 +9,7 @@ namespace SILI.Models
     {
         public string NrDetalhe { get; set; }
         public string Localizacao { get; set; }
+        public int Quantidade { get; set; }
         public long TratamentoID { get; set; }
         public Tratamento Tratamento { get; set; }
         public long TipologiaID { get; set; }

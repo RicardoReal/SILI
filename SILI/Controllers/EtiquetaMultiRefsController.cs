@@ -31,7 +31,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NrDetalhe,Localizacao,TipologiaID,TratamentoID")] EtiquetaMultiRef etiquetaMultiRef)
+        public ActionResult Create([Bind(Include = "NrDetalhe,Quantidade,Localizacao,TipologiaID,TratamentoID")] EtiquetaMultiRef etiquetaMultiRef)
         {
             if (ModelState.IsValid)
             {

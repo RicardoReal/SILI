@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Data.SqlClient;
 
 namespace SILI.Controllers
 {
@@ -126,8 +127,16 @@ namespace SILI.Controllers
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             Tipologia tipologia = await db.Tipologia.FindAsync(id);
-            db.Tipologia.Remove(tipologia);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Tipologia.Remove(tipologia);
+                await db.SaveChangesAsync();
+            }
+            catch (SqlException e)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar tipologias que estejam a ser referenciados.");
+                return View(tipologia);
+            }
             return RedirectToAction("Index");
         }
 
