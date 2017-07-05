@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SILI;
 using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace SILI.Controllers
 {
@@ -132,7 +133,7 @@ namespace SILI.Controllers
                 db.Tratamento.Remove(tratamento);
                 await db.SaveChangesAsync();
             }
-            catch (SqlException e)
+            catch (DbUpdateException e)
             {
                 ModelState.AddModelError("", "Não é possivel apagar tratamentos que estejam a ser referenciados.");
                 return View(tratamento);

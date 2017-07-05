@@ -57,6 +57,7 @@ namespace SILI.Controllers
         public ActionResult Create(long TriagemID)
         {
             _triagemID = TriagemID;
+            ViewBag.CreateLote = false;
             ViewBag.TriagemID = TriagemID;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos");
             ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao");
@@ -71,6 +72,9 @@ namespace SILI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
         {
+
+            ViewBag.CreateLote = false;
+
             if (ModelState.IsValid)
             {
                 DateTime? validade = null;
@@ -78,33 +82,24 @@ namespace SILI.Controllers
                 {
                     produtoTriagem.Validade = validade;
                     produtoTriagem.TriagemID = _triagemID;
-
-                    ProdutoTriagem pt = db.ProdutoTriagem.Where(x => x.EANCNP == produtoTriagem.EANCNP && x.Lote == produtoTriagem.Lote && x.PVP == produtoTriagem.PVP && x.MotivoDevolucaoID == produtoTriagem.MotivoDevolucaoID && x.TratamentoID == produtoTriagem.TratamentoID && x.TriagemID == produtoTriagem.TriagemID).FirstOrDefault();
-
-                    if (pt != null)
-                    {
-                        pt.QtdDevolvida += produtoTriagem.QtdDevolvida;
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Edit", "ProdutosTriagem", new { id = pt.ID });
-                    }
-                    else
-                    {
-                        db.ProdutoTriagem.Add(produtoTriagem);
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Edit", "ProdutosTriagem", new { id = produtoTriagem.ID });
-                    }
+                    db.ProdutoTriagem.Add(produtoTriagem);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Edit", "ProdutosTriagem", new { id = produtoTriagem.ID });
                 }
                 else
                 {
+                    ViewBag.CreateLote = true;
+                    ViewBag.EANCNP = produtoTriagem.EANCNP;
                     ModelState.AddModelError("", "Lote introduzido não existe para o produto indicado.");
                 }
             }
+
 
             ViewBag.EANCNP = produtoTriagem.EANCNP;
             produtoTriagem.Produto = db.Produto.Where(p => p.ID == produtoTriagem.EANCNP).FirstOrDefault();
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produtoTriagem.TipologiaID);
 
             return View(produtoTriagem);
         }
@@ -122,9 +117,10 @@ namespace SILI.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.CreateLote = false;
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produtoTriagem.TipologiaID);
             return View(produtoTriagem);
         }
 
@@ -135,26 +131,43 @@ namespace SILI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
         {
+            ViewBag.CreateLote = false;
             if (ModelState.IsValid)
             {
-
-                db.Entry(produtoTriagem).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                if (Request.Form["Save"] != null)
+                DateTime? validade = null;
+                if (produtoTriagem.HasLote(produtoTriagem.Lote, produtoTriagem.EANCNP, out validade))
                 {
-                    return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
+                    produtoTriagem.Validade = validade;
+                    produtoTriagem.TriagemID = _triagemID;
+                    db.Entry(produtoTriagem).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    //return RedirectToAction("Edit", "ProdutosTriagem", new { id = produtoTriagem.ID });
+
+                    if (Request.Form["Save"] != null)
+                    {
+                        return RedirectToAction("Edit", "Triagens", new { id = produtoTriagem.TriagemID });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
+                    ViewBag.CreateLote = true;
+                    ViewBag.EANCNP = produtoTriagem.EANCNP;
+                    ModelState.AddModelError("", "Lote introduzido não existe para o produto indicado.");
                 }
+
+                
             }
 
             ViewBag.MotivoDevolucaoID = new SelectList(db.MotivoDevolucao, "ID", "Motivos", produtoTriagem.MotivoDevolucaoID);
             ViewBag.TratamentoID = new SelectList(db.Tratamento, "ID", "Descricao", produtoTriagem.TratamentoID);
-            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao",produtoTriagem.TipologiaID);
+            ViewBag.TipologiaID = new SelectList(db.Tipologia, "ID", "Descricao", produtoTriagem.TipologiaID);
 
-            return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
+            //return RedirectToAction("Create", "ProdutosTriagem", new { TriagemId = produtoTriagem.TriagemID });
+            return View(produtoTriagem);
         }
 
         // GET: ProdutosTriagem/Delete/5

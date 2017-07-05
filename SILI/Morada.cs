@@ -18,9 +18,9 @@ namespace SILI
         public Morada()
         {
             this.Destinatario = new HashSet<Destinatario>();
-            this.Triagem = new HashSet<Triagem>();
             this.Recepcao = new HashSet<Recepcao>();
             this.DetalheRecepcao = new HashSet<DetalheRecepcao>();
+            this.Triagem = new HashSet<Triagem>();
         }
     
         public long ID { get; set; }
@@ -37,10 +37,10 @@ namespace SILI
         public virtual TipoDevolvedor TipoDevolvedor { get; set; }
         public virtual CodigoPostal CodigoPostal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Triagem> Triagem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recepcao> Recepcao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalheRecepcao> DetalheRecepcao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Triagem> Triagem { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace SILI
         public long TipoRecepcaoID { get; set; }
         public Nullable<long> NReferencia { get; set; }
         public long RecepcaoID { get; set; }
-        public string NrGuiaTransporte { get; set; }
+        public Nullable<int> NrGuiaTransporte { get; set; }
         public Nullable<long> DevolvedorID { get; set; }
     
         public virtual Cliente Cliente { get; set; }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SILI;
+using System.Data.Entity.Infrastructure;
 
 namespace SILI.Controllers
 {
@@ -126,8 +127,16 @@ namespace SILI.Controllers
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             MotivoDevolucao motivoDevolucao = await db.MotivoDevolucao.FindAsync(id);
-            db.MotivoDevolucao.Remove(motivoDevolucao);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.MotivoDevolucao.Remove(motivoDevolucao);
+                await db.SaveChangesAsync();
+            }
+            catch(DbUpdateException e)
+            {
+                ModelState.AddModelError("", "Não é possivel apagar motivos de devolução que estejam a ser referenciados.");
+                return View(motivoDevolucao);
+            }
             return RedirectToAction("Index");
         }
 

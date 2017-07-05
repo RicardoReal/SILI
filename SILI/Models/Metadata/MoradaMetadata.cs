@@ -30,7 +30,7 @@ namespace SILI
             using (SILI_DBEntities ent = new SILI_DBEntities())
             {
                 var results = (from m in ent.Morada
-                               where m.NIF.ToString().Contains(prefix)
+                               where m.NIF.ToString().Contains(prefix) || m.Nome.Contains(prefix)
                                orderby m.NIF
                                select m).Take(10).ToList();
 

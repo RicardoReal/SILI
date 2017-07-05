@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using System.Data.SqlClient;
+using System;
+using System.Data.Entity.Infrastructure;
 
 namespace SILI.Controllers
 {
@@ -112,11 +114,12 @@ namespace SILI.Controllers
                 db.Cliente.Remove(cliente);
                 await db.SaveChangesAsync();
             }
-            catch(SqlException e)
+            catch(DbUpdateException e)
             {
                 ModelState.AddModelError("", "Não é possivel apagar clientes que estejam a ser referenciados.");
                 return View(cliente);
             }
+            
             return RedirectToAction("Index");
         }
 

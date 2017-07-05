@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SILI;
 using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace SILI.Controllers
 {
@@ -132,7 +133,7 @@ namespace SILI.Controllers
                 db.Morada.Remove(morada);
                 await db.SaveChangesAsync();
             }
-            catch (SqlException e)
+            catch (DbUpdateException e)
             {
                 ModelState.AddModelError("", "Não é possivel apagar moradas que estejam a ser referenciadas.");
                 return View(morada);
