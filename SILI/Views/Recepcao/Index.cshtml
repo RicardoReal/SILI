@@ -79,9 +79,8 @@
 <script type="text/javascript" charset="utf8">
     $(document).ready(function () {
         $('#mainTable').DataTable({
-            "dom": '<"top"if>rt<"pagination"lp>',
-            "aoColumns": [{"orderSequence": ["desc"]}]
+            "dom": '<"top"fi>rt<"pagination"lp>',
+            "orderFixed": [0,'desc']
         });
     });
 </script>
-

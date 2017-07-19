@@ -42,8 +42,8 @@ namespace SILI
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<CodigoPostal> CodigoPostal { get; set; }
         public virtual DbSet<Recepcao> Recepcao { get; set; }
-        public virtual DbSet<ProdutoTriagem> ProdutoTriagem { get; set; }
-        public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
         public virtual DbSet<Triagem> Triagem { get; set; }
+        public virtual DbSet<DetalheRecepcao> DetalheRecepcao { get; set; }
+        public virtual DbSet<ProdutoTriagem> ProdutoTriagem { get; set; }
     }
 }

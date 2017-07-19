@@ -25,6 +25,8 @@ namespace SILI
         public Nullable<System.DateTime> Validade { get; set; }
         public Nullable<long> TipologiaID { get; set; }
         public string Localizacao { get; set; }
+        public string CodSecundario { get; set; }
+        public string Observacoes { get; set; }
     
         public virtual MotivoDevolucao MotivoDevolucao { get; set; }
         public virtual Produto Produto { get; set; }

@@ -43,6 +43,12 @@ namespace SILI
         [Display(Name = "Localização")]
         public string Localizacao;
 
+        [Display(Name = "Observações")]
+        [DataType(DataType.MultilineText)]
+        public string Observacoes;
+
+        [Display(Name = "Cod. Secundário")]
+        public string CodSecundario;
     }
 
     

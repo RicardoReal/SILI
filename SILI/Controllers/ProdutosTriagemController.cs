@@ -70,7 +70,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Create([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao,Observacoes,CodSecundario")] ProdutoTriagem produtoTriagem)
         {
 
             ViewBag.CreateLote = false;
@@ -81,6 +81,8 @@ namespace SILI.Controllers
                 if (produtoTriagem.HasLote(produtoTriagem.Lote, produtoTriagem.EANCNP, out validade))
                 {
                     produtoTriagem.Validade = validade;
+                    produtoTriagem.TipologiaID = db.Produto.Where(x => x.ID == produtoTriagem.EANCNP).FirstOrDefault().TipologiaID;
+
                     produtoTriagem.TriagemID = _triagemID;
                     db.ProdutoTriagem.Add(produtoTriagem);
                     await db.SaveChangesAsync();
@@ -129,7 +131,7 @@ namespace SILI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao")] ProdutoTriagem produtoTriagem)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,TriagemID,EANCNP,QtdDevolvida,Lote,PVP,MotivoDevolucaoID,TratamentoID,Validade,TipologiaID,Localizacao,Observacoes,CodSecundario")] ProdutoTriagem produtoTriagem)
         {
             ViewBag.CreateLote = false;
             if (ModelState.IsValid)
@@ -138,6 +140,8 @@ namespace SILI.Controllers
                 if (produtoTriagem.HasLote(produtoTriagem.Lote, produtoTriagem.EANCNP, out validade))
                 {
                     produtoTriagem.Validade = validade;
+                    produtoTriagem.TipologiaID = db.Produto.Where(x => x.ID == produtoTriagem.EANCNP).FirstOrDefault().TipologiaID;
+
                     produtoTriagem.TriagemID = _triagemID;
                     db.Entry(produtoTriagem).State = EntityState.Modified;
                     await db.SaveChangesAsync();

@@ -75,11 +75,25 @@
             @Html.DisplayFor(model => model.Tipologia.Descricao)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CodSecundario)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.CodSecundario)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacoes)
+        </dd>
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

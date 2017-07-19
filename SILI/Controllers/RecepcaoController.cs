@@ -20,6 +20,11 @@ namespace SILI.Controllers
             return View(await recepcao.ToListAsync());
         }
 
+        public ActionResult GetMoradas(string query)
+        {
+            return Json(Morada.GetMoradas(query), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Recepcao/Details/5
         public async Task<ActionResult> Details(long? id)
         {

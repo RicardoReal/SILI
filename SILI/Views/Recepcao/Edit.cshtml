@@ -1,4 +1,5 @@
 ﻿@model SILI.Recepcao
+@using SILI.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -16,6 +17,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.EntreguePor)
 
         <div class="form-group">
             @Html.LabelFor(model => model.NrRecepcao, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -61,7 +63,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EntreguePor, "Entregue Por", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("EntreguePor", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("EntreguePor", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.AutocompleteFor(model => model.Morada.FormattedToString, model => model.EntreguePor, "GetMoradas", "Recepcao", false, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EntreguePor, "", new { @class = "text-danger" })
             </div>
         </div>
