@@ -9,6 +9,22 @@
 <p>
     @Html.ActionLink("Create New", "Create", "NovaTriagem")
 </p>
+
+@using (Html.BeginForm("Index", "Triagens", FormMethod.Post))
+{
+    <div class="form-group" style="margin-bottom: 0px; margin-top: 30px">
+        <div class="dataTables_wrapper no-footer">
+            Search:
+            @Html.TextBox("Search")
+            Start Date:
+            @Html.TextBox("Start", "{0:MM/dd/yyyy}", new { @class = "datepicker", @type = "date" })
+            End Date:
+            @Html.TextBox("End", "{0:MM/dd/yyyy}", new { @class = "datepicker", @type = "date" })
+            <input type="submit" value="Filter" name="Filter" class="btn btn-primary btn-sm" style="float:right; padding-left:10px" />
+            <input type="submit" value="Export" name="Export" class="btn btn-link btn-" style="float:right; " />
+        </div>
+    </div>
+}
 <table class="table table-hover" id="mainTable">
     <thead>
         <tr>
@@ -86,7 +102,7 @@
 <script type="text/javascript" charset="utf8">
     $(document).ready(function () {
         $('#mainTable').DataTable({
-            "dom":'<"top"fi>rt<"pagination"lp>'
+            "dom":'<"top"i>rt<"pagination"lp>'
         });
     });
 </script>

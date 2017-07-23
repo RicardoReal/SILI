@@ -32,10 +32,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("SILI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SILI", "Index", "Recepcao", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @*@if (Request.IsAuthenticated)
-            {*@
+            @if (Request.IsAuthenticated)
+            {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown ">
@@ -68,7 +68,7 @@
 
                     @Html.Partial("_LoginPartial")
                 </div>
-            @*}*@
+            }
         </div>
     </div>
     <div class="container body-content">

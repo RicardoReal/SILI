@@ -434,7 +434,7 @@ namespace SILI.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -491,7 +491,7 @@ namespace SILI.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Recepcao");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

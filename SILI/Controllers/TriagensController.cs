@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using System.IO;
 
 namespace SILI.Models
 {
@@ -17,13 +17,88 @@ namespace SILI.Models
         private SILI_DBEntities db = new SILI_DBEntities();
         private static long ColaboradorID;
 
-        
+        //// GET: Triagens
+        //public async Task<ActionResult> Index()
+        //{
+        //    var triagem = db.Triagem.Include(t => t.CodigoPostal).Include(t => t.Morada).Include(t => t.User);
+        //    return View(await triagem.ToListAsync());
+        //}
 
         // GET: Triagens
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string Search, DateTime? Start, DateTime? End)
         {
-            var triagem = db.Triagem.Include(t => t.CodigoPostal).Include(t => t.Morada).Include(t => t.User);
-            return View(await triagem.ToListAsync());
+            if (Request.Form["Export"] != null)
+            {
+                return DownloadExcel(Search, Start, End);
+            }
+            else
+            {
+                var triagem = db.Triagem.Include(t => t.CodigoPostal).Include(t => t.Morada).Include(t => t.User).Where(t => (Start == null || t.DataHoraRecepcao >= Start) && (End == null || t.DataHoraRecepcao <= End) && (Search == null || t.NrProcesso.Contains(Search) || t.User.FirstName.Contains(Search) || t.User.LastName.Contains(Search) || t.Morada.Nome.Contains(Search)));
+                return View(await triagem.ToListAsync());
+            }
+        }
+
+        public ActionResult DownloadExcel(string Search, DateTime? Start, DateTime? End)
+        {
+            List<ListagemTriagem> listx = (from pt in db.ProdutoTriagem 
+                                            join t in db.Triagem on pt.TriagemID equals t.ID
+                                            join dr in db.DetalheRecepcao on t.DetalheRecepcaoId equals dr.ID
+                                            join r in db.Recepcao on dr.RecepcaoID equals r.ID
+                                            where (Start == null || t.DataHoraRecepcao >= Start) && (End == null || t.DataHoraRecepcao <= End) && (Search == null || t.NrProcesso.Contains(Search) || t.User.FirstName.Contains(Search) || t.User.LastName.Contains(Search) || t.Morada.Nome.Contains(Search) )
+                                            select new ListagemTriagem
+                                            {
+                                                NrRecepcao = r.NrRecepcao,
+                                                DataHora = r.DataHora,
+                                                HoraFim = new DateTime(1900, 1, 1),
+                                                Colaborador = r.User.FirstName + " " + r.User.LastName,
+                                                DataChegadaArmz = r.DataChegadaArmazem,
+                                                HoraChegadaArmz = r.HoraChegadaArmazem,
+                                                EntreguePor = r.Morada.Nome,
+                                                Observacoes = r.Observacoes,
+                                                NrVolumesRecepcionados = r.NrVolumesRecepcionados,
+                                                DCR = r.DCR,
+                                                NrDetalhe = dr.NrDetalhe,
+                                                NrCliente = dr.Cliente.NrInterno,
+                                                Cliente = dr.Cliente.Nome,
+                                                NrVolumes = dr.NrVolumes,
+                                                TipoDevolucao = dr.TipoDevolucao.Descricao,
+                                                NReferencia = dr.NReferencia,
+                                                NrGuiaTransporte = dr.NrGuiaTransporte,
+                                                Devolvedor = dr.Morada.Nome,
+                                                NrProcesso = t.NrProcesso,
+                                                Data = t.DataHoraRecepcao,
+                                                Hora = t.DataHoraRecepcao,
+                                                HoraFimTriagem = new DateTime(1900,1,1),
+                                                NIF = t.Morada.NIF,
+                                                CodPostal = t.CodigoPostal.CodPostal,
+                                                Nome = t.NomeMorada,
+                                                DataGuia = t.DataGuia,
+                                                NrGuia_NotaDevolucao = t.NrGuiaNotaDevol,
+                                                SubUnidades = t.SubUnidades,
+                                                EAN = pt.Produto.EAN,
+                                                Ref = pt.Produto.Referencia,
+                                                CodSecundario = pt.CodSecundario,
+                                                Descricao = pt.Produto.Descricao,
+                                                QtdDevolvida = pt.QtdDevolvida,
+                                                Lote = pt.Lote,
+                                                Validade = pt.Validade,
+                                                Preco = pt.PVP,
+                                                Tratamento = pt.Tratamento.Descricao,
+                                                Localizacao = pt.Localizacao,
+                                                MotivoDevolucao = pt.MotivoDevolucao.Motivos,
+                                                Tipoogia = pt.Tipologia.Descricao,
+                                                Obs = pt.Observacoes
+                                            }).ToList();
+
+            DataTable table = ExcelGenerator.ToDataTable(listx);
+
+            byte[] data = ExcelGenerator.GenerateTriagemFile(table);
+
+            Stream stream = new MemoryStream(data);
+
+            Response.AddHeader("content-disposition", "attachment;  filename=Listagem_Triagem_" + DateTime.Now + ".xlsx");
+
+            return new FileStreamResult(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
         // GET: Triagens/Details/5
@@ -57,7 +132,7 @@ namespace SILI.Models
 
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
-           
+
             return View(triagem);
         }
 
@@ -85,7 +160,7 @@ namespace SILI.Models
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
-            
+
             ColaboradorID = triagem.ColaboradorID;
             return View(triagem);
         }
@@ -109,18 +184,18 @@ namespace SILI.Models
                 triagem.NomeMorada = morada == null ? string.Empty : morada.Nome;
 
                 CodigoPostal cp = db.CodigoPostal.Where(c => c.ID == triagem.CodPostalID).FirstOrDefault();
-                triagem.Localidade = cp == null ? string.Empty : cp.Localidade ;
+                triagem.Localidade = cp == null ? string.Empty : cp.Localidade;
 
                 triagem.ColaboradorID = ColaboradorID;
 
                 db.Entry(triagem).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                
+
             }
             ViewBag.CodPostalID = new SelectList(db.CodigoPostal, "ID", "CodPostal", triagem.CodPostalID);
             ViewBag.NIF = new SelectList(db.Morada, "ID", "NIF", triagem.NIF);
             ViewBag.ColaboradorID = new SelectList(db.User, "ID", "FirstName", triagem.ColaboradorID);
-            
+
             return RedirectToAction("Edit", "Triagens", new { id = triagem.ID });
         }
 

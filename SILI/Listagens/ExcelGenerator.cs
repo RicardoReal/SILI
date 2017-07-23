@@ -42,6 +42,63 @@ namespace SILI
             }
         }
 
+        public static byte[] GenerateTriagemFile(DataTable tbl)
+        {
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Triagens");
+
+                ws.Cells["A1"].LoadFromDataTable(tbl, true);
+
+                using (ExcelRange cols = ws.Cells[2, 2, 2 + tbl.Rows.Count, 2])
+                {
+                    cols.Style.Numberformat.Format = "yyyy-MM-dd hh:mm";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 3, 2 + tbl.Rows.Count, 3])
+                {
+                    cols.Style.Numberformat.Format = "hh:mm";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 5, 2 + tbl.Rows.Count, 5])
+                {
+                    cols.Style.Numberformat.Format = "yyyy-MM-dd";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 6, 2 + tbl.Rows.Count, 6])
+                {
+                    cols.Style.Numberformat.Format = "hh:mm";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 20, 2 + tbl.Rows.Count, 20])
+                {
+                    cols.Style.Numberformat.Format = "yyyy-MM-dd";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 21, 2 + tbl.Rows.Count, 21])
+                {
+                    cols.Style.Numberformat.Format = "hh:mm";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 22, 2 + tbl.Rows.Count, 22])
+                {
+                    cols.Style.Numberformat.Format = "hh:mm";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 26, 2 + tbl.Rows.Count, 26])
+                {
+                    cols.Style.Numberformat.Format = "yyyy-MM-dd";
+                }
+
+                using (ExcelRange cols = ws.Cells[2, 35, 2 + tbl.Rows.Count, 35])
+                {
+                    cols.Style.Numberformat.Format = "yyyy-MM-dd";
+                }
+
+                return pck.GetAsByteArray();
+            }
+        }
+
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
