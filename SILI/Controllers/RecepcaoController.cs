@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using SILI.Models;
 
 namespace SILI.Controllers
 {
@@ -14,10 +18,62 @@ namespace SILI.Controllers
         private SILI_DBEntities db = new SILI_DBEntities();
 
         // GET: Recepcao
-        public async Task<ActionResult> Index()
+        //public async Task<ActionResult> Index()
+        //{
+        //    var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User).OrderByDescending(r => r.ID);
+        //    return View(await recepcao.ToListAsync());
+        //}
+
+        // GET: Recepcao
+        public async Task<ActionResult> Index(string Search, DateTime? Start, DateTime? End)
         {
-            var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User).OrderByDescending(r => r.ID);
-            return View(await recepcao.ToListAsync());
+            if (Request.Form["Export"] != null)
+            {
+                return DownloadExcel(Search, Start, End);
+            }
+            else
+            {
+                var recepcao = db.Recepcao.Include(r => r.Morada).Include(r => r.User).OrderByDescending(r => r.ID).Where(x => (Start == null || x.DataHora >= Start) && (End == null || x.DataHora <= End) && (Search == null || x.NrRecepcao.Contains(Search) || x.User.FirstName.Contains(Search) || x.User.LastName.Contains(Search) || x.Morada.Nome.Contains(Search)));
+                return View(await recepcao.ToListAsync());
+            }
+        }
+
+        public ActionResult DownloadExcel(string Search, DateTime? Start, DateTime? End)
+        {
+            List<ListagemRecepcao> listx = (from dr in db.DetalheRecepcao
+                                            join r in db.Recepcao on dr.RecepcaoID equals r.ID
+                                            where (Start == null || r.DataHora >= Start) && (End == null || r.DataHora <= End) && (Search == null || r.NrRecepcao.Contains(Search) || r.User.FirstName.Contains(Search) || r.User.LastName.Contains(Search) || r.Morada.Nome.Contains(Search))
+                                            select new ListagemRecepcao
+                                            {
+                                                NrRecepcao = r.NrRecepcao,
+                                                DataHora = r.DataHora,
+                                                HoraFim = new DateTime(1900, 1, 1),
+                                                Colaborador = r.User.FirstName + " " + r.User.LastName,
+                                                DataChegadaArmz = r.DataChegadaArmazem,
+                                                HoraChegadaArmz = r.HoraChegadaArmazem,
+                                                EntreguePor = r.Morada.Nome,
+                                                Observacoes = r.Observacoes,
+                                                NrVolumesRecepcionados = r.NrVolumesRecepcionados,
+                                                DCR = r.DCR,
+                                                NrDetalhe = dr.NrDetalhe,
+                                                NrCliente = dr.Cliente.NrInterno,
+                                                Cliente = dr.Cliente.Nome,
+                                                NrVolumes = dr.NrVolumes,
+                                                TipoDevolucao = dr.TipoDevolucao.Descricao,
+                                                NReferencia = dr.NReferencia,
+                                                NrGuiaTransporte = dr.NrGuiaTransporte,
+                                                Devolvedor = dr.Morada.Nome
+                                            }).ToList();
+
+            DataTable table = ExcelGenerator.ToDataTable(listx);
+
+            byte[] data = ExcelGenerator.GenerateRecepcaoFile(table);
+
+            Stream stream = new MemoryStream(data);
+
+            Response.AddHeader("content-disposition", "attachment;  filename=Listagem_Recepcao_" + DateTime.Now + ".xlsx");
+
+            return new FileStreamResult(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
         public ActionResult GetMoradas(string query)

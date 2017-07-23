@@ -55,6 +55,10 @@
       <HintPath>..\packages\DataTables.AspNet.Mvc5.2.0.0\lib\net45\DataTables.AspNet.Mvc5.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
@@ -234,6 +238,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Listagens\ExcelGenerator.cs" />
     <Compile Include="LoteProduto.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
     </Compile>
@@ -265,6 +270,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\TriagensController.cs" />
     <Compile Include="Models\EtiquetaMultiRef.cs" />
+    <Compile Include="Models\ListagemRecepcao.cs" />
     <Compile Include="Models\NovaTriagem.cs" />
     <Compile Include="Morada.cs">
       <DependentUpon>SILIDataModel.tt</DependentUpon>
